@@ -1,0 +1,150 @@
+/*Progress tracker CSS*/
+ol.progtrckr {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+    ol.progtrckr li {
+        display: inline-block;
+        text-align: center;
+        line-height: 3em;
+    }
+
+        ol.progtrckr li.progtrckr-done {
+            color: black;
+            border-bottom: 4px solid yellowgreen;
+        }
+
+        ol.progtrckr li.progtrckr-todo {
+            color: silver;
+            border-bottom: 4px solid silver;
+        }
+
+        /*ol.progtrckr li:after {
+            content: "\00a0\00a0";
+        }*/
+
+        ol.progtrckr li:before {
+            position: relative;
+            bottom: -2.5em;
+            float: left;
+            left: 50%;
+            line-height: 1em;
+        }
+
+        ol.progtrckr li:first-child {
+            text-align: left;
+            padding-left: 0 !important;
+        }
+
+            ol.progtrckr li:first-child:before {
+                left: 0;
+            }
+
+            ol.progtrckr li:first-child span.statusTitle {
+                position: relative;
+                left: -15px;
+            }
+
+        ol.progtrckr li:last-child {
+            text-align: right;
+            padding-right: 0 !important;
+        }
+
+
+            ol.progtrckr li:last-child:before {
+                left: 100%;
+            }
+
+            ol.progtrckr li:last-child span.statusTitle {
+                position: relative;
+                right: -15px;
+            }
+
+        ol.progtrckr li.progtrckr-done:before {
+            content: "\2713";
+            color: white;
+            background-color: yellowgreen;
+            height: 1.2em;
+            width: 1.2em;
+            line-height: 1.2em;
+            border: none;
+            border-radius: 1.2em;
+            text-align: center;
+        }
+
+        ol.progtrckr li.progtrckr-todo:before {
+            content: "\039F";
+            color: silver;
+            background-color: white;
+            font-size: 1.5em;
+            bottom: -1.6em;
+            text-align: center;
+        }
+
+/* End progress tracker CSS*/
+
+
+/* Tooltip CSS*/
+/* Corner radius */
+.ui-corner-all
+{
+	border-radius: 4px/*{cornerRadius}*/;
+}
+.ui-tooltip {
+	position: absolute;
+	z-index: 9999;
+	max-width: 300px;
+	-webkit-box-shadow: 0 0 5px #aaa;
+	box-shadow: 0 0 5px #aaa;
+    background: #666;
+    color: white;
+    border: none;
+    padding: 0;
+    opacity: 1;
+}
+
+.ui-tooltip-content {
+    position: relative;
+    padding: 1em;
+    min-width: 100px;
+}
+
+    .ui-tooltip-content::after {
+        content: '';
+        position: absolute;
+        border-style: solid;
+        display: block;
+        width: 0;
+    }
+
+.right .ui-tooltip-content::after {
+    top: 18px;
+    left: -10px;
+    border-color: transparent #666;
+    border-width: 10px 10px 10px 0;
+}
+
+.left .ui-tooltip-content::after {
+    top: 18px;
+    right: -10px;
+    border-color: transparent #666;
+    border-width: 10px 0 10px 10px;
+}
+
+.top .ui-tooltip-content::after {
+    bottom: -10px;
+    left: 50%;
+    border-color: #666 transparent;
+    border-width: 10px 10px 0;
+}
+
+.bottom .ui-tooltip-content::after {
+    top: -10px;
+    left: 50%;
+    border-color: #666 transparent;
+    border-width: 0 10px 10px;
+}
+/*End Tooltip CSS*/
+
