@@ -63,6 +63,8 @@ $this->breadcrumbs=array(
 								'export'=>array(
 									    'name' => 'filename',
 									    'header' => 'Export',
+									    'type'=> 'raw',
+									    'value'=>'CHtml::link($data->filename, "export/".$data->id)',
 									    'filter'=>false,
 										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')

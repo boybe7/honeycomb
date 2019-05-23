@@ -31,7 +31,7 @@ class SpecDocController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','export'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -176,5 +176,48 @@ class SpecDocController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+
+	public function actionExport($id)
+	{
+	
+		$model = $this->loadModel($id);
+		if(!empty($model))
+		{
+			echo $model->filename;
+			//$this->redirect("../../specfile/".$model->filename);
+
+			$file = "honeycomb/specfile/".$model->filename;
+			if (file_exists($file)) {
+
+			    header('Content-Description: File Transfer');
+
+			    header('Content-Type: application/octet-stream');
+
+			    header('Content-Disposition: attachment; filename='.basename($file));
+			    header('Content-Transfer-Encoding: binary');
+
+			    header('Expires: 0');
+
+			    header('Cache-Control: must-revalidate');
+
+			    header('Pragma: public');
+
+			    header('Content-Length: ' . filesize($file));
+
+			    ob_clean();
+
+			    flush();
+
+			    readfile($file);
+
+			    exit;
+
+			}
+           
+		    
+		}
+
+		
 	}
 }
