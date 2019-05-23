@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'spec_doc':
  * @property integer $id
+ * @property integer $no
  * @property string $name
  * @property string $filename
  * @property string $detail_approve
@@ -33,12 +34,12 @@ class SpecDoc extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, filename, detail_approve, work_category_id, contract_id, created_by, create_date, update_date', 'required'),
-			array('work_category_id, contract_id, status', 'numerical', 'integerOnly'=>true),
+			array('no, name, filename, detail_approve, work_category_id, contract_id, created_by, create_date, update_date', 'required'),
+			array(' work_category_id, contract_id, status', 'numerical', 'integerOnly'=>true),
 			array('name, filename, detail_approve, created_by', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, filename, detail_approve, work_category_id, contract_id, created_by, create_date, update_date, status', 'safe', 'on'=>'search'),
+			array('id, no, name, filename, detail_approve, work_category_id, contract_id, created_by, create_date, update_date, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,16 +60,17 @@ class SpecDoc extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'name' => 'Name',
+			'id' => 'id',
+			'no' => 'ลำดับ',
+			'name' => 'รายละเอียดประกอบแบบ',
 			'filename' => 'Filename',
-			'detail_approve' => 'Detail Approve',
-			'work_category_id' => 'Work Category',
-			'contract_id' => 'Contract',
-			'created_by' => 'Created By',
+			'detail_approve' => 'รายละเอียดการอนุมัติ',
+			'work_category_id' => 'ประเภทงาน',
+			'contract_id' => 'สัญญา',
+			'created_by' => 'ผู้บันทึก',
 			'create_date' => 'Create Date',
 			'update_date' => 'Update Date',
-			'status' => '0 = disable, 1 = enable',
+			'status' => 'สถานะ',
 		);
 	}
 
@@ -91,6 +93,30 @@ class SpecDoc extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+		$criteria->compare('no',$this->no,true);
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('filename',$this->filename,true);
+		$criteria->compare('detail_approve',$this->detail_approve,true);
+		$criteria->compare('work_category_id',$this->work_category_id);
+		$criteria->compare('contract_id',$this->contract_id);
+		$criteria->compare('created_by',$this->created_by,true);
+		$criteria->compare('create_date',$this->create_date,true);
+		$criteria->compare('update_date',$this->update_date,true);
+		$criteria->compare('status',$this->status);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+
+	public function searchByID($id)
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('id',$id);
+		$criteria->compare('no',$this->no,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('filename',$this->filename,true);
 		$criteria->compare('detail_approve',$this->detail_approve,true);

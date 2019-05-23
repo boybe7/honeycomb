@@ -12,12 +12,12 @@ $cs->registerScriptFile( $theme->getBaseUrl() . '/js/highcharts.js' );
 <div class="hero-unit">
   <h3>ยินดีต้อนรับเข้าสู่</h3>
   <h2><?php echo Yii::app()->name; ?></h2>
-  <p>ส่วนทดสอบคุณสมบัติวัสดุ กองมาตรฐานวิศวกรรม ฝ่ายมาตรฐานวิศวกรรมและสารสนเทศภูมิศาสตร์ </p>
+  <p>ส่วนประมาณราคางานก่อสร้างโยธา กองประมาณราคาระบบผลิตส่งน้ำและงานโยธา ฝ่ายออกแบบระบบผลิตส่งน้ำและงานโยธา </p>
   <p>
   <?php
-    $link = "http://172.16.184.93/engstd/ENG_UD_ADMIN_1.0.pdf";
+    $link = "";
     if(Yii::app()->user->isGuest())
-        $link = "http://172.16.184.93/engstd/ENG_UD_GUEST_1.0.pdf";
+        $link = "";
 
        echo '<a class="btn btn-primary btn-large" href="'.$link.'">';
     

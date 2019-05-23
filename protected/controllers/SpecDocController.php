@@ -131,9 +131,9 @@ class SpecDocController extends Controller
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['SpecDoc']))
 			$model->attributes=$_GET['SpecDoc'];
-
+		$tab = 1;
 		$this->render('admin',array(
-			'model'=>$model,
+			'model'=>$model,'tab'=>$tab
 		));
 	}
 

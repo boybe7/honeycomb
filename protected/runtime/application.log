@@ -5693,3 +5693,76 @@ Stack trace:
 #19 {main}
 REQUEST_URI=/honeycomb/specDoc/
 ---
+2019/05/22 16:01:31 [error] [php] Undefined variable: tab (C:\xampp\htdocs\honeycomb\protected\views\specDoc\admin.php:14)
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): SpecDocController->renderFile()
+#1 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): SpecDocController->renderPartial()
+#2 C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php(137): SpecDocController->render()
+#3 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(49): SpecDocController->actionIndex()
+#4 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): SpecDocController->runAction()
+#6 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): SpecDocController->filterAccessControl()
+#9 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): SpecDocController->runActionWithFilters()
+#12 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): SpecDocController->run()
+#13 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#15 C:\xampp\htdocs\honeycomb\index.php(13): CWebApplication->run()
+REQUEST_URI=/honeycomb/specdoc/index
+in C:\xampp\htdocs\honeycomb\protected\views\specDoc\admin.php (14)
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (137)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2019/05/22 16:09:24 [error] [exception.CException] exception 'CException' with message 'SpecDocController มีชุดคำสั่งที่ไม่ถูกต้องหลายอย่างในมุมมองของ "C:\xampp\htdocs\honeycomb\protected\views\specdoc\admin.php" ทำให้ TbActiveForm ไม่สามารถเรียกใช้คำสั่ง endWidget() ได้' in C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php:101
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp\\htdocs...', Array, true)
+#1 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): CController->renderPartial('admin', Array, true)
+#2 C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php(137): CController->render('admin', Array)
+#3 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(49): SpecDocController->actionIndex()
+#4 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#6 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('index')
+#13 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('specdoc/index')
+#14 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#15 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/honeycomb/specdoc/index
+---
+2019/05/22 18:28:46 [error] [exception.CException] exception 'CException' with message 'Either "name" or "value" must be specified for CDataColumn.' in C:\xampp\htdocs\honeycomb\framework\zii\widgets\grid\CDataColumn.php:84
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\zii\widgets\grid\CGridView.php(401): CDataColumn->init()
+#1 C:\xampp\htdocs\honeycomb\protected\extensions\bootstrap\widgets\TbGridView.php(91): CGridView->initColumns()
+#2 C:\xampp\htdocs\honeycomb\framework\zii\widgets\grid\CGridView.php(359): TbGridView->initColumns()
+#3 C:\xampp\htdocs\honeycomb\protected\extensions\bootstrap\widgets\TbGridView.php(49): CGridView->init()
+#4 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(147): TbGridView->init()
+#5 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(172): CBaseController->createWidget('bootstrap.widge...', Array)
+#6 C:\xampp\htdocs\honeycomb\protected\views\specDoc\admin.php(76): CBaseController->widget('bootstrap.widge...', Array)
+#7 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(126): require('C:\\xampp\\htdocs...')
+#8 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp\\htdocs...', Array, true)
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp\\htdocs...', Array, true)
+#10 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): CController->renderPartial('admin', Array, true)
+#11 C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php(137): CController->render('admin', Array)
+#12 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(49): SpecDocController->actionIndex()
+#13 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#14 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#15 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#16 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#17 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#18 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#19 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#20 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#21 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('index')
+#22 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('specdoc/index')
+#23 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#24 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#25 {main}
+REQUEST_URI=/honeycomb/specdoc/index
+---
