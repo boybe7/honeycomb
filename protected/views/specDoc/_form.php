@@ -7,30 +7,50 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<?php echo $form->textFieldRow($model,'name',array('class'=>'span5','maxlength'=>255)); ?>
+	<?php echo $form->textFieldRow($model,'name',array('class'=>'span8','maxlength'=>255)); ?>
 
-	<?php echo $form->textFieldRow($model,'filename',array('class'=>'span5','maxlength'=>255)); ?>
+	
 
-	<?php echo $form->textFieldRow($model,'detail_approve',array('class'=>'span5','maxlength'=>255)); ?>
+	<div class="row" id="fileUpload">
+		<div class="span8">
+		<?php echo $form->labelEx($model,'filename<span style="color:red">&nbsp;*</span>'); ?>
 
-	<?php echo $form->textFieldRow($model,'work_category_id',array('class'=>'span5')); ?>
+		<?php echo $form->fileField($model,'filename',array('style'=>'width:200px;','onChange'=>'checkFile()','title'=>'Only xls allowed'));?>
 
-	<?php echo $form->textFieldRow($model,'contract_id',array('class'=>'span5')); ?>
+		<div id="filecheck" style="color: red;font-size:0.9em;"></div>
 
-	<?php echo $form->textFieldRow($model,'created_by',array('class'=>'span5','maxlength'=>255)); ?>
+		<?php //echo $form->error($model,'uploadFile',array('style'=>$styleDataError.';margin-top:20px;')); ?> 
 
-	<?php echo $form->textFieldRow($model,'create_date',array('class'=>'span5')); ?>
+		<?php echo CHtml::hiddenField('errorVal','0');?>
+		</div>
+	</div>
 
-	<?php echo $form->textFieldRow($model,'update_date',array('class'=>'span5')); ?>
+	
+	<?php 
+		$workcat = WorkCategory::model()->findAll();
+     
+        $typelist = CHtml::listData($workcat,'id','name');
+        echo $form->dropDownListRow($model, 'work_category_id', $typelist,array('class'=>'span8'), array('options' => array('work_category_id'=>array('selected'=>true)))); 
+	 ?>
 
-	<?php echo $form->textFieldRow($model,'status',array('class'=>'span5')); ?>
+	<?php echo $form->textFieldRow($model,'contract_id',array('class'=>'span8')); ?>
 
-	<div class="form-actions">
+	<?php 
+	echo $form->textAreaRow($model,'detail_approve',array('rows'=>2, 'cols'=>50, 'class'=>'span8')); 
+	 ?>
+
+
+	
+
+	<div class="row-fluid ">
+		<div class="span8">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(
 			'buttonType'=>'submit',
+			'htmlOptions'=>array('class'=>'pull-right','style'=>''),
 			'type'=>'primary',
-			'label'=>$model->isNewRecord ? 'Create' : 'Save',
+			'label'=>'บันทึก',
 		)); ?>
+		</div>
 	</div>
 
 <?php $this->endWidget(); ?>

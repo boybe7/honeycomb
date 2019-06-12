@@ -10,7 +10,10 @@ $this->breadcrumbs=array(
 ?>
 
 <h4 class="pull-right">รายละเอียดแบบประกอบทั่วไป</h4>
+<?php
 
+
+?>
 
 <div style="padding-top: 30px;">
   <ul class="nav nav-tabs">
@@ -37,13 +40,23 @@ $this->breadcrumbs=array(
   			{
 
   				echo  '<div id="workcat'.$value->id.'" class="tab-pane fade in active">';
+
+  					$this->widget('bootstrap.widgets.TbButton', array(
+					    'buttonType'=>'link',
+					    
+					    'type'=>'success',
+					    'label'=>'เพิ่มข้อมูล',
+					    'icon'=>'plus-sign',
+					    'url'=>array('create'),
+					    'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-bottom:10px'),
+					)); 
   						$this->widget('bootstrap.widgets.TbGridView',array(
 							'id'=>'detail-grid-'.$value->id,
 							'dataProvider'=>$model->searchByID($value->id),
 							'type'=>'bordered condensed',
 							'filter'=>$model,
 							'selectableRows' =>2,
-							'htmlOptions'=>array('style'=>'padding-top:40px'),
+							'htmlOptions'=>array('style'=>'padding-top:10px'),
 						    'enablePagination' => true,
 						    'summaryText'=>'แสดงผล {start} ถึง {end} จากทั้งหมด {count} ข้อมูล',
 						    'template'=>"{items}<div class='row-fluid'><div class='span6'>{pager}</div><div class='span6'>{summary}</div></div>",

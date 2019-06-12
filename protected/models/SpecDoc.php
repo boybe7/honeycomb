@@ -34,7 +34,7 @@ class SpecDoc extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('no, name, filename, detail_approve, work_category_id, contract_id, created_by, create_date, update_date', 'required'),
+			array('no, name, filename, work_category_id, contract_id, created_by, create_date, update_date', 'required'),
 			array(' work_category_id, contract_id, status', 'numerical', 'integerOnly'=>true),
 			array('name, filename, detail_approve, created_by', 'length', 'max'=>255),
 			// The following rule is used by search().
