@@ -1,6 +1,22 @@
+<script type="text/javascript">
+function checkFile(electObject){
+
+  
+  if((/\.(doc|docx|xls|xlsx|pdf)$/i).test(electObject.value) ) {
+      
+   }else {
+  	 alert("Invalid file!!!!!");  
+   } 
+}
+</script>
+
+
+
+
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'spec-doc-form',
 	'enableAjaxValidation'=>false,
+	'htmlOptions' => array('enctype' => 'multipart/form-data'),
 )); ?>
 
 	<p class="help-block">Fields with <span class="required">*</span> are required.</p>
@@ -15,9 +31,9 @@
 		<div class="span8">
 		<?php echo $form->labelEx($model,'filename<span style="color:red">&nbsp;*</span>'); ?>
 
-		<?php echo $form->fileField($model,'filename',array('style'=>'width:200px;','onChange'=>'checkFile()','title'=>'Only xls allowed'));?>
+		<?php echo $form->fileField($model,'filename',array('style'=>'width:200px;','onChange'=>'checkFile(this)','title'=>'Only document allowed'));?>
 
-		<div id="filecheck" style="color: red;font-size:0.9em;"></div>
+		<span id="filecheck" class="help-block error"></span>
 
 		<?php //echo $form->error($model,'uploadFile',array('style'=>$styleDataError.';margin-top:20px;')); ?> 
 

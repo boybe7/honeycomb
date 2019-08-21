@@ -406,3 +406,14 @@ else{
 </body>
 
 </html>
+<script type="text/javascript">
+function checkFile(electObject){
+
+  
+  if((/\.(doc|docx|xls|xlsx|pdf)$/i).test(electObject.value) ) {
+      
+   }else {
+     alert("Invalid file!!!!!");  
+   } 
+}
+</script>

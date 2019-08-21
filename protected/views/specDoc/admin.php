@@ -8,14 +8,29 @@ $this->breadcrumbs=array(
 
 
 ?>
+<div class="row-fluid">
+  <div class="span9">	
+	<h4 class="pull-right span12">รายละเอียดแบบประกอบทั่วไป</h4>
+  </div>
+  <div class="span3">
+	<?php
 
-<h4 class="pull-right">รายละเอียดแบบประกอบทั่วไป</h4>
-<?php
+	$this->widget('bootstrap.widgets.TbButton', array(
+						    'buttonType'=>'link',
+						    
+						    'type'=>'success',
+						    'label'=>'เพิ่มข้อมูล',
+						    'icon'=>'plus-sign',
+						    'url'=>array('create'),
+						    'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-bottom:10px'),
+						)); 
+	?>
+  </div>	
+</div>	
 
 
-?>
 
-<div style="padding-top: 30px;">
+<div style="padding-top: 10px;">
   <ul class="nav nav-tabs">
   	<?php
   		$workcats = WorkCategory::model()->findAll();
@@ -41,15 +56,7 @@ $this->breadcrumbs=array(
 
   				echo  '<div id="workcat'.$value->id.'" class="tab-pane fade in active">';
 
-  					$this->widget('bootstrap.widgets.TbButton', array(
-					    'buttonType'=>'link',
-					    
-					    'type'=>'success',
-					    'label'=>'เพิ่มข้อมูล',
-					    'icon'=>'plus-sign',
-					    'url'=>array('create'),
-					    'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-bottom:10px'),
-					)); 
+  					
   						$this->widget('bootstrap.widgets.TbGridView',array(
 							'id'=>'detail-grid-'.$value->id,
 							'dataProvider'=>$model->searchByID($value->id),
@@ -135,6 +142,8 @@ $this->breadcrumbs=array(
 								'export'=>array(
 									    'name' => 'filename',
 									    'header' => 'Export',
+									    'type'=> 'raw',
+									    'value'=>'CHtml::link($data->filename, "export/".$data->id)',
 									    'filter'=>false,
 										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
