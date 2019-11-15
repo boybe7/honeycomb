@@ -6,7 +6,22 @@ $this->breadcrumbs=array(
 
 ?>
 
+<style type="text/css">
+	 /* grid border */
+    .grid-view table.items th, .grid-view table.items td {
+        border: 1px solid gray !important;
+    } 
 
+    /* disable selected for merged cells */     
+    .grid-view td.merge {
+       background: none repeat scroll 0 0 #F8F8F8; 
+    }     
+    
+    /* disable selected for extrarow in bootstrap */     
+    table.table td.extrarow, table.table td.extrarow:hover {
+       background: none repeat scroll 0 0 #E0E0E0; 
+    } 
+</style>
 
 
 <div class="row-fluid">
@@ -33,31 +48,18 @@ $this->breadcrumbs=array(
 
 <?php 
 
-
-$this->widget('bootstrap.widgets.TbGridView',array(
-	'id'=>'labor-cost-grid',
-	'dataProvider'=>$model->search(),
-	'type'=>'bordered condensed',
-	'selectableRows' =>2,
-	'filter'=>$model,
-	'enablePagination' => true,
-	'summaryText'=>'แสดงผล {start} ถึง {end} จากทั้งหมด {count} ข้อมูล',
-	'template'=>"{items}<div class='row-fluid'><div class='span6'>{pager}</div><div class='span6'>{summary}</div></div>",
-	'columns'=>array(
-		'no'=>array(
-				'name' => 'no',
-				'filter'=>false,
-				'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
-				'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
-		),
-		'category'=>array(
-				'name' => 'category',
-				'value' => array($model,'getCategory'),
-			    'filter'=>CHtml::activeDropDownList($model, 'category', array('0' => 'บัญชีค่าแรง (กรมบัญชีกลาง)', '1' => 'ค่าแรงสืบค้น','2'=>'ค่าแรงกำหนดเอง'),array('empty'=>'')),
-				'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
-				'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
-		),
-		'detail'=>array(
+$this->widget('ext.groupgridview.BootGroupGridView', array(
+      'id' => 'labor-cost-grid',
+      'itemsCssClass'=>'table table-bordered table-condensed',
+      'dataProvider' => $model->search(),
+      //'filter'=>$model,
+      'extraRowColumns' => array('category'),
+      'extraRowExpression' => array($model,"getCategoryFormat"),
+      'enablePagination' => true,
+	  'summaryText'=>'แสดงผล {start} ถึง {end} จากทั้งหมด {count} ข้อมูล',
+	  'template'=>"{items}<div class='row-fluid'><div class='span6'>{pager}</div><div class='span6'>{summary}</div></div>",
+      'columns' => array(
+        'detail'=>array(
 				'name' => 'detail',
 				'filter'=>CHtml::activeTextField($model, 'detail',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("detail"))),
 				'headerHtmlOptions' => array('style' => 'width:36%;text-align:center;background-color: #f5f5f5'),  	            	  	
@@ -67,13 +69,13 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 				'name' => 'unit',
 				'filter'=>false,
 				'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
-				'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
+				'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
 		),
 		'cost'=>array(
 				'name' => 'cost',
 				'filter'=>false,
 				'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
-				'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
+				'htmlOptions'=>array('style'=>'text-align:right;padding-right:10px;')
 		),
 		'remark'=>array(
 				'name' => 'remark',
@@ -88,8 +90,10 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 			'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),
 									'template' => '{update} {delete}'
 		),
-	),
-)); 
+      
+      ),
+    ));
+
 
 
 ?>

@@ -134,13 +134,34 @@ class LaborCost extends CActiveRecord
         return $status;
     }
 
+    public function getCategoryFormat($m)
+    {
+        $status = '';
+        switch ($m->category) {
+        	case 0:
+        		$status = "บัญชีค่าแรง (กรมบัญชีกลาง)";
+        		break;
+        	case 1:
+        		$status = "ค่าแรงสืบค้น";
+        		break;
+        	case 2:
+        		$status = "ค่าแรงกำหนดเอง";
+        		break;	
+        	default:
+        		# code...
+        		break;
+        }
+        return "<b>".$status."</b>";
+    }
+
     public function getRemark($m)
     {
+
         $msg = $m->remark."  ";
         if($m->category==1 && !empty($m->filename))
-        	$msg .= "<a href='../../honeycomb/fileuploads/labor_cost/".$m->filename."'>ใบเสนอราคา</a>";
+        	$msg .= ", <a href='../../honeycomb/fileuploads/labor_cost/".$m->filename."'><img src='../../honeycomb/images/icon-doc.png' width='14px'></a>ใบเสนอราคา</a>";
         else if($m->category==2 && !empty($m->filename))
-        	$msg .= "<a href='../../honeycomb/fileuploads/labor_cost/".$m->filename."'>ใบแสดงการคำนวณ </a>";
+        	$msg .= ", <a href='../../honeycomb/fileuploads/labor_cost/".$m->filename."'><img src='../../honeycomb/images/icon-doc.png' width='14px'></a>ใบแสดงการคำนวณ";
         
         return $msg;
     }

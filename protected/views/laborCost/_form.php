@@ -1,6 +1,6 @@
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'labor-cost-form',
-	'htmlOptions' => array('enctype' => 'multipart/form-data'),
+	'htmlOptions' => array('enctype' => 'multipart/form-data','class'=>'well span8'),
 	'enableAjaxValidation'=>false,
 )); ?>
 
@@ -39,7 +39,7 @@
 	</div>
 
 	<div class="row-fluid ">
-		<div class="span8">
+		<div class="span12">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(
 			'buttonType'=>'submit',
 			'htmlOptions'=>array('class'=>'pull-right','style'=>''),

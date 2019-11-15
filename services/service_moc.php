@@ -76,6 +76,9 @@
 		$rows= $xpath->query('//table/tr');
         $group = "";
         $group_id = 0;
+        $id = 1;
+        $sid = 0;
+        $subgroup = "";
 		for( $i = 1, $max = $rows->length ; $i < $max; $i++)
 		 {
 		    $row = $rows->item( $i);
@@ -117,7 +120,24 @@
             if($data[2]!="หน่วย" && $data[2]!="" && $data[4]!="-")
             {	
 		    	$json_data[] = array("id"=>$data[0],"name"=>$data[1],"unit"=>$data[2],"lastprice"=>$data[3],"price"=>$data[4],'group_id'=>$group_id,'group'=>$group);
-		    	//echo "data:".$data[1].":".$group."<br>";
+		    	echo "data:".$data[1].":".$group."<br>";
+		    	$group_id = intval(substr($group_id, 0,2));
+		    	if($subgroup!=$group)
+	     	 	{
+	     	 		$subgroup = $group;
+	     	 		$sid++;
+
+	     	 		$sql = "INSERT INTO material (id,name) values('$sid','$group')";
+	     	 	
+			    	echo $sql."<br>";
+		     	 	$conn->query($sql);
+	     	 	}
+
+
+		    	
+
+	     	 	
+	     	 	$id++;
 		    	//print_r($json_data);
 		    	//echo "<br>";
 		    }	
@@ -128,50 +148,50 @@
 
 		$group_id = 0;
 		$old_group = "";
-		foreach ($json_data as $key => $data) {
-			         //print_r($data);
+		// foreach ($json_data as $key => $data) {
+		// 	         //print_r($data);
 			        
-			    	 $id = $data["id"];
-			    	 $name = $data["name"];
-			    	 $unit = $data["unit"];
-			    	 $lastprice = str_replace(",", "", $data["lastprice"]) ;
-			    	 $price = str_replace(",", "", $data["price"]) ;
+		// 	    	 $id = $data["id"];
+		// 	    	 $name = $data["name"];
+		// 	    	 $unit = $data["unit"];
+		// 	    	 $lastprice = str_replace(",", "", $data["lastprice"]) ;
+		// 	    	 $price = str_replace(",", "", $data["price"]) ;
 			    	 
 			    	
 
-		          	$today = date("Y-m-d H:i:s");
+		//           	$today = date("Y-m-d H:i:s");
 			   
-			    	 $sql = "SELECT  COUNT( * ) AS TOTALFOUND FROM moc_price WHERE code='$id' AND month='$month' AND year='$year'";
-			    	 $result = $conn->query($sql);
-			    	 $row_array = mysqli_fetch_array($result, MYSQLI_ASSOC);
-					if($row_array['TOTALFOUND']==0){
-                         echo $id.":insert<br>";
-						//insert new material
-						$sql = "INSERT INTO moc_price (code,name,unit,price,month,year,datetime_record) values('$id','$name','$unit','$price','$month','$year','$today')";
-	    	 			$conn->query($sql);
-					}
-					else{
-						 $sql = "UPDATE moc_price SET name='$name',price='$price',datetime_record='$today'  WHERE code='$id' AND month='$month' AND year='$year'";
-			    	 	 $conn->query($sql);
+		// 	    	 $sql = "SELECT  COUNT( * ) AS TOTALFOUND FROM moc_price WHERE code='$id' AND month='$month' AND year='$year'";
+		// 	    	 $result = $conn->query($sql);
+		// 	    	 $row_array = mysqli_fetch_array($result, MYSQLI_ASSOC);
+		// 			if($row_array['TOTALFOUND']==0){
+  //                        echo $id.":insert<br>";
+		// 				//insert new material
+		// 				$sql = "INSERT INTO moc_price (code,name,unit,price,month,year,datetime_record) values('$id','$name','$unit','$price','$month','$year','$today')";
+	 //    	 			$conn->query($sql);
+		// 			}
+		// 			else{
+		// 				 $sql = "UPDATE moc_price SET name='$name',price='$price',datetime_record='$today'  WHERE code='$id' AND month='$month' AND year='$year'";
+		// 	    	 	 $conn->query($sql);
 
-					} 
+		// 			} 
 
 
-					//insert mapping
-					/*$group = $data["group"];
-					if($group != $old_group)
-					{
-						$old_group = $group;
-						echo $group."<br>";
-						$sql = "INSERT INTO moc_group (id,name,code) values('$group_id','$group','$id')";
-	    	 			$conn->query($sql);
-						$group_id++;
-					}	*/
+		// 			//insert mapping
+		// 			/*$group = $data["group"];
+		// 			if($group != $old_group)
+		// 			{
+		// 				$old_group = $group;
+		// 				echo $group."<br>";
+		// 				$sql = "INSERT INTO moc_group (id,name,code) values('$group_id','$group','$id')";
+	 //    	 			$conn->query($sql);
+		// 				$group_id++;
+		// 			}	*/
 					
 
 
 		             
-		}
+		// }
 
 	
 		
