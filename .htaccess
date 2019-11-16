@@ -8,3 +8,5 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.php
 
 RedirectMatch 403 ^/honeycomb/specfile/?$
+
+RedirectMatch 403 ^/honeycomb/images/?$
