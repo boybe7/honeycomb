@@ -34,9 +34,10 @@ class SpecDoc extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('no, name, filename, detail_approve, work_category_id, contract_id, created_by, create_date, update_date', 'required'),
-			array(' work_category_id, contract_id, status', 'numerical', 'integerOnly'=>true),
-			array('name, filename, detail_approve, created_by', 'length', 'max'=>255),
+			array('name, work_category_id', 'required'),
+			array(' work_category_id, status', 'numerical', 'integerOnly'=>true),
+			array('name, filename, contract_id, detail_approve, created_by', 'length', 'max'=>255),
+			array('filename', 'file',  'allowEmpty'=>true, 'types'=>'docx,pdf,xls,xlsx,doc', 'safe' => false),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, no, name, filename, detail_approve, work_category_id, contract_id, created_by, create_date, update_date, status', 'safe', 'on'=>'search'),
@@ -63,7 +64,7 @@ class SpecDoc extends CActiveRecord
 			'id' => 'id',
 			'no' => 'ลำดับ',
 			'name' => 'รายละเอียดประกอบแบบ',
-			'filename' => 'Filename',
+			'filename' => 'ชื่อไฟล์เอกสาร',
 			'detail_approve' => 'รายละเอียดการอนุมัติ',
 			'work_category_id' => 'ประเภทงาน',
 			'contract_id' => 'สัญญา',
@@ -98,7 +99,7 @@ class SpecDoc extends CActiveRecord
 		$criteria->compare('filename',$this->filename,true);
 		$criteria->compare('detail_approve',$this->detail_approve,true);
 		$criteria->compare('work_category_id',$this->work_category_id);
-		$criteria->compare('contract_id',$this->contract_id);
+		$criteria->compare('contract_id',$this->contract_id,true);
 		$criteria->compare('created_by',$this->created_by,true);
 		$criteria->compare('create_date',$this->create_date,true);
 		$criteria->compare('update_date',$this->update_date,true);
@@ -109,19 +110,19 @@ class SpecDoc extends CActiveRecord
 		));
 	}
 
-	public function searchByID($id)
+	public function searchByID($work_category_id)
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$id);
+		$criteria->compare('id',$this->id);
 		$criteria->compare('no',$this->no,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('filename',$this->filename,true);
 		$criteria->compare('detail_approve',$this->detail_approve,true);
-		$criteria->compare('work_category_id',$this->work_category_id);
-		$criteria->compare('contract_id',$this->contract_id);
+		$criteria->compare('work_category_id',$work_category_id);
+		$criteria->compare('contract_id',$this->contract_id,true);
 		$criteria->compare('created_by',$this->created_by,true);
 		$criteria->compare('create_date',$this->create_date,true);
 		$criteria->compare('update_date',$this->update_date,true);
@@ -142,4 +143,42 @@ class SpecDoc extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	public function beforeSave()
+    {
+
+
+        $str_date = explode("/", $this->create_date);
+        if(count($str_date)>1)
+        	$this->create_date= $str_date[2]."-".$str_date[1]."-".$str_date[0];
+
+        $str_date = explode("/", $this->update_date);
+        if(count($str_date)>1)
+        	$this->update_date= $str_date[2]."-".$str_date[1]."-".$str_date[0];
+
+
+        return parent::beforeSave();
+   }
+     protected function afterSave(){
+            parent::afterSave();
+            $str_date = explode("-", $this->create_date);
+            if(count($str_date)>1)
+            	$this->create_date = $str_date[2]."/".$str_date[1]."/".($str_date[0]);
+
+             $str_date = explode("-", $this->update_date);
+            if(count($str_date)>1)
+            	$this->update_date = $str_date[2]."/".$str_date[1]."/".($str_date[0]);
+        
+    }
+    protected function afterFind(){
+            parent::afterFind();
+            $str_date = explode("-", $this->create_date);
+            if(count($str_date)>1)
+            	$this->create_date = $str_date[2]."/".$str_date[1]."/".($str_date[0]);
+
+             $str_date = explode("-", $this->update_date);
+            if(count($str_date)>1)
+            	$this->update_date = $str_date[2]."/".$str_date[1]."/".($str_date[0]);
+               
+    }
 }

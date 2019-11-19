@@ -1,22 +1,26 @@
 <?php
 
 /**
- * This is the model class for table "user".
+ * This is the model class for table "moc_price".
  *
- * The followings are the available columns in table 'user':
+ * The followings are the available columns in table 'moc_price':
  * @property integer $id
- * @property string $username
- * @property string $password
+ * @property string $code
  * @property string $name
+ * @property string $unit
+ * @property integer $month
+ * @property integer $year
+ * @property string $price
+ * @property string $datetime_record
  */
-class User extends CActiveRecord
+class MocPrice extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'user';
+		return 'moc_price';
 	}
 
 	/**
@@ -27,12 +31,14 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password, name', 'required'),
-			array('username', 'length', 'max'=>11),
-			array('password, name', 'length', 'max'=>255),
+			array('code, name, datetime_record', 'required'),
+			array('month, year', 'numerical', 'integerOnly'=>true),
+			array('code, unit', 'length', 'max'=>20),
+			array('name', 'length', 'max'=>200),
+			array('price', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, username, password, name', 'safe', 'on'=>'search'),
+			array('id, code, name, unit, month, year, price, datetime_record', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,9 +60,13 @@ class User extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'username' => 'Username',
-			'password' => 'Password',
-			'name' => 'Name',
+			'code' => 'รหัสวัสดุก่อสร้าง',
+			'name' => 'รายละเอียด',
+			'unit' => 'หน่วยนับ',
+			'month' => 'เดือน',
+			'year' => 'ปี',
+			'price' => 'ราคาเดือนปัจจุบัน',
+			'datetime_record' => 'Datetime Record',
 		);
 	}
 
@@ -79,9 +89,13 @@ class User extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('username',$this->username,true);
-		$criteria->compare('password',$this->password,true);
+		$criteria->compare('code',$this->code,true);
 		$criteria->compare('name',$this->name,true);
+		$criteria->compare('unit',$this->unit,true);
+		$criteria->compare('month',$this->month);
+		$criteria->compare('year',$this->year);
+		$criteria->compare('price',$this->price,true);
+		$criteria->compare('datetime_record',$this->datetime_record,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -92,18 +106,10 @@ class User extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return User the static model class
+	 * @return MocPrice the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
-
-	public function validatePassword($password)
-    {
-        return sha1($password)===$this->password;
-        
-    }
-
-   
 }

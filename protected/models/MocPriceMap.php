@@ -1,22 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "user".
+ * This is the model class for table "moc_price_map".
  *
- * The followings are the available columns in table 'user':
+ * The followings are the available columns in table 'moc_price_map':
  * @property integer $id
- * @property string $username
- * @property string $password
- * @property string $name
+ * @property string $code
+ * @property integer $group_id
+ * @property integer $material_id
  */
-class User extends CActiveRecord
+class MocPriceMap extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'user';
+		return 'moc_price_map';
 	}
 
 	/**
@@ -27,12 +27,12 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password, name', 'required'),
-			array('username', 'length', 'max'=>11),
-			array('password, name', 'length', 'max'=>255),
+			array('code, material_id', 'required'),
+			array('group_id, material_id', 'numerical', 'integerOnly'=>true),
+			array('code', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, username, password, name', 'safe', 'on'=>'search'),
+			array('id, code, group_id, material_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,9 +54,9 @@ class User extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'username' => 'Username',
-			'password' => 'Password',
-			'name' => 'Name',
+			'code' => 'รหัสวัสดุก่อสร้าง',
+			'group_id' => 'Group',
+			'material_id' => 'Material',
 		);
 	}
 
@@ -79,9 +79,9 @@ class User extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('username',$this->username,true);
-		$criteria->compare('password',$this->password,true);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('code',$this->code,true);
+		$criteria->compare('group_id',$this->group_id);
+		$criteria->compare('material_id',$this->material_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -92,18 +92,10 @@ class User extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return User the static model class
+	 * @return MocPriceMap the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
-
-	public function validatePassword($password)
-    {
-        return sha1($password)===$this->password;
-        
-    }
-
-   
 }

@@ -98,7 +98,7 @@ return array(
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=m_price',
+			'connectionString' => 'mysql:host=localhost;dbname=Honeycomb',
 			'emulatePrepare' => true,
 			'username' => 'root',
 			'password' => 'meroot',

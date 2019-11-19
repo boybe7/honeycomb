@@ -4,12 +4,9 @@ $this->breadcrumbs=array(
 	'Create',
 );
 
-$this->menu=array(
-	array('label'=>'List SpecDoc','url'=>array('index')),
-	array('label'=>'Manage SpecDoc','url'=>array('admin')),
-);
+
 ?>
 
-<h1>Create SpecDoc</h1>
+<h4>ข้อมูลรายละเอียดประกอบแบบทั่วไป</h4>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
