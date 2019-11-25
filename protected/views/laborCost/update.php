@@ -1,12 +1,12 @@
-<?php
-$this->breadcrumbs=array(
-	'ราคาค่าแรงและค่าดำเนินการ'=>array('index'),
-	'แก้ไข',
-);
+<div class="navbar span8">
+	<div class="navbar-inner2 navbar-header ">
+		<div class="container" style="padding-top:5px">
+			<p class="brand2 pull-left">แก้ไขข้อมูลค่าแรงงานและค่าดำเนินการ</p>
+	
+		</div>	
+	</div>	
+</div>
 
 
-?>
-
-<h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;บันทึกข้อมูลราคาค่าแรงและค่าดำเนินการ</h4>
 
 <?php echo $this->renderPartial('_form',array('model'=>$model)); ?>

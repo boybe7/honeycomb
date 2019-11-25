@@ -10,7 +10,7 @@
     
 	<?php 
 	 echo $form->labelEx($model,'category'); 
-	echo $form->dropDownList($model,'category',array('1' => 'ค่าแรงสืบค้น','2'=>'ค่าแรงกำหนดเอง'),array('class'=>'span5','maxlength'=>2)); ?>
+	echo $form->dropDownList($model,'category',array('0' => 'ค่าแรงกรมบัญชีกลาง','1' => 'ค่าแรงสืบค้น','2'=>'ค่าแรงกำหนดเอง'),array('class'=>'span5','maxlength'=>2)); ?>
 
 	<?php echo $form->textFieldRow($model,'detail',array('class'=>'span8','maxlength'=>500)); ?>
 

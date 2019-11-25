@@ -7422,3 +7422,12 @@ in C:\xampp\htdocs\honeycomb\index.php (13)
 2019/11/25 11:56:38 [warning] [application] Failed to set unsafe attribute "filename" of "LaborCost".
 in C:\xampp\htdocs\honeycomb\protected\controllers\LaborCostController.php (71)
 in C:\xampp\htdocs\honeycomb\index.php (13)
+2019/11/25 23:38:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "export/view".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('export/view')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/export/3
+HTTP_REFERER=http://localhost/honeycomb/specdoc
+---

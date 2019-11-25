@@ -242,17 +242,14 @@ class SpecDocController extends Controller
 		$model = $this->loadModel($id);
 		if(!empty($model))
 		{
-<<<<<<< HEAD
 			$file =Yii::getPathOfAlias('webroot')."/specfile/".$model->filename;
 			//$this->redirect("../../specfile/".$model->filename);
 
 			//$file = "honeycomb/specfile/".$model->filename;
-=======
 			//echo $model->filename;
 			//$this->redirect("../../specfile/".$model->filename);
 
 			$file = Yii::app()->basePath .'/../specfile/'.$model->filename;
->>>>>>> 429d07b634ebd26e3263366530a4a76c0a4976c3
 			if (file_exists($file)) {
 
 			    header('Content-Description: File Transfer');
