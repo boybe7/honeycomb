@@ -196,11 +196,12 @@ class LaborCostController extends Controller
 
 	public function actionImport()
 	{
+		ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 		Yii::import('ext.phpexcel.XPHPExcel');    
 		$objPHPExcel= XPHPExcel::createPHPExcel();
 		$objReader = PHPExcel_IOFactory::createReader('Excel2007');
 
-		$objPHPExcel = $objReader->load("test.xlsx");
+		$objPHPExcel = $objReader->load("laborcost_60.xlsx");
 
 		$worksheet  = $objPHPExcel->setActiveSheetIndex(0);
 		$highestRow = $worksheet->getHighestRow();

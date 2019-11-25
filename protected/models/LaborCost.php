@@ -34,7 +34,7 @@ class LaborCost extends CActiveRecord
 			array('detail, category', 'required'),
 			array('category, cost', 'numerical', 'integerOnly'=>true),
 			array('no', 'length', 'max'=>2),
-			array('detail, remark,group_detail,subgroup_detail', 'length', 'max'=>500),
+			//array('detail, remark,group_detail,subgroup_detail', 'length', 'max'=>500),
 			array('filename', 'file',  'allowEmpty'=>true, 'types'=>'docx,pdf,xls,xlsx,doc', 'safe' => false),
 			array('unit', 'length', 'max'=>100),
 			// The following rule is used by search().
@@ -110,6 +110,11 @@ class LaborCost extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination'=>array(
+
+                        'pageSize'=>50,
+
+                ),
 		));
 	}
 

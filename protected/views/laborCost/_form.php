@@ -40,12 +40,24 @@
 
 	<div class="row-fluid ">
 		<div class="span12">
-		<?php $this->widget('bootstrap.widgets.TbButton', array(
+		<?php 
+
+		$this->widget('bootstrap.widgets.TbButton', array(
 			'buttonType'=>'submit',
 			'htmlOptions'=>array('class'=>'pull-right','style'=>''),
 			'type'=>'primary',
 			'label'=>'บันทึก',
-		)); ?>
+		)); 
+
+		$this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'link',
+			'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-right:10px'),
+			'type'=>'danger',
+			'label'=>'ยกเลิก',
+			'url'=>array("index"), 
+		)); 
+
+		?>
 		</div>
 	</div>
 

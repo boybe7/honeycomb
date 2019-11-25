@@ -46,27 +46,7 @@ $('#search-form').submit(function(){
     .caret{
     	border-top: 4px solid white;
     }
-    .navbar .brand2 {
-    	display: block;
-	    float: left;
-	    padding: 10px 20px 10px;
-	    margin-left: -20px;
-	    font-size: 18px;
-	    font-weight: 200;
-	    color: white;
-	    text-shadow: 0 1px 0 #ffffff;
-	    font-family: 'sukhumvitreg', sans-serif;
-	    letter-spacing: 2px;
-	}
-
-	.navbar-inner2 {
-	    background-color: #090909;
-	    color: #ffffff;
-	    border-radius: 4px;
-	    padding-right: 20px;
-    	padding-left: 20px;
-    	margin-top: -40px;
-	}
+   
 </style>
 
 <div class="navbar">
@@ -159,7 +139,7 @@ $this->widget('ext.groupgridview.BootGroupGridView', array(
 				'value'=>function ($data) {
 					    return number_format($data->cost,0);
 					},
-				'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
+				'headerHtmlOptions' => array('style' => 'width:7%;text-align:center;background-color: #f5f5f5'),  	            	  	
 				'htmlOptions'=>array('style'=>'text-align:right;padding-right:10px;')
 		),
 		'remark'=>array(
