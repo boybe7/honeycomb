@@ -198,12 +198,34 @@ class LaborCostController extends Controller
 	{
 		Yii::import('ext.phpexcel.XPHPExcel');    
 		$objPHPExcel= XPHPExcel::createPHPExcel();
-		$objReader = PHPExcel_IOFactory::createReader('Excel5');
+		$objReader = PHPExcel_IOFactory::createReader('Excel2007');
 
-		$objPHPExcel = $objReader->load("http://localhost/honeycomb/บัญชีค่าแรงงาน ตุลาคม 2560.xls");
+		$objPHPExcel = $objReader->load("test.xlsx");
 
 		$worksheet  = $objPHPExcel->setActiveSheetIndex(0);
-		$detail = $worksheet->getCell("B6")->getCalculatedValue();
-		echo $detail;
+		$highestRow = $worksheet->getHighestRow();
+
+		for ($i=1; $i <= $highestRow ; $i++) { 
+			
+			$group = $worksheet->getCell("A".$i)->getCalculatedValue();
+			$subgroup = $worksheet->getCell("B".$i)->getCalculatedValue();
+			$detail = $worksheet->getCell("D".$i)->getCalculatedValue();
+			$unit = $worksheet->getCell("E".$i)->getCalculatedValue();
+			$cost = $worksheet->getCell("F".$i)->getCalculatedValue();
+			$remark = $worksheet->getCell("G".$i)->getCalculatedValue();
+
+			$model = new LaborCost();
+			$model->group_detail = $group;
+			$model->subgroup_detail = $subgroup;
+			$model->detail = $detail;
+			$model->unit = $unit;
+			$model->cost = $cost;
+			$model->remark = $remark;
+			$model->category = 0;
+			$model->save();
+		}
+
+
+		//print_r($model);
 	}
 }

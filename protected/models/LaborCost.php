@@ -34,12 +34,12 @@ class LaborCost extends CActiveRecord
 			array('detail, category', 'required'),
 			array('category, cost', 'numerical', 'integerOnly'=>true),
 			array('no', 'length', 'max'=>2),
-			array('detail, remark', 'length', 'max'=>500),
+			array('detail, remark,group_detail,subgroup_detail', 'length', 'max'=>500),
 			array('filename', 'file',  'allowEmpty'=>true, 'types'=>'docx,pdf,xls,xlsx,doc', 'safe' => false),
 			array('unit', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, no, detail, category, filename, unit, cost, remark', 'safe', 'on'=>'search'),
+			array('id, no, detail, category, filename, unit, cost, remark,group_detail,subgroup_detail', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,6 +68,8 @@ class LaborCost extends CActiveRecord
 			'unit' => 'หน่วย',
 			'cost' => 'ค่าแรง/หน่วย(บาท)',
 			'remark' => 'หมายเหตุ',
+			'group_detail'=>'ประเภท',
+			'subgroup_detail'=>'งาน'
 		);
 	}
 
@@ -91,12 +93,20 @@ class LaborCost extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('no',$this->no,true);
-		$criteria->compare('detail',$this->detail,true);
+
 		$criteria->compare('category',$this->category);
 		$criteria->compare('filename',$this->filename,true);
 		$criteria->compare('unit',$this->unit,true);
 		$criteria->compare('cost',$this->cost);
 		$criteria->compare('remark',$this->remark,true);
+
+		$criteria2=new CDbCriteria;
+		$criteria2->compare('detail',$this->detail,true,'OR');
+		$criteria2->compare('subgroup_detail',$this->subgroup_detail,true,'OR');
+		$criteria2->compare('group_detail',$this->group_detail,true);
+
+		$criteria->mergeWith($criteria2, 'OR');
+		
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -151,7 +161,10 @@ class LaborCost extends CActiveRecord
         		# code...
         		break;
         }
-        return "<b>".$status."</b>";
+        if(empty($m->subgroup_detail))
+        	return "<b>".$status."</b>";
+        else
+        	return "<b>".$status.' :: <i>'.$m->subgroup_detail."</i></b>";
     }
 
     public function getRemark($m)

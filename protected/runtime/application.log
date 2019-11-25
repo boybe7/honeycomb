@@ -7273,3 +7273,62 @@ HTTP_REFERER=http://localhost/honeycomb/laborcost/update/2
 2019/11/21 14:25:58 [warning] [application] Failed to set unsafe attribute "filename" of "LaborCost".
 in C:\xampp\htdocs\honeycomb\protected\controllers\LaborCostController.php (110)
 in C:\xampp\htdocs\honeycomb\index.php (13)
+2019/11/23 10:56:51 [error] [exception.PHPExcel_Reader_Exception] exception 'PHPExcel_Reader_Exception' with message 'Could not open http://localhost/honeycomb/test.xlsx for reading! File does not exist, or it is not readable.' in C:\xampp\htdocs\honeycomb\protected\extensions\phpexcel\vendor\PHPExcel\Shared\OLERead.php:80
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\protected\extensions\phpexcel\vendor\PHPExcel\Reader\Excel5.php(1164): PHPExcel_Shared_OLERead->read('http://localhos...')
+#1 C:\xampp\htdocs\honeycomb\protected\extensions\phpexcel\vendor\PHPExcel\Reader\Excel5.php(612): PHPExcel_Reader_Excel5->_loadOLE('http://localhos...')
+#2 C:\xampp\htdocs\honeycomb\protected\controllers\LaborCostController.php(203): PHPExcel_Reader_Excel5->load('http://localhos...')
+#3 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(49): LaborCostController->actionImport()
+#4 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#5 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#6 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('import')
+#13 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('laborcost/impor...')
+#14 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#15 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/honeycomb/laborcost/import
+---
+2019/11/23 10:57:49 [error] [exception.PHPExcel_Reader_Exception] exception 'PHPExcel_Reader_Exception' with message 'Could not open http://localhost/honeycomb/test.xlsx for reading! File does not exist.' in C:\xampp\htdocs\honeycomb\protected\extensions\phpexcel\vendor\PHPExcel\Reader\Excel2007.php:347
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\protected\controllers\LaborCostController.php(203): PHPExcel_Reader_Excel2007->load('http://localhos...')
+#1 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(49): LaborCostController->actionImport()
+#2 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#3 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#4 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#6 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#7 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('import')
+#11 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('laborcost/impor...')
+#12 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/honeycomb/laborcost/import
+---
+2019/11/23 10:59:32 [error] [exception.PHPExcel_Reader_Exception] exception 'PHPExcel_Reader_Exception' with message 'Could not open ../../test.xlsx for reading! File does not exist.' in C:\xampp\htdocs\honeycomb\protected\extensions\phpexcel\vendor\PHPExcel\Reader\Excel2007.php:347
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\protected\controllers\LaborCostController.php(203): PHPExcel_Reader_Excel2007->load('../../test.xlsx')
+#1 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(49): LaborCostController->actionImport()
+#2 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#3 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#4 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#6 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#7 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('import')
+#11 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('laborcost/impor...')
+#12 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/honeycomb/laborcost/import
+---

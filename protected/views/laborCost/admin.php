@@ -75,7 +75,8 @@ $('#search-form').submit(function(){
 			<p class="brand2 pull-left">ราคาค่าแรงงานและค่าดำเนินการ</p>
 		
 			<form class="navbar-form pull-right" id="search-form" action="/honeycomb/laborCost/admin" method="get">
-			  <input type="text" name="LaborCost[detail]" class="search-query" placeholder="Search" style="margin-right:10px;">
+			  <input type="hidden" name="LaborCost[subgroup_detail]" id='subgroup_detail'>	
+			  <input type="text" name="LaborCost[detail]" id='search_detail' class="search-query" placeholder="Search" style="margin-right:10px;">
 			
 			  <?php
 
@@ -89,22 +90,9 @@ $('#search-form').submit(function(){
 						    //'url'=>array('searchLaborCost'),
 						    'htmlOptions'=>array('class'=>'','style'=>'margin-right:10px;',
 
-						    		// 'onclick'=>'
-		          //                             $.ajax({
-		          //                                 url: "'.$this->createUrl('laborCost/deleteLastPayment').'",
-		          //                                 type: "POST",
-		          //                                 cache: false,
-		          //                                 data: {id : '.$model->id.'},
-		                                        
-		          //                                 success: function (response) { 
-		                                             
-		          //                                       window.location.reload();
-		                                             
-		          //                                 },
-		          //                                 error: function () {
-		                                             
-		          //                                 }
-		          //                             });'
+						    		'onclick'=>'
+		                                     $("#subgroup_detail").val($("#search_detail").val()); 
+		                                  '
 
 							),
 						)); 
@@ -136,22 +124,33 @@ $this->widget('ext.groupgridview.BootGroupGridView', array(
       'itemsCssClass'=>'table table-bordered table-condensed',
       'dataProvider' => $model->search(),
       //'filter'=>$model,
-      'extraRowColumns' => array('category'),
+      'extraRowColumns' => array('category','subgroup_detail'),
       'extraRowExpression' => array($model,"getCategoryFormat"),
+      //'mergeColumns' => array('group_detail','subgroup_detail'), 
       'enablePagination' => true,
 	  'summaryText'=>'แสดงผล {start} ถึง {end} จากทั้งหมด {count} ข้อมูล',
 	  'template'=>"{items}<div class='row-fluid'><div class='span6'>{pager}</div><div class='span6'>{summary}</div></div>",
       'columns' => array(
+  //     	'group_detail'=>array(
+		// 		'name' => 'group_detail',
+		// 		'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	          
+		// 		'htmlOptions'=>array('style'=>'text-align:left;padding-center:10px;')
+		// ),
+		// 'subgroup_detail'=>array(
+		// 		'name' => 'subgroup_detail',
+		// 		'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	          
+		// 		'htmlOptions'=>array('style'=>'text-align:left;padding-center:10px;')
+		// ),
         'detail'=>array(
 				'name' => 'detail',
 				//'filter'=>CHtml::activeTextField($model, 'detail',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("detail"))),
-				'headerHtmlOptions' => array('style' => 'width:36%;text-align:center;background-color: #f5f5f5'),  	            	  	
+				'headerHtmlOptions' => array('style' => 'width:26%;text-align:center;background-color: #f5f5f5'),  	            	  	
 				'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 		),
 		'unit'=>array(
 				'name' => 'unit',
 				'filter'=>false,
-				'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
+				'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
 				'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
 		),
 		'cost'=>array(
@@ -160,7 +159,7 @@ $this->widget('ext.groupgridview.BootGroupGridView', array(
 				'value'=>function ($data) {
 					    return number_format($data->cost,0);
 					},
-				'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
+				'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
 				'htmlOptions'=>array('style'=>'text-align:right;padding-right:10px;')
 		),
 		'remark'=>array(
@@ -168,7 +167,7 @@ $this->widget('ext.groupgridview.BootGroupGridView', array(
 				'value' => array($model,'getRemark'),
 				'type'=>'raw',
 				'filter'=>CHtml::activeTextField($model, 'remark',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("remark"))),
-				'headerHtmlOptions' => array('style' => 'width:20%;text-align:center;background-color: #f5f5f5'),  	            	  	
+				'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
 				'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 		),
 		array(
