@@ -1,32 +1,49 @@
+<div class="navbar">
+	<div class="navbar-inner2 navbar-header">
+		<div class="container" style="padding-top:5px">
+			<p class="brand2 pull-left">รายละเอียดแบบประกอบงานก่อสร้าง</p>
+		
+			<form class="navbar-form pull-right" id="search-form" action="/honeycomb/laborCost/admin" method="get">
+			  <input type="hidden" name="LaborCost[subgroup_detail]" id='subgroup_detail'>	
+			  <input type="text" name="LaborCost[detail]" id='search_detail' class="search-query" placeholder="Search" style="margin-right:10px;">
+			
+			  <?php
 
 
-<?php
-$this->breadcrumbs=array(
-	''=>array(''),
+			  		$this->widget('bootstrap.widgets.TbButton', array(
+						    'buttonType'=>'submit',
+						    
+						    'type'=>'info',
+						    'label'=>'',
+						    'icon'=>'search',
+						    //'url'=>array('searchLaborCost'),
+						    'htmlOptions'=>array('class'=>'','style'=>'margin-right:10px;',
 
-);
+						    		'onclick'=>'
+		                                     $("#subgroup_detail").val($("#search_detail").val()); 
+		                                  '
 
+							),
+						)); 
 
-?>
-<div class="row-fluid">
-  <div class="span9">	
-	<h4 class="pull-right span12">รายละเอียดแบบประกอบทั่วไป</h4>
-  </div>
-  <div class="span3">
-	<?php
-
-	$this->widget('bootstrap.widgets.TbButton', array(
+				//if(Yii::app()->user->getAccess(Yii::app()->request->url))
+				//{
+				   $this->widget('bootstrap.widgets.TbButton', array(
 						    'buttonType'=>'link',
 						    
 						    'type'=>'success',
 						    'label'=>'เพิ่มข้อมูล',
 						    'icon'=>'plus-sign',
 						    'url'=>array('create'),
-						    'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-bottom:10px'),
+						    'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-bottom:10px;'),
 						)); 
-	?>
-  </div>	
-</div>	
+				//}
+			?>
+
+			</form>
+		</div>	
+	</div>	
+</div>
 
 
 

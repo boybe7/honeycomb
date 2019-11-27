@@ -7431,3 +7431,141 @@ Stack trace:
 REQUEST_URI=/honeycomb/export/3
 HTTP_REFERER=http://localhost/honeycomb/specdoc
 ---
+2019/11/27 18:52:51 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '"x' at line 3. The SQL statement executed was: SELECT COUNT(*) FROM `regulation` `t` WHERE  book_no like "x%" OR
+		              detail like "x%" OR
+		              keyword like "x.
+in C:\xampp\htdocs\honeycomb\protected\extensions\bootstrap\widgets\TbGridView.php (49)
+in C:\xampp\htdocs\honeycomb\protected\views\regulation\index.php (157)
+in C:\xampp\htdocs\honeycomb\protected\controllers\RegulationController.php (152)
+2019/11/27 18:52:51 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand ล้มเหลวในการดำเนินการเรียกลักษณะของ SQL: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '"x' at line 3. The SQL statement executed was: SELECT COUNT(*) FROM `regulation` `t` WHERE  book_no like "x%" OR
+		              detail like "x%" OR
+		              keyword like "x' in C:\xampp\htdocs\honeycomb\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\db\CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 C:\xampp\htdocs\honeycomb\framework\db\ar\CActiveRecord.php(1601): CDbCommand->queryScalar()
+#2 C:\xampp\htdocs\honeycomb\framework\web\CActiveDataProvider.php(228): CActiveRecord->count(Object(CDbCriteria))
+#3 C:\xampp\htdocs\honeycomb\framework\web\CDataProvider.php(224): CActiveDataProvider->calculateTotalItemCount()
+#4 C:\xampp\htdocs\honeycomb\framework\web\CActiveDataProvider.php(178): CDataProvider->getTotalItemCount()
+#5 C:\xampp\htdocs\honeycomb\framework\web\CDataProvider.php(168): CActiveDataProvider->fetchData()
+#6 C:\xampp\htdocs\honeycomb\framework\zii\widgets\CBaseListView.php(111): CDataProvider->getData()
+#7 C:\xampp\htdocs\honeycomb\framework\zii\widgets\grid\CGridView.php(339): CBaseListView->init()
+#8 C:\xampp\htdocs\honeycomb\protected\extensions\bootstrap\widgets\TbGridView.php(49): CGridView->init()
+#9 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(147): TbGridView->init()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(172): CBaseController->createWidget('bootstrap.widge...', Array)
+#11 C:\xampp\htdocs\honeycomb\protected\views\regulation\index.php(157): CBaseController->widget('bootstrap.widge...', Array)
+#12 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(126): require('C:\\xampp\\htdocs...')
+#13 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp\\htdocs...', Array, true)
+#14 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp\\htdocs...', Array, true)
+#15 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): CController->renderPartial('index', Array, true)
+#16 C:\xampp\htdocs\honeycomb\protected\controllers\RegulationController.php(152): CController->render('index', Array)
+#17 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(49): RegulationController->actionIndex()
+#18 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#19 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#20 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#21 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#22 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#23 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#24 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#25 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#26 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('')
+#27 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('regulation')
+#28 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#29 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#30 {main}
+REQUEST_URI=/honeycomb/regulation?ajax=regulation-grid&search=x
+HTTP_REFERER=http://localhost/honeycomb/regulation
+---
+2019/11/27 18:54:17 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '"%x%' at line 3. The SQL statement executed was: SELECT COUNT(*) FROM `regulation` `t` WHERE  book_no like "%x%" OR
+		              detail like "%x%" OR
+		              keyword like "%x%.
+in C:\xampp\htdocs\honeycomb\protected\extensions\bootstrap\widgets\TbGridView.php (49)
+in C:\xampp\htdocs\honeycomb\protected\views\regulation\index.php (156)
+in C:\xampp\htdocs\honeycomb\protected\controllers\RegulationController.php (152)
+2019/11/27 18:54:17 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand ล้มเหลวในการดำเนินการเรียกลักษณะของ SQL: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '"%x%' at line 3. The SQL statement executed was: SELECT COUNT(*) FROM `regulation` `t` WHERE  book_no like "%x%" OR
+		              detail like "%x%" OR
+		              keyword like "%x%' in C:\xampp\htdocs\honeycomb\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\db\CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 C:\xampp\htdocs\honeycomb\framework\db\ar\CActiveRecord.php(1601): CDbCommand->queryScalar()
+#2 C:\xampp\htdocs\honeycomb\framework\web\CActiveDataProvider.php(228): CActiveRecord->count(Object(CDbCriteria))
+#3 C:\xampp\htdocs\honeycomb\framework\web\CDataProvider.php(224): CActiveDataProvider->calculateTotalItemCount()
+#4 C:\xampp\htdocs\honeycomb\framework\web\CActiveDataProvider.php(178): CDataProvider->getTotalItemCount()
+#5 C:\xampp\htdocs\honeycomb\framework\web\CDataProvider.php(168): CActiveDataProvider->fetchData()
+#6 C:\xampp\htdocs\honeycomb\framework\zii\widgets\CBaseListView.php(111): CDataProvider->getData()
+#7 C:\xampp\htdocs\honeycomb\framework\zii\widgets\grid\CGridView.php(339): CBaseListView->init()
+#8 C:\xampp\htdocs\honeycomb\protected\extensions\bootstrap\widgets\TbGridView.php(49): CGridView->init()
+#9 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(147): TbGridView->init()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(172): CBaseController->createWidget('bootstrap.widge...', Array)
+#11 C:\xampp\htdocs\honeycomb\protected\views\regulation\index.php(156): CBaseController->widget('bootstrap.widge...', Array)
+#12 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(126): require('C:\\xampp\\htdocs...')
+#13 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp\\htdocs...', Array, true)
+#14 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp\\htdocs...', Array, true)
+#15 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): CController->renderPartial('index', Array, true)
+#16 C:\xampp\htdocs\honeycomb\protected\controllers\RegulationController.php(152): CController->render('index', Array)
+#17 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(49): RegulationController->actionIndex()
+#18 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#19 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#20 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#21 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#22 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#23 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#24 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#25 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#26 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('')
+#27 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('regulation')
+#28 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#29 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#30 {main}
+REQUEST_URI=/honeycomb/regulation?ajax=regulation-grid&search=x
+HTTP_REFERER=http://localhost/honeycomb/regulation
+---
+2019/11/27 18:54:49 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '"%x%' at line 3. The SQL statement executed was: SELECT COUNT(*) FROM `regulation` `t` WHERE  t.book_no like "%x%" OR
+		              detail like "%x%" OR
+		              keyword like "%x%.
+in C:\xampp\htdocs\honeycomb\protected\extensions\bootstrap\widgets\TbGridView.php (49)
+in C:\xampp\htdocs\honeycomb\protected\views\regulation\index.php (156)
+in C:\xampp\htdocs\honeycomb\protected\controllers\RegulationController.php (152)
+2019/11/27 18:54:49 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand ล้มเหลวในการดำเนินการเรียกลักษณะของ SQL: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '"%x%' at line 3. The SQL statement executed was: SELECT COUNT(*) FROM `regulation` `t` WHERE  t.book_no like "%x%" OR
+		              detail like "%x%" OR
+		              keyword like "%x%' in C:\xampp\htdocs\honeycomb\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\db\CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 C:\xampp\htdocs\honeycomb\framework\db\ar\CActiveRecord.php(1601): CDbCommand->queryScalar()
+#2 C:\xampp\htdocs\honeycomb\framework\web\CActiveDataProvider.php(228): CActiveRecord->count(Object(CDbCriteria))
+#3 C:\xampp\htdocs\honeycomb\framework\web\CDataProvider.php(224): CActiveDataProvider->calculateTotalItemCount()
+#4 C:\xampp\htdocs\honeycomb\framework\web\CActiveDataProvider.php(178): CDataProvider->getTotalItemCount()
+#5 C:\xampp\htdocs\honeycomb\framework\web\CDataProvider.php(168): CActiveDataProvider->fetchData()
+#6 C:\xampp\htdocs\honeycomb\framework\zii\widgets\CBaseListView.php(111): CDataProvider->getData()
+#7 C:\xampp\htdocs\honeycomb\framework\zii\widgets\grid\CGridView.php(339): CBaseListView->init()
+#8 C:\xampp\htdocs\honeycomb\protected\extensions\bootstrap\widgets\TbGridView.php(49): CGridView->init()
+#9 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(147): TbGridView->init()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(172): CBaseController->createWidget('bootstrap.widge...', Array)
+#11 C:\xampp\htdocs\honeycomb\protected\views\regulation\index.php(156): CBaseController->widget('bootstrap.widge...', Array)
+#12 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(126): require('C:\\xampp\\htdocs...')
+#13 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp\\htdocs...', Array, true)
+#14 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp\\htdocs...', Array, true)
+#15 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): CController->renderPartial('index', Array, true)
+#16 C:\xampp\htdocs\honeycomb\protected\controllers\RegulationController.php(152): CController->render('index', Array)
+#17 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(49): RegulationController->actionIndex()
+#18 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#19 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#20 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#21 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#22 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#23 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#24 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#25 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#26 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('')
+#27 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('regulation')
+#28 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#29 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#30 {main}
+REQUEST_URI=/honeycomb/regulation?ajax=regulation-grid&search=x
+HTTP_REFERER=http://localhost/honeycomb/regulation
+---
+2019/11/27 18:57:33 [warning] [application] Failed to set unsafe attribute "date_added" of "Regulation".
+in C:\xampp\htdocs\honeycomb\protected\controllers\RegulationController.php (71)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2019/11/27 18:57:33 [warning] [application] Failed to set unsafe attribute "filename" of "Regulation".
+in C:\xampp\htdocs\honeycomb\protected\controllers\RegulationController.php (71)
+in C:\xampp\htdocs\honeycomb\index.php (13)

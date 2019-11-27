@@ -103,6 +103,32 @@ class Regulation extends CActiveRecord
 		));
 	}
 
+	public function search2() {
+		    // @todo Please modify the following code to remove attributes that should not be searched.
+
+		    $criteria = new CDbCriteria;
+
+		   // $criteria->order = 'staffid DESC';
+		    //$financialyear = Financialyear::model()->findByAttributes(array('status' => '1')); //! $financialyear stores activated financial year details
+		    $searchterm = empty($searchterm) ? trim(Yii::app()->request->getParam('search')) : $searchterm;
+		    //$criteria->with = array('department', 'designation');
+		    $searchterm = htmlspecialchars($searchterm, ENT_QUOTES);
+		    if (!empty($searchterm)) {
+		        $criteria->addCondition(' t.book_no like "%' . $searchterm . '%" OR
+		              t.detail like "%' . $searchterm . '%" OR
+		              t.keyword like "%' . $searchterm.'%"');
+		    } else {
+		        //$criteria->condition = 't.status = "0"';
+		    }
+
+		    return new CActiveDataProvider($this, array(
+		        'criteria' => $criteria,
+		        'pagination' => array(
+		            'pagesize' => 25,
+		        )
+		    ));
+		}
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
