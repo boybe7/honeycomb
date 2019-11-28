@@ -17,7 +17,7 @@ function checkFile(electObject){
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'regulation-form',
 	'enableAjaxValidation'=>false,
-	'htmlOptions' => array('enctype' => 'multipart/form-data'),
+	'htmlOptions' => array('enctype' => 'multipart/form-data','class'=>'well span8'),
 )); ?>
 
 	<p class="help-block">Fields with <span class="required">*</span> are required.</p>
@@ -88,13 +88,23 @@ function checkFile(electObject){
 	
 
 	<div class="row-fluid ">
-		<div class="span8">
+		<div class="span12">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(
 			'buttonType'=>'submit',
 			'htmlOptions'=>array('class'=>'pull-right','style'=>''),
 			'type'=>'primary',
 			'label'=>'บันทึก',
-		)); ?>
+		)); 
+
+			$this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'link',
+			'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-right:10px'),
+			'type'=>'danger',
+			'label'=>'ยกเลิก',
+			'url'=>array("index"), 
+		)); 
+
+		?>
 		</div>
 	</div>
 

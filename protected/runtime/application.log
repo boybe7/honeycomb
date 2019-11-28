@@ -7569,3 +7569,15 @@ in C:\xampp\htdocs\honeycomb\index.php (13)
 2019/11/27 18:57:33 [warning] [application] Failed to set unsafe attribute "filename" of "Regulation".
 in C:\xampp\htdocs\honeycomb\protected\controllers\RegulationController.php (71)
 in C:\xampp\htdocs\honeycomb\index.php (13)
+2019/11/27 23:22:52 [warning] [application] Failed to set unsafe attribute "date_added" of "Regulation".
+in C:\xampp\htdocs\honeycomb\protected\controllers\RegulationController.php (110)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2019/11/27 23:22:52 [warning] [application] Failed to set unsafe attribute "filename" of "Regulation".
+in C:\xampp\htdocs\honeycomb\protected\controllers\RegulationController.php (110)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2019/11/27 23:23:36 [warning] [application] Failed to set unsafe attribute "date_added" of "Regulation".
+in C:\xampp\htdocs\honeycomb\protected\controllers\RegulationController.php (110)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2019/11/27 23:23:36 [warning] [application] Failed to set unsafe attribute "filename" of "Regulation".
+in C:\xampp\htdocs\honeycomb\protected\controllers\RegulationController.php (110)
+in C:\xampp\htdocs\honeycomb\index.php (13)
