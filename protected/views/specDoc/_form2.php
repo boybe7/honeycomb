@@ -23,16 +23,6 @@ function checkFile(electObject){
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<?php 
-		$workcat = WorkCategory::model()->findAll();
-     
-        $typelist = CHtml::listData($workcat,'id','name');
-        echo $form->dropDownListRow($model, 'work_category_id', $typelist,array('class'=>'span8'), array('options' => array('work_category_id'=>array('selected'=>true)))); 
-	 ?>
-
-	<?php echo $form->textFieldRow($model,'contract_id',array('class'=>'span8')); ?>
-
-
 	<?php echo $form->textFieldRow($model,'name',array('class'=>'span8','maxlength'=>255)); ?>
 
 	
@@ -52,7 +42,15 @@ function checkFile(electObject){
 	</div>
 
 	
-	
+	<?php 
+		$workcat = WorkCategory::model()->findAll();
+     
+        $typelist = CHtml::listData($workcat,'id','name');
+        echo $form->dropDownListRow($model, 'work_category_id', $typelist,array('class'=>'span8'), array('options' => array('work_category_id'=>array('selected'=>true)))); 
+	 ?>
+
+	<?php echo $form->textFieldRow($model,'contract_id',array('class'=>'span8')); ?>
+
 	<?php 
 	echo $form->textAreaRow($model,'detail_approve',array('rows'=>2, 'cols'=>50, 'class'=>'span8')); 
 	 ?>
