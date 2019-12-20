@@ -63,6 +63,11 @@ class SpecDocController extends Controller
 	{
 		$model=new SpecDoc;
 
+		$compares[0] = new SpecDocCompare;
+		$compares[1] = new SpecDocCompare;
+		$compares[2] = new SpecDocCompare;
+	
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -97,7 +102,7 @@ class SpecDocController extends Controller
 		}
 
 		$this->render('create',array(
-			'model'=>$model,
+			'model'=>$model,'compares'=>$compares
 		));
 	}
 

@@ -23,7 +23,7 @@ function checkFile(electObject){
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<?php echo $form->textFieldRow($model,'name',array('class'=>'span8','maxlength'=>255)); ?>
+	<?php echo $form->textFieldRow($model,'detail',array('class'=>'span8','maxlength'=>255)); ?>
 
 	
 

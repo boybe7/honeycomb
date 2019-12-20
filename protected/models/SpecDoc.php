@@ -34,13 +34,13 @@ class SpecDoc extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, work_category_id', 'required'),
+			array('detail, work_category_id', 'required'),
 			array(' work_category_id, status', 'numerical', 'integerOnly'=>true),
-			array('name, filename, contract_id, detail_approve, created_by', 'length', 'max'=>255),
+			array('detail, filename, contract_id, detail_approve, created_by', 'length', 'max'=>255),
 			array('filename', 'file',  'allowEmpty'=>true, 'types'=>'docx,pdf,xls,xlsx,doc', 'safe' => false),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, no, name, filename, detail_approve, work_category_id, contract_id, created_by, create_date, update_date, status', 'safe', 'on'=>'search'),
+			array('id, no, detail, filename, detail_approve, work_category_id, contract_id, created_by, create_date, update_date, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,7 +63,7 @@ class SpecDoc extends CActiveRecord
 		return array(
 			'id' => 'id',
 			'no' => 'ลำดับ',
-			'name' => 'รายละเอียดประกอบแบบ',
+			'detail' => 'รายละเอียดประกอบแบบ',
 			'filename' => 'ชื่อไฟล์เอกสาร',
 			'detail_approve' => 'รายละเอียดการอนุมัติ',
 			'work_category_id' => 'ประเภทงาน',
@@ -95,7 +95,7 @@ class SpecDoc extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('no',$this->no,true);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('detail',$this->detail,true);
 		$criteria->compare('filename',$this->filename,true);
 		$criteria->compare('detail_approve',$this->detail_approve,true);
 		$criteria->compare('work_category_id',$this->work_category_id);
@@ -118,7 +118,7 @@ class SpecDoc extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('no',$this->no,true);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('detail',$this->detail,true);
 		$criteria->compare('filename',$this->filename,true);
 		$criteria->compare('detail_approve',$this->detail_approve,true);
 		$criteria->compare('work_category_id',$work_category_id);

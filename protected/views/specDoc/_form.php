@@ -33,7 +33,7 @@ function checkFile(electObject){
 	<?php echo $form->textFieldRow($model,'contract_id',array('class'=>'span8')); ?>
 
 
-	<?php echo $form->textFieldRow($model,'name',array('class'=>'span8','maxlength'=>255)); ?>
+	<?php echo $form->textFieldRow($model,'detail',array('class'=>'span8','maxlength'=>255)); ?>
 
 	
 
@@ -52,6 +52,8 @@ function checkFile(electObject){
 	</div>
 
 	
+	<?php echo $form->textFieldRow($compares[0],'brand',array('class'=>'span4')); ?>
+	<?php echo $form->textFieldRow($compares[1],'brand',array('class'=>'span4')); ?>
 	
 	<?php 
 	echo $form->textAreaRow($model,'detail_approve',array('rows'=>2, 'cols'=>50, 'class'=>'span8')); 

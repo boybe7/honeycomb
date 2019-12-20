@@ -92,8 +92,8 @@
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),
 								'name'=>array(
-									    'name' => 'name',
-									    'filter'=>CHtml::activeTextField($model, 'name',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("name"))),
+									    'name' => 'detail',
+									    'filter'=>CHtml::activeTextField($model, 'detail',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("detail"))),
 										'headerHtmlOptions' => array('style' => 'width:50%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),
@@ -151,8 +151,8 @@
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),
 								'name'=>array(
-									    'name' => 'name',
-									    'filter'=>CHtml::activeTextField($model, 'name',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("name"))),
+									    'name' => 'detail',
+									    'filter'=>CHtml::activeTextField($model, 'detail',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("detail"))),
 										'headerHtmlOptions' => array('style' => 'width:50%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),
