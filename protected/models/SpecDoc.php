@@ -34,13 +34,13 @@ class SpecDoc extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('detail, work_category_id', 'required'),
+			array('detail, work_category_id,material', 'required'),
 			array(' work_category_id, status', 'numerical', 'integerOnly'=>true),
 			array('detail, filename, contract_id, detail_approve, created_by', 'length', 'max'=>255),
 			array('filename', 'file',  'allowEmpty'=>true, 'types'=>'docx,pdf,xls,xlsx,doc', 'safe' => false),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, no, detail, filename, detail_approve, work_category_id, contract_id, created_by, create_date, update_date, status', 'safe', 'on'=>'search'),
+			array('id, no,material,dimension,unit, detail, filename, detail_approve, work_category_id, contract_id, created_by, create_date, update_date, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,6 +72,10 @@ class SpecDoc extends CActiveRecord
 			'create_date' => 'Create Date',
 			'update_date' => 'Update Date',
 			'status' => 'สถานะ',
+			'material' => 'วัสดุ',
+			'dimension' => 'ขนาด',
+			'unit' => 'หน่วย',
+
 		);
 	}
 
@@ -104,6 +108,9 @@ class SpecDoc extends CActiveRecord
 		$criteria->compare('create_date',$this->create_date,true);
 		$criteria->compare('update_date',$this->update_date,true);
 		$criteria->compare('status',$this->status);
+		$criteria->compare('material',$this->material,true);
+		$criteria->compare('dimension',$this->dimension,true);
+		$criteria->compare('unit',$this->unit,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -127,6 +134,9 @@ class SpecDoc extends CActiveRecord
 		$criteria->compare('create_date',$this->create_date,true);
 		$criteria->compare('update_date',$this->update_date,true);
 		$criteria->compare('status',$this->status);
+		$criteria->compare('material',$this->material,true);
+		$criteria->compare('dimension',$this->dimension,true);
+		$criteria->compare('unit',$this->unit,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

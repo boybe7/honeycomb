@@ -27,7 +27,7 @@ class MaterialController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','GetMaterial','GetDimension'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -173,4 +173,41 @@ class MaterialController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+	public function actionGetMaterial(){
+            $request=trim($_GET['term']);
+                    
+            $models=Material::model()->findAll(array("condition"=>"name like '%$request%' "));
+            $data=array();
+            foreach($models as $model){
+             
+                $data[] = array(
+                        'id'=>$model['name'],
+                        'label'=>$model['name'],
+                );
+
+            }
+            $this->layout='empty';
+            echo json_encode($data);
+        
+    }
+
+    public function actionGetDimension(){
+            $request=trim($_GET['term']);
+                    
+            $models=MocPrice::model()->findAll(array("condition"=>"name like '%$request%' "));
+            $data=array();
+            foreach($models as $model){
+             
+                $data[] = array(
+                        'id'=>$model['name'],
+                        'label'=>$model['name'],
+                        'unit'=>$model['unit'],
+                );
+
+            }
+            $this->layout='empty';
+            echo json_encode($data);
+        
+    }
 }
