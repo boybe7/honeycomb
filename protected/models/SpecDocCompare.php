@@ -63,8 +63,8 @@ class SpecDocCompare extends CActiveRecord
 			'brand' => 'ยี่ห้อ',
 			'model' => 'รุ่น',
 			'price' => 'ราคา',
-			'date_price' => 'Date Price',
-			'attach_file' => 'Attach File',
+			'date_price' => 'วันที่',
+			'attach_file' => 'ไฟล์แนบ',
 		);
 	}
 
