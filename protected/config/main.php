@@ -60,6 +60,7 @@ return array(
                'emptytext' => 'Click to edit'
             )
         ),  
+        'CGridViewPlus' => array('class' => 'components.CGridViewPlus'),
         'clientScript' => array(
 	        // disable yiigridview auto include
 	        'scriptMap'=>array(

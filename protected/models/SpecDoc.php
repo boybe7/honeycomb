@@ -191,4 +191,16 @@ class SpecDoc extends CActiveRecord
             	$this->update_date = $str_date[2]."/".$str_date[1]."/".($str_date[0]);
                
     }
+
+    public function getCompare($data,$no)
+    {
+    	$spec_id = $data->id;
+    	$model = SpecDocCompare::model()->findAll(array("condition"=>"spec_id='$spec_id' AND no='$no' "));
+    	$str = "";
+    	if(!empty($model))
+    	{
+    		$str = "ร้าน/ยี่ห้อ ".$model[0]->brand."<br>รุ่น ".$model[0]->model."<br>ราคา ".$model[0]->price." บาท<br>วันที่ ".$model[0]->date_price;
+    	}
+    	return $str;
+    }
 }

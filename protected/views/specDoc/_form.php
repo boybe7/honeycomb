@@ -8,9 +8,25 @@ function checkFile(electObject){
   	 alert("Invalid file!!!!!");  
    } 
 }
-</script>
 
+  
+  $(function(){
+      
 
+      $( "input[name*='dimension']" ).autocomplete({
+       
+                minLength: 0
+      }).bind('focus', function () {
+           
+                $(this).val('');
+                $(this).autocomplete("search");
+        
+      });
+
+   
+  });
+
+</script> 
 
 
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
@@ -37,7 +53,7 @@ function checkFile(electObject){
 	</div>			
 	<div class="row-fluid ">
 		<div class="span8">
-			
+			<input type="hidden" id="material_id" name="material_id">
 			<?php
 
 							echo CHtml::activeHiddenField($model, 'material'); 
@@ -65,8 +81,8 @@ function checkFile(electObject){
 		                                     'showAnim'=>'fold',
 		                                     'minLength'=>0,
 		                                     'select'=>'js: function(event, ui) {
-		                                           $("#SpecDoc_material").val(ui.item.id);
-		                                         
+		                                           $("#SpecDoc_material").val(ui.item.label);
+		                                           $("#material_id").val(ui.item.id);
 		                                           
 		                                     }',
 		                                
@@ -97,7 +113,7 @@ function checkFile(electObject){
 		                                    dataType: "json",
 		                                    data: {
 		                                        term: request.term,
-		                                       
+		                                        material :  $("#material_id").val()
 		                                    },
 		                                    success: function (data) {
 		                                            response(data);
@@ -110,7 +126,7 @@ function checkFile(electObject){
 		                                     'showAnim'=>'fold',
 		                                     'minLength'=>0,
 		                                     'select'=>'js: function(event, ui) {
-		                                           $("#SpecDoc_dimension").val(ui.item.id);
+		                                           $("#SpecDoc_dimension").val(ui.item.label);
 		                                           $("#SpecDoc_unit").val(ui.item.unit);
 		                                           
 		                                     }',
@@ -129,7 +145,20 @@ function checkFile(electObject){
 		</div>
 	</div>
 
-	
+	<div class="row" id="fileUpload">
+		<div class="span8">
+		<?php echo $form->labelEx($model,'filename<span style="color:red">&nbsp;*</span>'); ?>
+
+		<?php echo $form->fileField($model,'filename',array('style'=>'width:200px;','onChange'=>'checkFile(this)','title'=>'Only document allowed'));?>
+
+		<span id="filecheck" class="help-block error"></span>
+
+		<?php //echo $form->error($model,'uploadFile',array('style'=>$styleDataError.';margin-top:20px;')); ?> 
+
+		<?php echo CHtml::hiddenField('errorVal','0');?>
+		</div>
+	</div>
+
 
 	<div class="row-fluid ">
 		<div class="span12">
@@ -150,37 +179,37 @@ function checkFile(electObject){
 
 	<div class="row-fluid ">
 		<div class="span4">
-			<?php echo $form->textFieldRow($compares[0],'brand',array('class'=>'span12')); ?>
+			<?php echo $form->textFieldRow($compares[0],'brand',array('class'=>'span12','name'=>'SpecDocCompareTemp[0][brand]')); ?>
 		</div>
 		<div class="span4">
-			<?php echo $form->textFieldRow($compares[1],'brand',array('class'=>'span12')); ?>
+			<?php echo $form->textFieldRow($compares[1],'brand',array('class'=>'span12','name'=>'SpecDocCompareTemp[1][brand]')); ?>
 		</div>
 		<div class="span4">
-			<?php echo $form->textFieldRow($compares[2],'brand',array('class'=>'span12')); ?>
-		</div>
-	</div>
-
-	<div class="row-fluid ">
-		<div class="span4">
-			<?php echo $form->textFieldRow($compares[0],'model',array('class'=>'span12')); ?>
-		</div>
-		<div class="span4">
-			<?php echo $form->textFieldRow($compares[1],'model',array('class'=>'span12')); ?>
-		</div>
-		<div class="span4">
-			<?php echo $form->textFieldRow($compares[2],'model',array('class'=>'span12')); ?>
+			<?php echo $form->textFieldRow($compares[2],'brand',array('class'=>'span12','name'=>'SpecDocCompareTemp[2][brand]')); ?>
 		</div>
 	</div>
 
 	<div class="row-fluid ">
 		<div class="span4">
-			<?php echo $form->textFieldRow($compares[0],'price',array('class'=>'span12')); ?>
+			<?php echo $form->textFieldRow($compares[0],'model',array('class'=>'span12','name'=>'SpecDocCompareTemp[0][model]')); ?>
 		</div>
 		<div class="span4">
-			<?php echo $form->textFieldRow($compares[1],'price',array('class'=>'span12')); ?>
+			<?php echo $form->textFieldRow($compares[1],'model',array('class'=>'span12','name'=>'SpecDocCompareTemp[1][model]')); ?>
 		</div>
 		<div class="span4">
-			<?php echo $form->textFieldRow($compares[2],'price',array('class'=>'span12')); ?>
+			<?php echo $form->textFieldRow($compares[2],'model',array('class'=>'span12','name'=>'SpecDocCompareTemp[2][model]')); ?>
+		</div>
+	</div>
+
+	<div class="row-fluid ">
+		<div class="span4">
+			<?php echo $form->textFieldRow($compares[0],'price',array('class'=>'span12','name'=>'SpecDocCompareTemp[0][price]')); ?>
+		</div>
+		<div class="span4">
+			<?php echo $form->textFieldRow($compares[1],'price',array('class'=>'span12','name'=>'SpecDocCompareTemp[1][price]')); ?>
+		</div>
+		<div class="span4">
+			<?php echo $form->textFieldRow($compares[2],'price',array('class'=>'span12','name'=>'SpecDocCompareTemp[2][price]')); ?>
 		</div>
 	</div>
 
@@ -194,8 +223,8 @@ function checkFile(electObject){
                         $form->widget('zii.widgets.jui.CJuiDatePicker',
 
                         array(
-                            'name'=>'date_price',
-                            'attribute'=>'date_price',
+                            'name'=>'SpecDocCompareTemp[0][date_price]',
+                            //'attribute'=>'date_price',
                             'model'=>$compares[0],
                             'defaultOptions' => array(
                                               'mode'=>'focus',
@@ -220,8 +249,8 @@ function checkFile(electObject){
                         $form->widget('zii.widgets.jui.CJuiDatePicker',
 
                         array(
-                            'name'=>'date_price',
-                            'attribute'=>'date_price',
+                            'name'=>'SpecDocCompareTemp[1][date_price]',
+                            //'attribute'=>'date_price',
                             'model'=>$compares[1],
                             'defaultOptions' => array(
                                               'mode'=>'focus',
@@ -246,8 +275,8 @@ function checkFile(electObject){
                         $form->widget('zii.widgets.jui.CJuiDatePicker',
 
                         array(
-                            'name'=>'date_price',
-                            'attribute'=>'date_price',
+                            'name'=>'SpecDocCompareTemp[2][date_price]',
+                            //'attribute'=>'date_price',
                             'model'=>$compares[2],
                             'defaultOptions' => array(
                                               'mode'=>'focus',
@@ -267,25 +296,25 @@ function checkFile(electObject){
 
 	<div class="row-fluid ">
 		<div class="span4">
-			<?php echo $form->labelEx($compares[0],'ไฟล์แนบ<span style="color:red">&nbsp;*</span>'); ?>
+			<?php echo $form->labelEx($compares[0],'attach_file'); ?>
 
-			<?php echo $form->fileField($compares[0],'attach_file',array('style'=>'width:200px;','onChange'=>'checkFile(this)','title'=>'Only document allowed'));?>
-			<span id="filecheck" class="help-block error"></span>
-			<?php echo CHtml::hiddenField('errorVal','0');?>
+			<?php
+
+			echo $form->fileField($compares[0],'attach_file1',array('style'=>'width:200px;','onChange'=>'checkFile(this)','title'=>'Only document allowed'));?>
+		
+			
 		</div>
 		<div class="span4">
-			<?php echo $form->labelEx($compares[1],'ไฟล์แนบ<span style="color:red">&nbsp;*</span>'); ?>
+			<?php echo $form->labelEx($compares[1],'attach_file'); ?>
 
-			<?php echo $form->fileField($compares[1],'attach_file',array('style'=>'width:200px;','onChange'=>'checkFile(this)','title'=>'Only document allowed'));?>
-			<span id="filecheck" class="help-block error"></span>
-			<?php echo CHtml::hiddenField('errorVal','0');?>
+			<?php echo $form->fileField($compares[1],'attach_file2',array('style'=>'width:200px;','onChange'=>'checkFile(this)','title'=>'Only document allowed'));?>
+			
 		</div>
 		<div class="span4">
-			<?php echo $form->labelEx($compares[2],'ไฟล์แนบ<span style="color:red">&nbsp;*</span>'); ?>
+			<?php echo $form->labelEx($compares[2],'attach_file'); ?>
 
-			<?php echo $form->fileField($compares[2],'attach_file',array('style'=>'width:200px;','onChange'=>'checkFile(this)','title'=>'Only document allowed'));?>
-			<span id="filecheck" class="help-block error"></span>
-			<?php echo CHtml::hiddenField('errorVal','0');?>
+			<?php echo $form->fileField($compares[2],'attach_file3',array('style'=>'width:200px;','onChange'=>'checkFile(this)','title'=>'Only document allowed'));?>
+			
 		</div>
 	</div>
 	<div class="row-fluid ">

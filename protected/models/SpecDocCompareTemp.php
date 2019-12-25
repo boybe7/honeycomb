@@ -1,25 +1,27 @@
 <?php
 
 /**
- * This is the model class for table "spec_doc_compare".
+ * This is the model class for table "spec_doc_compare_temp".
  *
- * The followings are the available columns in table 'spec_doc_compare':
+ * The followings are the available columns in table 'spec_doc_compare_temp':
  * @property integer $id
  * @property integer $spec_id
  * @property string $brand
  * @property string $model
  * @property string $price
  * @property string $date_price
- * @property string $attach_file
+ * @property string $attach_file2
+ * @property string $attach_file1
+ * @property string $attach_file3
  */
-class SpecDocCompare extends CActiveRecord
+class SpecDocCompareTemp extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'spec_doc_compare';
+		return 'spec_doc_compare_temp';
 	}
 
 	/**
@@ -30,15 +32,15 @@ class SpecDocCompare extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('spec_id, brand, model, price, date_price, attach_file', 'required'),
+			array('spec_id, brand, model, price, date_price, attach_file2, attach_file1, attach_file3', 'required'),
 			array('spec_id', 'numerical', 'integerOnly'=>true),
 			array('brand', 'length', 'max'=>500),
-			//array('attach_file,attach_file1,attach_file2,attach_file3', 'file',  'allowEmpty'=>true, 'types'=>'docx,pdf,xls,xlsx,doc', 'safe' => false),
-			array('model, attach_file', 'length', 'max'=>250),
+			array('model, attach_file2', 'length', 'max'=>250),
 			array('price', 'length', 'max'=>10),
+			array('attach_file1, attach_file3', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, spec_id, brand, model, price, date_price, attach_file', 'safe', 'on'=>'search'),
+			array('id, spec_id, brand, model, price, date_price, attach_file2, attach_file1, attach_file3', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,8 +66,10 @@ class SpecDocCompare extends CActiveRecord
 			'brand' => 'ยี่ห้อ',
 			'model' => 'รุ่น',
 			'price' => 'ราคา',
-			'date_price' => 'วันที่',
-			'attach_file' => 'ไฟล์แนบ',
+			'date_price' => 'Date Price',
+			'attach_file2' => 'Attach File2',
+			'attach_file1' => 'Attach File1',
+			'attach_file3' => 'Attach File3',
 		);
 	}
 
@@ -93,7 +97,9 @@ class SpecDocCompare extends CActiveRecord
 		$criteria->compare('model',$this->model,true);
 		$criteria->compare('price',$this->price,true);
 		$criteria->compare('date_price',$this->date_price,true);
-		$criteria->compare('attach_file',$this->attach_file,true);
+		$criteria->compare('attach_file2',$this->attach_file2,true);
+		$criteria->compare('attach_file1',$this->attach_file1,true);
+		$criteria->compare('attach_file3',$this->attach_file3,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -104,41 +110,10 @@ class SpecDocCompare extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return SpecDocCompare the static model class
+	 * @return SpecDocCompareTemp the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
-
-	public function beforeSave()
-    {
-
-
-        $str_date = explode("/", $this->date_price);
-        if(count($str_date)>1)
-        	$this->date_price= $str_date[2]."-".$str_date[1]."-".$str_date[0];
-
-  
-
-        return parent::beforeSave();
-   }
-     protected function afterSave(){
-            parent::afterSave();
-            $str_date = explode("-", $this->date_price);
-            if(count($date_price)>1)
-            	$this->create_date = $str_date[2]."/".$str_date[1]."/".($str_date[0]);
-
-          
-        
-    }
-    protected function afterFind(){
-            parent::afterFind();
-            $str_date = explode("-", $this->date_price);
-            if(count($str_date)>1)
-            	$this->date_price = $str_date[2]."/".$str_date[1]."/".($str_date[0]);
-
-       
-               
-    }
 }

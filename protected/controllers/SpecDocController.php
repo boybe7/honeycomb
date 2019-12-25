@@ -63,9 +63,9 @@ class SpecDocController extends Controller
 	{
 		$model=new SpecDoc;
 
-		$compares[0] = new SpecDocCompare;
-		$compares[1] = new SpecDocCompare;
-		$compares[2] = new SpecDocCompare;
+		$compares[0] = new SpecDocCompareTemp;
+		$compares[1] = new SpecDocCompareTemp;
+		$compares[2] = new SpecDocCompareTemp;
 	
 
 		// Uncomment the following line if AJAX validation is needed
@@ -74,13 +74,78 @@ class SpecDocController extends Controller
 		if(isset($_POST['SpecDoc']))
 		{
 			$model->attributes=$_POST['SpecDoc'];
+			$model->dimension = $_POST['SpecDoc']['dimension'];
 			$model->created_by = Yii::app()->user->ID;
+
 			date_default_timezone_set("Asia/Bangkok");
 
 			$model->create_date = date("Y-m-d H:i:s");
 			$model->update_date = date("Y-m-d H:i:s");
 
-			$uploadFile = CUploadedFile::getInstance($model, 'filename');
+			header('Content-type: text/plain');
+
+			print_r($model);
+			exit;
+			
+			if(isset($_POST['SpecDocCompareTemp']))
+			{
+
+				if($model->save())
+				{
+					$i = 1;
+					foreach ($_POST['SpecDocCompareTemp'] as $key => $compare) {
+
+						$model_com = new SpecDocCompareTemp;
+						$model_com2 = new SpecDocCompare;
+
+						$model_com->attributes=$compare;
+					
+						//print_r($model_com);
+						
+						$model_com2->spec_id = $model->id;
+						$model_com2->brand = $model_com->brand;
+						$model_com2->model  =$model_com->model;
+						$model_com2->price  =$model_com->price;
+						$model_com2->date_price  =$model_com->date_price;
+						$model_com2->no = $i;
+
+
+						$uploadFile = CUploadedFile::getInstance($model_com, 'attach_file'.$i);
+						
+						
+						//exit;
+
+						$i++;
+				
+						
+					    $filesave = '';
+						if($uploadFile !== null) {
+
+
+								$uploadFileName = mktime()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
+								
+								$filesave = Yii::app()->basePath .'/../specfile/'.iconv("UTF-8", "TIS-620",$uploadFileName);
+								$model_com2->attach_file = $uploadFile;
+
+								if($model_com2->attach_file->saveAs($filesave)){
+
+
+									$model_com2->attach_file = $uploadFileName;																	
+									$model_com2->save();
+									print_r($model_com2);
+									
+								
+								}
+						
+						}
+					}
+				}
+			}
+
+			//exit;
+
+
+			/*$uploadFile = CUploadedFile::getInstance($model, 'filename');
 			$filesave = '';
 			if($uploadFile !== null) {
 					$uploadFileName = mktime()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
@@ -95,7 +160,7 @@ class SpecDocController extends Controller
 
 					}
 			
-			}
+			}*/
 
 			
 		

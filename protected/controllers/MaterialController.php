@@ -182,7 +182,7 @@ class MaterialController extends Controller
             foreach($models as $model){
              
                 $data[] = array(
-                        'id'=>$model['name'],
+                        'id'=>$model['id'],
                         'label'=>$model['name'],
                 );
 
@@ -194,13 +194,20 @@ class MaterialController extends Controller
 
     public function actionGetDimension(){
             $request=trim($_GET['term']);
-                    
-            $models=MocPrice::model()->findAll(array("condition"=>"name like '%$request%' "));
+            $material=trim($_GET['material']);
+
+            $criteria = new CDbCriteria;
+            $criteria->select = 't.*, m.* ';
+            $criteria->join = ' LEFT JOIN `moc_price_map` AS `m` ON t.code = m.code';
+            $criteria->addCondition("name like '%$request%'  and material_id=".$material);
+
+
+            $models=MocPrice::model()->findAll($criteria);
             $data=array();
             foreach($models as $model){
              
                 $data[] = array(
-                        'id'=>$model['name'],
+                        'id'=>$model['id'],
                         'label'=>$model['name'],
                         'unit'=>$model['unit'],
                 );
