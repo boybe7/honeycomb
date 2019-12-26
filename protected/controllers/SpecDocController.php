@@ -68,103 +68,97 @@ class SpecDocController extends Controller
 		$compares[2] = new SpecDocCompareTemp;
 	
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['SpecDoc']))
+		$transaction=Yii::app()->db->beginTransaction();
+		try 
 		{
-			$model->attributes=$_POST['SpecDoc'];
-			$model->dimension = $_POST['SpecDoc']['dimension'];
-			$model->created_by = Yii::app()->user->ID;
 
-			date_default_timezone_set("Asia/Bangkok");
-
-			$model->create_date = date("Y-m-d H:i:s");
-			$model->update_date = date("Y-m-d H:i:s");
-
-			header('Content-type: text/plain');
-
-			print_r($model);
-			exit;
-			
-			if(isset($_POST['SpecDocCompareTemp']))
+			if(isset($_POST['SpecDoc']))
 			{
+				$model->attributes=$_POST['SpecDoc'];
+				$model->dimension = trim($_POST['SpecDoc']['dimension']);
+				$model->created_by = Yii::app()->user->ID;
 
-				if($model->save())
-				{
-					$i = 1;
-					foreach ($_POST['SpecDocCompareTemp'] as $key => $compare) {
+				date_default_timezone_set("Asia/Bangkok");
 
-						$model_com = new SpecDocCompareTemp;
-						$model_com2 = new SpecDocCompare;
+				$model->create_date = date("Y-m-d H:i:s");
+				$model->update_date = date("Y-m-d H:i:s");
 
-						$model_com->attributes=$compare;
-					
-						//print_r($model_com);
-						
-						$model_com2->spec_id = $model->id;
-						$model_com2->brand = $model_com->brand;
-						$model_com2->model  =$model_com->model;
-						$model_com2->price  =$model_com->price;
-						$model_com2->date_price  =$model_com->date_price;
-						$model_com2->no = $i;
+				//header('Content-type: text/plain');
 
-
-						$uploadFile = CUploadedFile::getInstance($model_com, 'attach_file'.$i);
-						
-						
-						//exit;
-
-						$i++;
+				//print_r($model);
 				
+				
+				if(isset($_POST['SpecDocCompareTemp']))
+				{
+
+					if($model->save())
+					{
+						$i = 1;
+						foreach ($_POST['SpecDocCompareTemp'] as $key => $compare) {
+
+							$model_com = new SpecDocCompareTemp;
+							$model_com2 = new SpecDocCompare;
+
+							$model_com->attributes=$compare;
 						
-					    $filesave = '';
-						if($uploadFile !== null) {
+							//print_r($model_com);
+							
+							$model_com2->spec_id = $model->id;
+							$model_com2->brand = $model_com->brand;
+							$model_com2->model  =$model_com->model;
+							$model_com2->price  =$model_com->price;
+							$model_com2->date_price  =$model_com->date_price;
+							$model_com2->no = $i;
 
 
-								$uploadFileName = mktime()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
-								
-								$filesave = Yii::app()->basePath .'/../specfile/'.iconv("UTF-8", "TIS-620",$uploadFileName);
-								$model_com2->attach_file = $uploadFile;
+							$uploadFile = CUploadedFile::getInstance($model_com, 'attach_file'.$i);
+							
+							//print_r($uploadFile);
+							//exit;
 
-								if($model_com2->attach_file->saveAs($filesave)){
+							$i++;
+					
+							
+						    $filesave = '';
+							if($uploadFile !== null) {
 
 
-									$model_com2->attach_file = $uploadFileName;																	
-									$model_com2->save();
-									print_r($model_com2);
+									$uploadFileName = mktime()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
 									
-								
-								}
-						
+									$filesave = Yii::app()->basePath .'/../specfile/'.iconv("UTF-8", "TIS-620",$uploadFileName);
+									$model_com2->attach_file = $uploadFile;
+
+									if($model_com2->attach_file->saveAs($filesave)){
+
+
+										$model_com2->attach_file = $uploadFileName;																	
+										$model_com2->save();
+										//print_r($model_com2);
+										
+									
+									}
+							
+							}
 						}
+
+						$this->redirect(array('index'));	
+
 					}
 				}
+
+			
+			
 			}
-
-			//exit;
-
-
-			/*$uploadFile = CUploadedFile::getInstance($model, 'filename');
-			$filesave = '';
-			if($uploadFile !== null) {
-					$uploadFileName = mktime()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
-					$filesave = Yii::app()->basePath .'/../specfile/'.iconv("UTF-8", "TIS-620",$uploadFileName);
-					$model->filename = $uploadFile;
-
-					if($model->filename->saveAs($filesave)){
-
-						$model->filename = $uploadFileName;
-						if($model->save())
-						    $this->redirect(array('index'));
-
-					}
-			
-			}*/
-
-			
-		
 		}
+		catch(Exception $e)
+	 	{
+	 				$transaction->rollBack();	
+	 				$model->addError('contract', 'Error occured while savings.');
+	 				Yii::trace(CVarDumper::dumpAsString($e->getMessage()));
+	 	        	//you should do sth with this exception (at least log it or show on page)
+	 	        	Yii::log( 'Exception when saving data: ' . $e->getMessage(), CLogger::LEVEL_ERROR );
+	 
+	 	}   	
 
 		$this->render('create',array(
 			'model'=>$model,'compares'=>$compares
@@ -179,54 +173,119 @@ class SpecDocController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		$compares[0] = new SpecDocCompareTemp;
+		$compares[1] = new SpecDocCompareTemp;
+		$compares[2] = new SpecDocCompareTemp;
 
+		for ($i=1; $i <= 3; $i++) { 
+			  $m = SpecDocCompare::model()->findAll(array("condition"=>"spec_id='$id' AND no='$i' "));
+
+			  if(!empty($m))
+			  {
+			  	  $compares[$i-1]->spec_id = $id;
+			  	  $compares[$i-1]->brand = $m[0]->brand;
+			  	  $compares[$i-1]->model = $m[0]->model;
+			  	  $compares[$i-1]->price = $m[0]->price;
+			  	  $compares[$i-1]->date_price = $m[0]->date_price;
+			  }
+		}
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['SpecDoc']))
+		$transaction=Yii::app()->db->beginTransaction();
+		try 
 		{
-			$model->attributes=$_POST['SpecDoc'];
-			date_default_timezone_set("Asia/Bangkok");
 
-			$model->create_date = date("Y-m-d H:i:s");
-			$model->update_date = date("Y-m-d H:i:s");
+			if(isset($_POST['SpecDoc']))
+			{
+				$model->attributes=$_POST['SpecDoc'];
+				$model->dimension = trim($_POST['SpecDoc']['dimension']);
+				$model->created_by = Yii::app()->user->ID;
 
-			$uploadFile = CUploadedFile::getInstance($model, 'filename');
-			$filesave = '';
-			if($uploadFile !== null) {
-					$uploadFileName = mktime()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
-					$filesave = Yii::app()->basePath .'/../specfile/'.iconv("UTF-8", "TIS-620",$uploadFileName);
-					$fileOld = Yii::app()->basePath .'/../specfile/'.$model->filename;
-					$model->filename = $uploadFile;
+				date_default_timezone_set("Asia/Bangkok");
 
-					if($model->filename->saveAs($filesave)){
+				$model->create_date = date("Y-m-d H:i:s");
+				$model->update_date = date("Y-m-d H:i:s");
 
-						$model->filename = $uploadFileName;
-						if($model->save())
-						{
-							unlink($fileOld); 
-							$this->redirect(array('index'));
+				//header('Content-type: text/plain');
 
+				//print_r($model);
+				
+				
+				if(isset($_POST['SpecDocCompareTemp']))
+				{
+
+					if($model->save())
+					{
+						$i = 1;
+						foreach ($_POST['SpecDocCompareTemp'] as $key => $compare) {
+
+							$model_com = new SpecDocCompareTemp;
+							$model_com2 = new SpecDocCompare;
+
+							$model_com->attributes=$compare;
+						
+							//print_r($model_com);
+							
+							$model_com2->spec_id = $model->id;
+							$model_com2->brand = $model_com->brand;
+							$model_com2->model  =$model_com->model;
+							$model_com2->price  =$model_com->price;
+							$model_com2->date_price  =$model_com->date_price;
+							$model_com2->no = $i;
+
+
+							$uploadFile = CUploadedFile::getInstance($model_com, 'attach_file'.$i);
+							
+							//print_r($uploadFile);
+							//exit;
+
+							$i++;
+					
+							
+						    $filesave = '';
+							if($uploadFile !== null) {
+
+
+									$uploadFileName = mktime()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
+									
+									$filesave = Yii::app()->basePath .'/../specfile/'.iconv("UTF-8", "TIS-620",$uploadFileName);
+									$model_com2->attach_file = $uploadFile;
+
+									if($model_com2->attach_file->saveAs($filesave)){
+
+
+										$model_com2->attach_file = $uploadFileName;																	
+										$model_com2->save();
+										//print_r($model_com2);
+										
+									
+									}
+							
+							}
 						}
-						else{
-							unlink($filesave);
-						}	
-						   
+
+						$this->redirect(array('index'));	
 
 					}
+				}
+
+			
 			
 			}
-			else{
-				
-				if($model->save())
-					$this->redirect(array('index'));
-
-			}
-
 		}
+		catch(Exception $e)
+	 	{
+	 				$transaction->rollBack();	
+	 				$model->addError('contract', 'Error occured while savings.');
+	 				Yii::trace(CVarDumper::dumpAsString($e->getMessage()));
+	 	        	//you should do sth with this exception (at least log it or show on page)
+	 	        	Yii::log( 'Exception when saving data: ' . $e->getMessage(), CLogger::LEVEL_ERROR );
+	 
+	 	} 
 
 		$this->render('update',array(
-			'model'=>$model,
+			'model'=>$model,'compares'=>$compares
 		));
 	}
 

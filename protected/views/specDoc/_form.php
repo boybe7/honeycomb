@@ -216,25 +216,28 @@ function checkFile(electObject){
 	<div class="row-fluid ">
 		<div class="span4">
 			
-                <?php echo $form->labelEx($compares[0],'date_price',array('class'=>'span12','style'=>'text-align:left;padding-right:10px;'));?>
-              
-              <?php              
+			    <label for="SpecDocCompareTemp_0_date_price" style='text-align:left;padding-bottom:10px;'>วันที่</label>
+            
+              <?php       
+
+               
                     echo '<div class="input-append" style="margin-top:-10px;">'; //ใส่ icon ลงไป
                         $form->widget('zii.widgets.jui.CJuiDatePicker',
 
-                        array(
-                            'name'=>'SpecDocCompareTemp[0][date_price]',
-                            //'attribute'=>'date_price',
-                            'model'=>$compares[0],
-                            'defaultOptions' => array(
-                                              'mode'=>'focus',
-                                              'showOn' => 'both',
-                                              //'language' => 'th',
-                                              'format'=>'dd/mm/yyyy', //กำหนด date Format
-                                              'showAnim' => 'slideDown',
-                                              ),
-                            'htmlOptions'=>array('class'=>'span12 d-picker', 'value'=>$compares[0]->date_price),  // ใส่ค่าเดิม ในเหตุการ Update 
-                         )
+		                        array(
+		                            'name'=>'SpecDocCompareTemp[0][date_price]',
+		                            //'attribute'=>'date_price',
+		                            'model'=>$compares[0],
+		                            'defaultOptions' => array(
+		                                              'mode'=>'focus',
+		                                              'showOn' => 'both',
+		                                              //'language' => 'th',
+		                                              'format'=>'dd/mm/yyyy', //กำหนด date Format
+		                                              'showAnim' => 'slideDown',
+		                                              ),
+		                            'value'=>$compares[0]->date_price,
+		                            'htmlOptions'=>array('class'=>'span12'),  // ใส่ค่าเดิม ในเหตุการ Update 
+		                         )
                     );
                     echo '<span class="add-on"><i class="icon-calendar"></i></span></div>';
 
@@ -242,8 +245,7 @@ function checkFile(electObject){
 		</div>
 		<div class="span4">
 				
-                <?php echo $form->labelEx($compares[1],'date_price',array('class'=>'span12','style'=>'text-align:left;padding-right:10px;'));?>
-              
+                 <label for="SpecDocCompareTemp_1_date_price" style='text-align:left;padding-bottom:10px;'>วันที่</label>
               <?php              
                     echo '<div class="input-append" style="margin-top:-10px;">'; //ใส่ icon ลงไป
                         $form->widget('zii.widgets.jui.CJuiDatePicker',
@@ -259,7 +261,8 @@ function checkFile(electObject){
                                               'format'=>'dd/mm/yyyy', //กำหนด date Format
                                               'showAnim' => 'slideDown',
                                               ),
-                            'htmlOptions'=>array('class'=>'span12 d-picker', 'value'=>$compares[1]->date_price),  // ใส่ค่าเดิม ในเหตุการ Update 
+                            'value'=>$compares[1]->date_price,
+		                    'htmlOptions'=>array('class'=>'span12'),  // ใส่ค่าเดิม ในเหตุการ Update 
                          )
                     );
                     echo '<span class="add-on"><i class="icon-calendar"></i></span></div>';
@@ -268,7 +271,7 @@ function checkFile(electObject){
 		</div>
 		<div class="span4">
 				
-                <?php echo $form->labelEx($compares[2],'date_price',array('class'=>'span12','style'=>'text-align:left;padding-right:10px;'));?>
+                <label for="SpecDocCompareTemp_2_date_price" style='text-align:left;padding-bottom:10px;'>วันที่</label>
               
               <?php              
                     echo '<div class="input-append" style="margin-top:-10px;">'; //ใส่ icon ลงไป
@@ -285,7 +288,9 @@ function checkFile(electObject){
                                               'format'=>'dd/mm/yyyy', //กำหนด date Format
                                               'showAnim' => 'slideDown',
                                               ),
-                            'htmlOptions'=>array('class'=>'span12 d-picker', 'value'=>$compares[2]->date_price),  // ใส่ค่าเดิม ในเหตุการ Update 
+
+                            'value'=>$compares[2]->date_price,
+		                    'htmlOptions'=>array('class'=>'span12'),  // ใส่ค่าเดิม ในเหตุการ Update 
                          )
                     );
                     echo '<span class="add-on"><i class="icon-calendar"></i></span></div>';
@@ -296,7 +301,7 @@ function checkFile(electObject){
 
 	<div class="row-fluid ">
 		<div class="span4">
-			<?php echo $form->labelEx($compares[0],'attach_file'); ?>
+			  <label for="attach_file1" >ไฟล์แนบ</label>
 
 			<?php
 
@@ -305,13 +310,13 @@ function checkFile(electObject){
 			
 		</div>
 		<div class="span4">
-			<?php echo $form->labelEx($compares[1],'attach_file'); ?>
+			 <label for="attach_file2" >ไฟล์แนบ</label>
 
 			<?php echo $form->fileField($compares[1],'attach_file2',array('style'=>'width:200px;','onChange'=>'checkFile(this)','title'=>'Only document allowed'));?>
 			
 		</div>
 		<div class="span4">
-			<?php echo $form->labelEx($compares[2],'attach_file'); ?>
+			 <label for="attach_file3" >ไฟล์แนบ</label>
 
 			<?php echo $form->fileField($compares[2],'attach_file3',array('style'=>'width:200px;','onChange'=>'checkFile(this)','title'=>'Only document allowed'));?>
 			

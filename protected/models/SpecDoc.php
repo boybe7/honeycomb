@@ -199,7 +199,7 @@ class SpecDoc extends CActiveRecord
     	$str = "";
     	if(!empty($model))
     	{
-    		$str = "ร้าน/ยี่ห้อ ".$model[0]->brand."<br>รุ่น ".$model[0]->model."<br>ราคา ".$model[0]->price." บาท<br>วันที่ ".$model[0]->date_price;
+    		$str = "ร้าน/ยี่ห้อ ".$model[0]->brand."<br>รุ่น ".$model[0]->model."<br>ราคา ".number_format($model[0]->price,2)." บาท<br>วันที่ ".$model[0]->date_price;
     	}
     	return $str;
     }

@@ -116,9 +116,11 @@ class SpecDocCompare extends CActiveRecord
 
 
         $str_date = explode("/", $this->date_price);
-        if(count($str_date)>1)
-        	$this->date_price= $str_date[2]."-".$str_date[1]."-".$str_date[0];
 
+        if(count($str_date)>1 && intval($str_date[2])!=0 )
+        	$this->date_price= ($str_date[2]-543)."-".$str_date[1]."-".$str_date[0];
+        else
+        	$this->date_price= "";
   
 
         return parent::beforeSave();
@@ -126,18 +128,22 @@ class SpecDocCompare extends CActiveRecord
      protected function afterSave(){
             parent::afterSave();
             $str_date = explode("-", $this->date_price);
-            if(count($date_price)>1)
-            	$this->create_date = $str_date[2]."/".$str_date[1]."/".($str_date[0]);
-
+            if(count($str_date)>1 && intval($str_date[0])!=0 )
+            	$this->date_price = $str_date[2]."/".$str_date[1]."/".($str_date[0]+543);
+            else
+        	$this->date_price= "";
+  
           
         
     }
     protected function afterFind(){
             parent::afterFind();
             $str_date = explode("-", $this->date_price);
-            if(count($str_date)>1)
-            	$this->date_price = $str_date[2]."/".$str_date[1]."/".($str_date[0]);
-
+            if(count($str_date)>1 && intval($str_date[0])!=0 )
+            	$this->date_price = $str_date[2]."/".$str_date[1]."/".($str_date[0]+543);
+            else
+        		$this->date_price= "";
+  
        
                
     }

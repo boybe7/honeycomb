@@ -69,10 +69,9 @@
   		$i = 0;
   		foreach ($workcats as $key => $value) {
   			if($i==0)
-  			{
-
   				echo  '<div id="workcat'.$value->id.'" class="tab-pane fade in active">';
-
+  			else
+  				echo  '<div id="workcat'.$value->id.'" class="tab-pane fade in ">';
   					
   						$this->widget('bootstrap.widgets.TbGridView',array(
 							'id'=>'detail-grid-'.$value->id,
@@ -151,7 +150,7 @@
 										'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
 							  	),
-								/*'export'=>array(
+								'export'=>array(
 									    'name' => 'filename',
 									    'header' => 'Export',
 									    'type'=> 'raw',
@@ -160,20 +159,7 @@
 										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:center;')
 							  	),
-								'detail_approve'=>array(
-									    'name' => 'detail_approve',
-									    
-									    'filter'=>false,
-										'headerHtmlOptions' => array('style' => 'width:20%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
-							  	),
-							  	'created_by'=>array(
-									    'name' => 'created_by',
-									    
-									    'filter'=>false,
-										'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
-							  	),*/
+							  
 								array(
 									'class'=>'bootstrap.widgets.TbButtonColumn',
 									'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),
@@ -182,67 +168,9 @@
 							),
 
 						));
-  				echo '</div>';
-  			}
-  			else
-  			{
-
-  				echo  '<div id="workcat'.$value->id.'" class="tab-pane fade ">';
-  					$this->widget('bootstrap.widgets.TbGridView',array(
-							'id'=>'detail-grid-'.$value->id,
-							'dataProvider'=>$model->searchByID($value->id),
-							'type'=>'bordered condensed',
-							'filter'=>$model,
-							'selectableRows' =>2,
-							'htmlOptions'=>array('style'=>'padding-top:40px'),
-						    'enablePagination' => true,
-						    'summaryText'=>'แสดงผล {start} ถึง {end} จากทั้งหมด {count} ข้อมูล',
-						    'template'=>"{items}<div class='row-fluid'><div class='span6'>{pager}</div><div class='span6'>{summary}</div></div>",
-							'columns'=>array(
-								'no'=>array(
-									    'name' => 'no',
-									    'filter'=>false,
-										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
-							  	),
-								'name'=>array(
-									    'name' => 'detail',
-									    'filter'=>CHtml::activeTextField($model, 'detail',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("detail"))),
-										'headerHtmlOptions' => array('style' => 'width:50%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
-							  	),
-								'export'=>array(
-									    'name' => 'filename',
-									    'header' => 'Export',
-									    'type'=> 'raw',
-									    'value'=>'CHtml::link($data->filename, "export/".$data->id)',
-									    'filter'=>false,
-										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
-							  	),
-								'detail_approve'=>array(
-									    'name' => 'detail_approve',
-									    
-									    'filter'=>false,
-										'headerHtmlOptions' => array('style' => 'width:20%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
-							  	),
-							  	'created_by'=>array(
-									    'name' => 'created_by',
-									    
-									    'filter'=>false,
-										'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
-							  	),
-								array(
-									'class'=>'bootstrap.widgets.TbButtonColumn',
-									'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),
-									'template' => '{update} {delete}'
-								),
-							),
-						));
-  				echo '</div>';
-  			}
+  			echo '</div>';
+  			
+  			
   			$i++;
   		}
   	?>
