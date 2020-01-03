@@ -145,20 +145,7 @@ function checkFile(electObject){
 		</div>
 	</div>
 
-	<div class="row" id="fileUpload">
-		<div class="span8">
-		<?php echo $form->labelEx($model,'filename<span style="color:red">&nbsp;*</span>'); ?>
-
-		<?php echo $form->fileField($model,'filename',array('style'=>'width:200px;','onChange'=>'checkFile(this)','title'=>'Only document allowed'));?>
-
-		<span id="filecheck" class="help-block error"></span>
-
-		<?php //echo $form->error($model,'uploadFile',array('style'=>$styleDataError.';margin-top:20px;')); ?> 
-
-		<?php echo CHtml::hiddenField('errorVal','0');?>
-		</div>
-	</div>
-
+	
 
 	<div class="row-fluid ">
 		<div class="span12">
@@ -304,7 +291,11 @@ function checkFile(electObject){
 			  <label for="attach_file1" >ไฟล์แนบ</label>
 
 			<?php
-
+			if(!empty($compares[0]))
+			{	
+				echo CHtml::link('download',array('specdoc/download','filename'=>$compares[0]->attach_file1), array('target'=>'_blank'));
+				echo "<br>";
+			}
 			echo $form->fileField($compares[0],'attach_file1',array('style'=>'width:200px;','onChange'=>'checkFile(this)','title'=>'Only document allowed'));?>
 		
 			
@@ -312,13 +303,25 @@ function checkFile(electObject){
 		<div class="span4">
 			 <label for="attach_file2" >ไฟล์แนบ</label>
 
-			<?php echo $form->fileField($compares[1],'attach_file2',array('style'=>'width:200px;','onChange'=>'checkFile(this)','title'=>'Only document allowed'));?>
+			<?php 
+			if(!empty($compares[1]->attach_file2))
+			{	
+				echo CHtml::link('download',array('specdoc/download','filename'=>$compares[1]->attach_file2), array('target'=>'_blank'));
+				echo "<br>";
+			}
+			echo $form->fileField($compares[1],'attach_file2',array('style'=>'width:200px;','onChange'=>'checkFile(this)','title'=>'Only document allowed'));?>
 			
 		</div>
 		<div class="span4">
 			 <label for="attach_file3" >ไฟล์แนบ</label>
 
-			<?php echo $form->fileField($compares[2],'attach_file3',array('style'=>'width:200px;','onChange'=>'checkFile(this)','title'=>'Only document allowed'));?>
+			<?php 
+			if(!empty($compares[2]->attach_file3))
+			{	
+				echo CHtml::link('download',array('specdoc/download','filename'=>$compares[2]->attach_file3), array('target'=>'_blank'));
+				echo "<br>";
+			}
+			echo $form->fileField($compares[2],'attach_file3',array('style'=>'width:200px;','onChange'=>'checkFile(this)','title'=>'Only document allowed'));?>
 			
 		</div>
 	</div>

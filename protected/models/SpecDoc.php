@@ -117,11 +117,12 @@ class SpecDoc extends CActiveRecord
 		));
 	}
 
+
 	public function searchByID($work_category_id)
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+		/*$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('no',$this->no,true);
@@ -140,7 +141,28 @@ class SpecDoc extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-		));
+		));*/
+
+		$criteria = new CDbCriteria;
+
+		    $searchterm = empty($searchterm) ? trim(Yii::app()->request->getParam('search')) : $searchterm;
+		    $work_id = empty($work_id) ? trim(Yii::app()->request->getParam('work_id')) : $work_id;
+		    $searchterm = htmlspecialchars($searchterm, ENT_QUOTES);
+		    if (!empty($searchterm)) {
+		        $criteria->addCondition(' (t.detail like "%' . $searchterm . '%" OR
+		              t.material like "%' . $searchterm . '%" OR
+		              t.dimension like "%' . $searchterm.'%") AND work_category_id='.$work_id);
+		    } else {
+		        $criteria->addCondition('work_category_id='.$work_category_id);
+		    }
+
+		    return new CActiveDataProvider($this, array(
+		        'criteria' => $criteria,
+		        'pagination' => array(
+		            'pagesize' => 25,
+		        )
+		    ));
+
 	}
 
 	/**

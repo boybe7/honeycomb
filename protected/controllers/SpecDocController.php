@@ -31,7 +31,7 @@ class SpecDocController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','export','moc'),
+				'actions'=>array('create','update','export','moc','download'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -67,7 +67,7 @@ class SpecDocController extends Controller
 		$compares[1] = new SpecDocCompareTemp;
 		$compares[2] = new SpecDocCompareTemp;
 	
-
+		$saveOK = true;
 		$transaction=Yii::app()->db->beginTransaction();
 		try 
 		{
@@ -76,6 +76,7 @@ class SpecDocController extends Controller
 			{
 				$model->attributes=$_POST['SpecDoc'];
 				$model->dimension = trim($_POST['SpecDoc']['dimension']);
+				$model->unit = trim($_POST['SpecDoc']['unit']);
 				$model->created_by = Yii::app()->user->ID;
 
 				date_default_timezone_set("Asia/Bangkok");
@@ -100,6 +101,7 @@ class SpecDocController extends Controller
 							$model_com2 = new SpecDocCompare;
 
 							$model_com->attributes=$compare;
+							$compares[$i-1] = $model_com;
 						
 							//print_r($model_com);
 							
@@ -139,9 +141,21 @@ class SpecDocController extends Controller
 									}
 							
 							}
+							else
+							{ 
+								if($model_com2->brand!="")
+									$saveOK = false;
+
+							}
 						}
 
-						$this->redirect(array('index'));	
+						if($saveOK)
+						{
+							$transaction->commit();
+							$this->redirect(array('index'));	
+						}
+						else
+						{	$model->addError('contract', 'เกิดข้อผิดพลาดในการบันทึกข้อมูลคู่เทียบ.');}
 
 					}
 				}
@@ -153,7 +167,7 @@ class SpecDocController extends Controller
 		catch(Exception $e)
 	 	{
 	 				$transaction->rollBack();	
-	 				$model->addError('contract', 'Error occured while savings.');
+	 				$model->addError('contract', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล.');
 	 				Yii::trace(CVarDumper::dumpAsString($e->getMessage()));
 	 	        	//you should do sth with this exception (at least log it or show on page)
 	 	        	Yii::log( 'Exception when saving data: ' . $e->getMessage(), CLogger::LEVEL_ERROR );
@@ -187,6 +201,10 @@ class SpecDocController extends Controller
 			  	  $compares[$i-1]->model = $m[0]->model;
 			  	  $compares[$i-1]->price = $m[0]->price;
 			  	  $compares[$i-1]->date_price = $m[0]->date_price;
+			  	  
+			  	  $compares[$i-1]->attach_file1 = $m[0]->attach_file;
+			  	  $compares[$i-1]->attach_file2 = $m[0]->attach_file;
+			  	  $compares[$i-1]->attach_file3 = $m[0]->attach_file;
 			  }
 		}
 		// Uncomment the following line if AJAX validation is needed
@@ -502,4 +520,41 @@ class SpecDocController extends Controller
 
 		//$objWriter->save('testExportFile.csv');
 	}
+
+	public function actionDownload($filename)
+    {
+   
+			$file = Yii::app()->basePath .'/../specfile/'.$filename;
+			if (file_exists($file)) {
+
+			    header('Content-Description: File Transfer');
+
+			    header('Content-Type: application/octet-stream');
+
+			    header('Content-Disposition: attachment; filename='.basename($file));
+			    header('Content-Transfer-Encoding: binary');
+
+			    header('Expires: 0');
+
+			    header('Cache-Control: must-revalidate');
+
+			    header('Pragma: public');
+
+			    header('Content-Length: ' . filesize($file));
+
+			    ob_clean();
+
+			    flush();
+
+			    readfile($file);
+
+			    exit;
+
+			}
+			else{
+				echo "File $file not exist";
+			}
+
+             
+    }
 }

@@ -1,11 +1,57 @@
+<?php
+	Yii::app()->clientScript->registerScript('search', "
+
+
+
+		$('.search-button').click(function(){
+			$('.search-form').toggle();
+			return false;
+		});
+		$('.search-form form').submit(function(){
+
+	
+			var active = $('.tab-pane.active').attr('id');
+			id = active.replace('workcat','')
+		
+		    $.fn.yiiGridView.update('detail-grid-'+id, {
+		        data: {search: $('#search_key').val(), work_id : id}
+		    });
+
+			return false;
+		});
+		");
+
+		Yii::app()->clientScript->registerScript('search', "
+
+
+		$('#search-form').submit(function(){
+
+			var active = $('.tab-pane.active').attr('id');
+			id = active.replace('workcat','')
+			
+
+			for (id = 1; id < 8; id++) {
+			    $.fn.yiiGridView.update('detail-grid-'+id, {
+			        data: {search: $('#search_key').val(), work_id : id}
+			    });
+			}    
+		 
+		    return false;
+		});
+	");
+
+?>
+
+
+
 <div class="navbar">
 	<div class="navbar-inner2 navbar-header">
 		<div class="container" style="padding-top:5px">
 			<p class="brand2 pull-left">รายละเอียดแบบประกอบงานก่อสร้าง</p>
 		
-			<form class="navbar-form pull-right" id="search-form" action="/honeycomb/laborCost/admin" method="get">
-			  <input type="hidden" name="LaborCost[subgroup_detail]" id='subgroup_detail'>	
-			  <input type="text" name="LaborCost[detail]" id='search_detail' class="search-query" placeholder="Search" style="margin-right:10px;">
+			<form class="navbar-form pull-right" id="search-form" action="/honeycomb/specdoc/admin" method="get">
+
+			  <input type="text" name="search_key" id='search_key' class="search-query" placeholder="Search" style="margin-right:10px;">
 			
 			  <?php
 
@@ -16,12 +62,10 @@
 						    'type'=>'info',
 						    'label'=>'',
 						    'icon'=>'search',
-						    //'url'=>array('searchLaborCost'),
+						 
 						    'htmlOptions'=>array('class'=>'','style'=>'margin-right:10px;',
 
-						    		'onclick'=>'
-		                                     $("#subgroup_detail").val($("#search_detail").val()); 
-		                                  '
+						    
 
 							),
 						)); 
@@ -48,15 +92,15 @@
 
 
 <div style="padding-top: 10px;">
-  <ul class="nav nav-tabs">
+  <ul class="nav nav-tabs" >
   	<?php
   		$workcats = WorkCategory::model()->findAll();
   		$i = 0;
   		foreach ($workcats as $key => $value) {
   			if($i==0)
-  				echo  '<li class="active"><a data-toggle="tab" href="#workcat'.$value->id.'">'.$value->name.'</a></li>';
+  				echo  '<li  class="active"><a  data-toggle="tab" href="#workcat'.$value->id.'">'.$value->name.'</a></li>';
   			else
-  				echo  '<li ><a data-toggle="tab" href="#workcat'.$value->id.'">'.$value->name.'</a></li>';
+  				echo  '<li  ><a data-toggle="tab" href="#workcat'.$value->id.'">'.$value->name.'</a></li>';
   			$i++;
   		}
   	?>
