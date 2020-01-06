@@ -225,4 +225,5 @@ class SpecDoc extends CActiveRecord
     	}
     	return $str;
     }
+
 }

@@ -291,7 +291,7 @@ function checkFile(electObject){
 			  <label for="attach_file1" >ไฟล์แนบ</label>
 
 			<?php
-			if(!empty($compares[0]))
+			if(!empty($compares[0]->attach_file1))
 			{	
 				echo CHtml::link('download',array('specdoc/download','filename'=>$compares[0]->attach_file1), array('target'=>'_blank'));
 				echo "<br>";

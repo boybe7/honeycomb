@@ -125,7 +125,7 @@ class SpecDocController extends Controller
 							if($uploadFile !== null) {
 
 
-									$uploadFileName = mktime()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
+									$uploadFileName = time()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
 									
 									$filesave = Yii::app()->basePath .'/../specfile/'.iconv("UTF-8", "TIS-620",$uploadFileName);
 									$model_com2->attach_file = $uploadFile;
@@ -265,7 +265,7 @@ class SpecDocController extends Controller
 							if($uploadFile !== null) {
 
 
-									$uploadFileName = mktime()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
+									$uploadFileName = time()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
 									
 									$filesave = Yii::app()->basePath .'/../specfile/'.iconv("UTF-8", "TIS-620",$uploadFileName);
 									$model_com2->attach_file = $uploadFile;
@@ -317,7 +317,19 @@ class SpecDocController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			if($this->loadModel($id)->delete()){
+				//delete spec_compare
+				$spec_compares = SpecDocCompare::model()->findAll(array("condition"=>"spec_id='$id'"));
+
+				foreach ($spec_compares as $key => $value) {
+					//delete file
+					$file = Yii::app()->basePath .'/../specfile/'.$value->attach_file;
+					if(file_exists($file))
+						unlink($file);
+					
+					$value->delete();
+				}
+			}
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
