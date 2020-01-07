@@ -209,7 +209,7 @@ class SpecDocController extends Controller
 		}
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
+		$saveOK = true;
 		$transaction=Yii::app()->db->beginTransaction();
 		try 
 		{
@@ -254,6 +254,7 @@ class SpecDocController extends Controller
 
 
 							$uploadFile = CUploadedFile::getInstance($model_com, 'attach_file'.$i);
+							$oldfile = $_POST['attach_file_old'.$i];
 							
 							//print_r($uploadFile);
 							//exit;
@@ -268,22 +269,40 @@ class SpecDocController extends Controller
 									$uploadFileName = time()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
 									
 									$filesave = Yii::app()->basePath .'/../specfile/'.iconv("UTF-8", "TIS-620",$uploadFileName);
+									$filesaveold = Yii::app()->basePath .'/../specfile/'.$oldfile;
 									$model_com2->attach_file = $uploadFile;
 
 									if($model_com2->attach_file->saveAs($filesave)){
 
 
 										$model_com2->attach_file = $uploadFileName;																	
-										$model_com2->save();
-										//print_r($model_com2);
-										
+										if($model_com2->save())
+										{
+											unlink($filesaveold);
+										}
+																			
 									
 									}
 							
 							}
+							else
+							{ 
+								if($model_com2->brand!="")
+									$saveOK = false;
+								else
+									$model_com2->save();
+
+							}
 						}
 
-						$this->redirect(array('index'));	
+						if($saveOK)
+						{
+							$transaction->commit();
+							$this->redirect(array('index'));	
+						}
+						else
+						{	$model->addError('contract', 'เกิดข้อผิดพลาดในการบันทึกข้อมูลคู่เทียบ.');}
+
 
 					}
 				}

@@ -293,6 +293,7 @@ function checkFile(electObject){
 			<?php
 			if(!empty($compares[0]->attach_file1))
 			{	
+				echo "<input type='hidden' name='attach_file_old1' value='".$compares[0]->attach_file1."'>";
 				echo CHtml::link('download',array('specdoc/download','filename'=>$compares[0]->attach_file1), array('target'=>'_blank'));
 				echo "<br>";
 			}
@@ -306,6 +307,7 @@ function checkFile(electObject){
 			<?php 
 			if(!empty($compares[1]->attach_file2))
 			{	
+				echo "<input type='hidden' name='attach_file_old2' value='".$compares[1]->attach_file2."'>";
 				echo CHtml::link('download',array('specdoc/download','filename'=>$compares[1]->attach_file2), array('target'=>'_blank'));
 				echo "<br>";
 			}
@@ -318,6 +320,7 @@ function checkFile(electObject){
 			<?php 
 			if(!empty($compares[2]->attach_file3))
 			{	
+				echo "<input type='hidden' name='attach_file_old3' value='".$compares[2]->attach_file3."'>";
 				echo CHtml::link('download',array('specdoc/download','filename'=>$compares[2]->attach_file3), array('target'=>'_blank'));
 				echo "<br>";
 			}
