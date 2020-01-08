@@ -134,19 +134,15 @@ class SpecDocController extends Controller
 
 
 										$model_com2->attach_file = $uploadFileName;																	
-										$model_com2->save();
+										if(!$model_com2->save())
+											$saveOK = false;
 										//print_r($model_com2);
 										
 									
 									}
 							
 							}
-							else
-							{ 
-								if($model_com2->brand!="")
-									$saveOK = false;
-
-							}
+							
 						}
 
 						if($saveOK)
@@ -239,7 +235,13 @@ class SpecDocController extends Controller
 						foreach ($_POST['SpecDocCompareTemp'] as $key => $compare) {
 
 							$model_com = new SpecDocCompareTemp;
-							$model_com2 = new SpecDocCompare;
+
+							$m = SpecDocCompare::model()->findAll(array("condition"=>"spec_id='$id' AND no='$i' "));
+
+			 				if(empty($m))			 	
+								$model_com2 = new SpecDocCompare;
+							else
+								$model_com2 = $m[0];
 
 							$model_com->attributes=$compare;
 						
@@ -254,7 +256,7 @@ class SpecDocController extends Controller
 
 
 							$uploadFile = CUploadedFile::getInstance($model_com, 'attach_file'.$i);
-							$oldfile = $_POST['attach_file_old'.$i];
+							$oldfile = isset($_POST['attach_file_old'.$i]) ? $_POST['attach_file_old'.$i] : "";
 							
 							//print_r($uploadFile);
 							//exit;
@@ -275,24 +277,33 @@ class SpecDocController extends Controller
 									if($model_com2->attach_file->saveAs($filesave)){
 
 
-										$model_com2->attach_file = $uploadFileName;																	
+										$model_com2->attach_file = $uploadFileName;		
+
+																					
 										if($model_com2->save())
 										{
-											unlink($filesaveold);
+
+											
+											if (file_exists($filesaveold)) 
+												unlink($filesaveold);
+										}
+										else{
+											$saveOK = false;	
 										}
 																			
-									
+										
 									}
 							
 							}
 							else
 							{ 
-								if($model_com2->brand!="")
-									$saveOK = false;
-								else
+								$model_com2->attach_file = $oldfile;	
+								if($model_com2->brand!="")						
 									$model_com2->save();
 
 							}
+
+							//print_r($model_com2);	
 						}
 
 						if($saveOK)
@@ -320,6 +331,8 @@ class SpecDocController extends Controller
 	 	        	Yii::log( 'Exception when saving data: ' . $e->getMessage(), CLogger::LEVEL_ERROR );
 	 
 	 	} 
+
+	 	//exit;
 
 		$this->render('update',array(
 			'model'=>$model,'compares'=>$compares

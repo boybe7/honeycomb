@@ -33,3 +33,217 @@ in C:\xampp\htdocs\honeycomb\index.php (13)
 2020/01/05 15:03:08 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
 in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (77)
 in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 14:37:06 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (219)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 14:37:06 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (219)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 14:37:06 [error] [php] Undefined index: attach_file_old3 (C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php:257)
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#1 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams()
+#2 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): SpecDocController->runAction()
+#3 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#4 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#5 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): SpecDocController->filterAccessControl()
+#6 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#7 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#8 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): SpecDocController->runActionWithFilters()
+#9 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): SpecDocController->run()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#11 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#12 C:\xampp\htdocs\honeycomb\index.php(13): CWebApplication->run()
+REQUEST_URI=/honeycomb/specdoc/update/1
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (257)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 14:39:07 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (219)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 14:39:07 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (219)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 14:39:07 [error] [php] unlink(C:\xampp\htdocs\honeycomb\protected/../specfile/1577243836_1.pdf): No such file or directory (C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php:281)
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#1 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#2 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams()
+#3 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): SpecDocController->runAction()
+#4 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#6 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): SpecDocController->filterAccessControl()
+#7 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#8 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): SpecDocController->runActionWithFilters()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): SpecDocController->run()
+#11 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#12 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\xampp\htdocs\honeycomb\index.php(13): CWebApplication->run()
+REQUEST_URI=/honeycomb/specdoc/update/1
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (281)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:18:07 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (219)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:18:07 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (219)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:29:39 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (219)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:29:39 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (219)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:31:43 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (219)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:31:43 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (219)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:32:01 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (219)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:32:01 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (219)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:36:59 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:36:59 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:40:50 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:40:50 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:41:18 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:41:18 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:54:31 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:54:31 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:55:14 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:55:14 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:59:50 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:59:50 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 15:59:50 [error] [php] Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php:300) (C:\xampp\htdocs\honeycomb\framework\web\CHttpRequest.php:803)
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php(306): SpecDocController->redirect()
+#1 unknown(0): SpecDocController->actionUpdate()
+#2 C:\xampp\htdocs\honeycomb\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#3 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#4 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): SpecDocController->runAction()
+#6 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): SpecDocController->filterAccessControl()
+#9 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): SpecDocController->runActionWithFilters()
+#12 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): SpecDocController->run()
+#13 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#15 C:\xampp\htdocs\honeycomb\index.php(13): CWebApplication->run()
+REQUEST_URI=/honeycomb/specdoc/update/1
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (306)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 16:05:21 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 16:05:21 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 16:05:22 [error] [php] Undefined offset: 0 (C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php:244)
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#1 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams()
+#2 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): SpecDocController->runAction()
+#3 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#4 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#5 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): SpecDocController->filterAccessControl()
+#6 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#7 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#8 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): SpecDocController->runActionWithFilters()
+#9 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): SpecDocController->run()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#11 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#12 C:\xampp\htdocs\honeycomb\index.php(13): CWebApplication->run()
+REQUEST_URI=/honeycomb/specdoc/update/1
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (244)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 16:05:45 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 16:05:45 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 16:05:45 [error] [php] Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php:306) (C:\xampp\htdocs\honeycomb\framework\web\CHttpRequest.php:803)
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php(312): SpecDocController->redirect()
+#1 unknown(0): SpecDocController->actionUpdate()
+#2 C:\xampp\htdocs\honeycomb\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#3 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#4 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): SpecDocController->runAction()
+#6 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): SpecDocController->filterAccessControl()
+#9 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): SpecDocController->runActionWithFilters()
+#12 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): SpecDocController->run()
+#13 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#15 C:\xampp\htdocs\honeycomb\index.php(13): CWebApplication->run()
+REQUEST_URI=/honeycomb/specdoc/update/1
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (312)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 16:06:39 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 16:06:39 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 16:06:39 [error] [php] Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php:306) (C:\xampp\htdocs\honeycomb\framework\web\CHttpRequest.php:803)
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php(312): SpecDocController->redirect()
+#1 unknown(0): SpecDocController->actionUpdate()
+#2 C:\xampp\htdocs\honeycomb\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#3 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#4 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams()
+#5 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): SpecDocController->runAction()
+#6 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#7 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#8 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): SpecDocController->filterAccessControl()
+#9 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#11 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): SpecDocController->runActionWithFilters()
+#12 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): SpecDocController->run()
+#13 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#14 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#15 C:\xampp\htdocs\honeycomb\index.php(13): CWebApplication->run()
+REQUEST_URI=/honeycomb/specdoc/update/1
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (312)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 16:07:14 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/08 16:07:14 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
