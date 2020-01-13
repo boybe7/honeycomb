@@ -31,7 +31,7 @@ class SpecDocController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','export','moc','download'),
+				'actions'=>array('create','update','export','moc','download','search'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -383,6 +383,18 @@ class SpecDocController extends Controller
 		$tab = 1;
 		$this->render('admin',array(
 			'model'=>$model,'tab'=>$tab
+		));
+	}
+
+	public function actionSearch()
+	{
+		$model=new SpecDoc('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['SpecDoc']))
+			$model->attributes=$_GET['SpecDoc'];
+		
+		$this->render('search',array(
+			'model'=>$model
 		));
 	}
 
