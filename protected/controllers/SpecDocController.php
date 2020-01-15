@@ -284,8 +284,11 @@ class SpecDocController extends Controller
 										{
 
 											
-											if (file_exists($filesaveold)) 
+											if (!empty($oldfile) && file_exists($filesaveold)) 
+											{
+												//print_r($filesaveold);
 												unlink($filesaveold);
+											}
 										}
 										else{
 											$saveOK = false;	
@@ -388,10 +391,10 @@ class SpecDocController extends Controller
 
 	public function actionSearch()
 	{
-		$model=new SpecDoc('search');
+		$model=new SpecSearch('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['SpecDoc']))
-			$model->attributes=$_GET['SpecDoc'];
+		if(isset($_GET['SpecSearch']))
+			$model->attributes=$_GET['SpecSearch'];
 		
 		$this->render('search',array(
 			'model'=>$model

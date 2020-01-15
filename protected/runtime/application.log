@@ -247,3 +247,159 @@ in C:\xampp\htdocs\honeycomb\index.php (13)
 2020/01/08 16:07:14 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
 in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
 in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/14 15:03:03 [error] [php] Undefined variable: dataProvider (C:\xampp\htdocs\honeycomb\protected\views\specDoc\index.php:15)
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): SpecDocController->renderFile()
+#1 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): SpecDocController->renderPartial()
+#2 C:\xampp\htdocs\honeycomb\protected\views\specDoc\search.php(241): SpecDocController->render()
+#3 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(126): require()
+#4 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(95): SpecDocController->renderInternal()
+#5 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): SpecDocController->renderFile()
+#6 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): SpecDocController->renderPartial()
+#7 C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php(398): SpecDocController->render()
+#8 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(49): SpecDocController->actionSearch()
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams()
+#10 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): SpecDocController->runAction()
+#11 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#12 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#13 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): SpecDocController->filterAccessControl()
+#14 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#15 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#16 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): SpecDocController->runActionWithFilters()
+#17 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): SpecDocController->run()
+#18 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#19 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#20 C:\xampp\htdocs\honeycomb\index.php(13): CWebApplication->run()
+REQUEST_URI=/honeycomb/specdoc/search
+in C:\xampp\htdocs\honeycomb\protected\views\specDoc\index.php (15)
+in C:\xampp\htdocs\honeycomb\protected\views\specDoc\search.php (241)
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (398)
+2020/01/14 15:06:14 [error] [exception.CException] exception 'CException' with message 'SpecDoc and its behaviors do not have a method or closure named "searchByID2".' in C:\xampp\htdocs\honeycomb\framework\base\CComponent.php:266
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\db\ar\CActiveRecord.php(227): CComponent->__call('searchByID2', Array)
+#1 C:\xampp\htdocs\honeycomb\protected\views\specDoc\search.php(204): CActiveRecord->__call('searchByID2', Array)
+#2 C:\xampp\htdocs\honeycomb\protected\views\specDoc\search.php(204): SpecDoc->searchByID2(0)
+#3 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(126): require('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp\\htdocs...', Array, true)
+#5 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp\\htdocs...', Array, true)
+#6 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): CController->renderPartial('search', Array, true)
+#7 C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php(398): CController->render('search', Array)
+#8 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(49): SpecDocController->actionSearch()
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#10 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#12 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#13 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#14 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#16 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('search')
+#18 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('specdoc/search')
+#19 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#20 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#21 {main}
+REQUEST_URI=/honeycomb/specdoc/search
+---
+2020/01/14 15:06:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "products/index".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('products/index')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/products/index?sEcho=2&sColumns=&iDisplayStart=0&iDisplayLength=25&sSearch=sss&iSortingCols=0&ajax=products&visibleColumns=0%2C1%2C2%2C3%2C4
+HTTP_REFERER=http://localhost/honeycomb/specdoc/search
+---
+2020/01/15 09:32:22 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/15 09:32:22 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/15 09:36:46 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/15 09:36:46 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/15 09:36:46 [error] [php] unlink(C:\xampp\htdocs\honeycomb\protected/../specfile/): Permission denied (C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php:288)
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#1 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#2 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams()
+#3 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): SpecDocController->runAction()
+#4 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#6 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): SpecDocController->filterAccessControl()
+#7 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#8 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): SpecDocController->runActionWithFilters()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): SpecDocController->run()
+#11 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#12 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\xampp\htdocs\honeycomb\index.php(13): CWebApplication->run()
+REQUEST_URI=/honeycomb/specdoc/update/7
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (288)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/15 09:38:21 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/15 09:38:21 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/15 09:38:21 [error] [php] unlink(C:\xampp\htdocs\honeycomb\protected/../specfile/): Permission denied (C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php:290)
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#1 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#2 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams()
+#3 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): SpecDocController->runAction()
+#4 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#5 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#6 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): SpecDocController->filterAccessControl()
+#7 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#8 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): SpecDocController->runActionWithFilters()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): SpecDocController->run()
+#11 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#12 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\xampp\htdocs\honeycomb\index.php(13): CWebApplication->run()
+REQUEST_URI=/honeycomb/specdoc/update/7
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (290)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/15 09:39:52 [warning] [application] Failed to set unsafe attribute "dimension" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/15 09:39:52 [warning] [application] Failed to set unsafe attribute "unit" of "SpecDoc".
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (215)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/15 09:47:20 [warning] [application] Failed to set unsafe attribute "date_added" of "Regulation".
+in C:\xampp\htdocs\honeycomb\protected\controllers\RegulationController.php (110)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/15 09:47:20 [warning] [application] Failed to set unsafe attribute "filename" of "Regulation".
+in C:\xampp\htdocs\honeycomb\protected\controllers\RegulationController.php (110)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/01/15 11:38:09 [error] [exception.CException] exception 'CException' with message 'SpecSearch and its behaviors do not have a method or closure named "searchByID".' in C:\xampp\htdocs\honeycomb\framework\base\CComponent.php:266
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\db\ar\CActiveRecord.php(227): CComponent->__call('searchByID', Array)
+#1 C:\xampp\htdocs\honeycomb\protected\views\specDoc\search.php(101): CActiveRecord->__call('searchByID', Array)
+#2 C:\xampp\htdocs\honeycomb\protected\views\specDoc\search.php(101): SpecSearch->searchByID(0)
+#3 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(126): require('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp\\htdocs...', Array, true)
+#5 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp\\htdocs...', Array, true)
+#6 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): CController->renderPartial('search', Array, true)
+#7 C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php(401): CController->render('search', Array)
+#8 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(49): SpecDocController->actionSearch()
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#10 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#12 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#13 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#14 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#16 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('search')
+#18 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('specdoc/search')
+#19 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#20 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#21 {main}
+REQUEST_URI=/honeycomb/specdoc/search
+---

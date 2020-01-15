@@ -98,7 +98,7 @@
   	
   						$this->widget('bootstrap.widgets.TbGridView',array(
 							'id'=>'search-grid',
-							'dataProvider'=>$model->searchByID(0),
+							'dataProvider'=>$model->search(),
 							'type'=>'bordered condensed',
 							//'filter'=>$model,
 							'selectableRows' =>2,
@@ -107,6 +107,64 @@
 						    'summaryText'=>'แสดงผล {start} ถึง {end} จากทั้งหมด {count} ข้อมูล',
 						    'template'=>"{items}<div class='row-fluid'><div class='span6'>{pager}</div><div class='span6'>{summary}</div></div>",
 							'columns'=>array(
+								'no'=>array(
+									    'name' => 'no',
+									    'value' => '$this->grid->dataProvider->pagination->currentPage * $this->grid->dataProvider->pagination->pageSize + ($row+1)',
+									    'filter'=>false,
+										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
+							  	),
+							  	'material'=>array(
+									    'name' => 'material',
+									    'filter'=>CHtml::activeTextField($model, 'material',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("material"))),
+										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
+							  	),
+							
+							  	'dimension'=>array(
+									    'name' => 'dimension',
+									    'filter'=>CHtml::activeTextField($model, 'dimension',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("dimension"))),
+										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
+							  	),
+							  	'unit'=>array(
+									    'name' => 'unit',
+									    'filter'=>CHtml::activeTextField($model, 'unit',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("unit"))),
+										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
+							  	),
+							 
+								'export'=>array(
+									    'name' => 'filename',
+									    'header' => 'Export',
+									    'type'=> 'raw',
+									    'value'=>'CHtml::link(CHtml::image(Yii::app()->request->baseUrl."/images/download.png"), "export/".$data->id)',
+									    'filter'=>false,
+										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:center;')
+							  	),
+							  
+								array(
+									'class'=>'bootstrap.widgets.TbButtonColumn',
+									'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),
+									'template' => '{update} {delete}'
+								),
+							),
+
+						));
+  		
+  	?>
+    
+
+</div>	
+
+<?php
+/*
+$widget=$this->createWidget('ext.EDataTables.EDataTables', array(
+ 'id'            => 'products',
+ 'dataProvider'  => $model->searchByID(1),
+ 'ajaxUrl'       => $this->createUrl('/products/index'),
+ 'columns'       => array(
 								'no'=>array(
 									    'name' => 'no',
 									    'value' => '$this->grid->dataProvider->pagination->currentPage * $this->grid->dataProvider->pagination->pageSize + ($row+1)',
@@ -138,62 +196,9 @@
 										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
 							  	),
-							  	'compare1'=>array(
-									    'name' => 'compare1',
-									    'header' => '<a class="sort-link">คู่เทียบ 1</a>',
-									    'type'=>'raw', 
-									    'value' => function($model){
-							                  return $model->getCompare($model,1);
-							                },
-									    'filter'=>false,
-										'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
-							  	),
-							  	'compare2'=>array(
-									    'name' => 'compare2',
-									    'header' => '<a class="sort-link">คู่เทียบ 2</a>',
-									    'value' => function($model){
-							                  return $model->getCompare($model,2);
-							                },
-							            'type'=>'raw', 
-									    'filter'=>false,
-										'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
-							  	),
-							  	'compare3'=>array(
-									    'name' => 'compare3',
+							  )
+));
 
-									    'header' => '<a class="sort-link">คู่เทียบ 3</a>',
-									    'type'=>'raw', 
-									    'value' => function($model){
-									    	   return $model->getCompare($model,3);
-							                },
-									    'filter'=>false,
-
-										'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
-							  	),
-								'export'=>array(
-									    'name' => 'filename',
-									    'header' => 'Export',
-									    'type'=> 'raw',
-									    'value'=>'CHtml::link(CHtml::image(Yii::app()->request->baseUrl."/images/download.png"), "export/".$data->id)',
-									    'filter'=>false,
-										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:center;')
-							  	),
-							  
-								array(
-									'class'=>'bootstrap.widgets.TbButtonColumn',
-									'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),
-									'template' => '{update} {delete}'
-								),
-							),
-
-						));
-  		
-  	?>
-    
-
-</div>	
-
+$widget->run();
+*/
+?>

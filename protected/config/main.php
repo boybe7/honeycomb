@@ -21,6 +21,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'ext.EDataTables.*',
 		'editable.*', //easy include of editable classes [x-editable extension]
 		
 		'ext.KeenActiveDataProvider', // Alias to right location.
