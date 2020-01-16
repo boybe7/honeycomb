@@ -95,6 +95,9 @@
  
 
   	<?php
+
+  						$model = new Material('search');
+  						
   	
   						$this->widget('bootstrap.widgets.TbGridView',array(
 							'id'=>'search-grid',
@@ -114,25 +117,20 @@
 										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
 							  	),
-							  	'material'=>array(
-									    'name' => 'material',
-									    'filter'=>CHtml::activeTextField($model, 'material',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("material"))),
+							  	'name'=>array(
+									    'name' => 'name',
+									    'filter'=>CHtml::activeTextField($model, 'name',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("name"))),
 										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),
 							
-							  	'dimension'=>array(
-									    'name' => 'dimension',
-									    'filter'=>CHtml::activeTextField($model, 'dimension',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("dimension"))),
+							  	'detail'=>array(
+									    'name' => 'detail',
+									    'filter'=>CHtml::activeTextField($model, 'detail',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("detail"))),
 										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
 							  	),
-							  	'unit'=>array(
-									    'name' => 'unit',
-									    'filter'=>CHtml::activeTextField($model, 'unit',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("unit"))),
-										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
-							  	),
+							
 							 
 								'export'=>array(
 									    'name' => 'filename',

@@ -29,7 +29,7 @@ class Material extends CActiveRecord
 			array('name', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name', 'safe', 'on'=>'search'),
+			array('id, name, detail', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,6 +52,7 @@ class Material extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
+			'detail'=>'detail'
 		);
 	}
 
@@ -71,14 +72,33 @@ class Material extends CActiveRecord
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+			$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
+		 	$startDate = empty($startDate) ? trim(Yii::app()->request->getParam('startDate')) : $startDate;
+		 	$endDate = empty($endDate) ? trim(Yii::app()->request->getParam('endDate')) : $endDate;
+		    $searchterm = empty($searchterm) ? trim(Yii::app()->request->getParam('search')) : $searchterm;
+		    $searchterm = htmlspecialchars($searchterm, ENT_QUOTES);
+		    if (!empty($searchterm) ) {
+		        
+		    } else {
+		        
+		    }
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
+
+		    //relative search
+		    //SELECT * FROM `material` m LEFT JOIN moc_price_map mp ON mp.material_id=m.id LEFT JOIN moc_price p ON p.code=mp.code LEFT JOIN spec_doc_compare s ON s.material_id=m.id WHERE p.id IS NOT NULL OR s.id IS NOT NULL
+			$criteria->select = array('Material.id','Material.name','Material.detail');
+			$criteria->alias = 'Material';
+			$criteria->join='LEFT JOIN moc_price_map ON moc_price_map.material_id=Material.id LEFT JOIN moc_price ON moc_price.code=moc_price_map.code LEFT JOIN spec_doc_compare ON spec_doc_compare.material_id=Material.id';
+
+			$criteria->addCondition("spec_doc_compare.id IS NOT NULL OR moc_price.id IS NOT NULL");
+
+		    return new CActiveDataProvider($this, array(
+		        'criteria' => $criteria,
+		        'pagination' => array(
+		            'pagesize' => 25,
+		        )
+		    ));
 	}
 
 	/**

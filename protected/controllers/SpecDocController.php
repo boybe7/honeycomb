@@ -231,6 +231,23 @@ class SpecDocController extends Controller
 
 					if($model->save())
 					{
+
+						//check material has exist
+						$m = Material::model()->findAll(array("condition"=>"name = '".$model->material."' "));
+						if(empty($m))
+						{
+							//insert new material
+							$material = new Material;
+							$material->name = $model->material;
+							$material->detail = $model->detail; 
+							$material->save();
+						}
+						else
+						{
+							$material = $m[0];
+						}
+
+
 						$i = 1;
 						foreach ($_POST['SpecDocCompareTemp'] as $key => $compare) {
 
@@ -253,6 +270,7 @@ class SpecDocController extends Controller
 							$model_com2->price  =$model_com->price;
 							$model_com2->date_price  =$model_com->date_price;
 							$model_com2->no = $i;
+							$model_com2->material_id = $material->id;
 
 
 							$uploadFile = CUploadedFile::getInstance($model_com, 'attach_file'.$i);
@@ -391,6 +409,11 @@ class SpecDocController extends Controller
 
 	public function actionSearch()
 	{
+
+		//select moc_price
+		//SELECT *, CONCAT(year,'-',LPAD(month,2,'00'),'-','01') AS monhtyear FROM `moc_price` p LEFT JOIN moc_price_map m ON m.code=p.code WHERE CONCAT(year,'-',LPAD(month,2,'00'),'-','01') BETWEEN '2562-07-01' AND '2562-10-01' ORDER BY material_id ASC,m.id ASC ,monhtyear DESC
+
+
 		$model=new SpecSearch('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['SpecSearch']))
