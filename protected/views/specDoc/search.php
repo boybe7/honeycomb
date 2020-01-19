@@ -99,12 +99,12 @@
   						$model = new Material('search');
   						
   	
-  						$this->widget('bootstrap.widgets.TbGridView',array(
+  						$this->widget('ext.groupgridview.BootGroupGridView',array(
 							'id'=>'search-grid',
 							'dataProvider'=>$model->search(),
-							'type'=>'bordered condensed',
-							//'filter'=>$model,
-							'selectableRows' =>2,
+							//'type'=>'bordered condensed',
+							'mergeColumns' => array('name'), 
+							//'selectableRows' =>2,
 							'htmlOptions'=>array('style'=>'padding-top:10px'),
 						    'enablePagination' => true,
 						    'summaryText'=>'แสดงผล {start} ถึง {end} จากทั้งหมด {count} ข้อมูล',
@@ -130,7 +130,17 @@
 										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
 							  	),
-							
+								'price'=>array(
+									    'name' => 'price',
+									    'header' => '<a class="sort-link">ราคากลางวัสดุ</a>',
+									    'type'=>'raw', 
+									    'value' => function($model){
+							                  return $model->getPrice($model);
+							                },
+									    'filter'=>false,
+										'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
+							  	),
 							 
 								'export'=>array(
 									    'name' => 'filename',

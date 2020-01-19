@@ -414,10 +414,10 @@ class SpecDocController extends Controller
 		//SELECT *, CONCAT(year,'-',LPAD(month,2,'00'),'-','01') AS monhtyear FROM `moc_price` p LEFT JOIN moc_price_map m ON m.code=p.code WHERE CONCAT(year,'-',LPAD(month,2,'00'),'-','01') BETWEEN '2562-07-01' AND '2562-10-01' ORDER BY material_id ASC,m.id ASC ,monhtyear DESC
 
 
-		$model=new SpecSearch('search');
+		$model=new Material('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['SpecSearch']))
-			$model->attributes=$_GET['SpecSearch'];
+		if(isset($_GET['Material']))
+			$model->attributes=$_GET['Material'];
 		
 		$this->render('search',array(
 			'model'=>$model
