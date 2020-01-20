@@ -98,11 +98,11 @@
 
   						$model = new Material('search');
   						
-  	
+
   						$this->widget('ext.groupgridview.BootGroupGridView',array(
 							'id'=>'search-grid',
 							'dataProvider'=>$model->search(),
-							//'type'=>'bordered condensed',
+							'itemsCssClass'=>'table table-bordered table-condensed',
 							'mergeColumns' => array('name'), 
 							//'selectableRows' =>2,
 							'htmlOptions'=>array('style'=>'padding-top:10px'),
@@ -110,13 +110,7 @@
 						    'summaryText'=>'แสดงผล {start} ถึง {end} จากทั้งหมด {count} ข้อมูล',
 						    'template'=>"{items}<div class='row-fluid'><div class='span6'>{pager}</div><div class='span6'>{summary}</div></div>",
 							'columns'=>array(
-								'no'=>array(
-									    'name' => 'no',
-									    'value' => '$this->grid->dataProvider->pagination->currentPage * $this->grid->dataProvider->pagination->pageSize + ($row+1)',
-									    'filter'=>false,
-										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
-							  	),
+								
 							  	'name'=>array(
 									    'name' => 'name',
 									    'filter'=>CHtml::activeTextField($model, 'name',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("name"))),
@@ -128,18 +122,21 @@
 									    'name' => 'detail',
 									    'filter'=>CHtml::activeTextField($model, 'detail',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("detail"))),
 										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
+										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),
-								'price'=>array(
-									    'name' => 'price',
-									    'header' => '<a class="sort-link">ราคากลางวัสดุ</a>',
+								'spec_id'=>array(
+									    'name' => 'spec_id',
+									    'header' => '<a class="sort-link">ขนาด/ชนิด/ประเภท</a>',
 									    'type'=>'raw', 
 									    'value' => function($model){
-							                  return $model->getPrice($model);
+									    		if(empty($model->spec_id))
+									    		   return $model->dimension;		
+									    		else
+							                  	   return SpecDoc::model()->findByPK($model->spec_id)->dimension;
 							                },
 									    'filter'=>false,
-										'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
+										'headerHtmlOptions' => array('style' => 'width:20%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),
 							 
 								'export'=>array(

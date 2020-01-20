@@ -9,6 +9,10 @@
  */
 class Material extends CActiveRecord
 {
+	
+	public $spec_id;
+    public $dimension;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -87,11 +91,13 @@ class Material extends CActiveRecord
 
 		    //relative search
 		    //SELECT * FROM `material` m LEFT JOIN moc_price_map mp ON mp.material_id=m.id LEFT JOIN moc_price p ON p.code=mp.code LEFT JOIN spec_doc_compare s ON s.material_id=m.id WHERE p.id IS NOT NULL OR s.id IS NOT NULL
-			$criteria->select = array('Material.id','Material.name','Material.detail');
+			
 			$criteria->alias = 'Material';
-			$criteria->join='LEFT JOIN moc_price_map ON moc_price_map.material_id=Material.id LEFT JOIN moc_price ON moc_price.code=moc_price_map.code LEFT JOIN spec_doc_compare ON spec_doc_compare.material_id=Material.id';
-
-			$criteria->addCondition("spec_doc_compare.id IS NOT NULL OR moc_price.id IS NOT NULL");
+			//$criteria->join='LEFT JOIN moc_price_map ON moc_price_map.material_id=Material.id LEFT JOIN moc_price ON moc_price.code=moc_price_map.code LEFT JOIN spec_doc_compare ON spec_doc_compare.material_id=Material.id';
+			$criteria->join='LEFT JOIN moc_price_map ON moc_price_map.material_id=Material.id LEFT JOIN moc_price ON moc_price.code=moc_price_map.code LEFT JOIN spec_doc ON spec_doc.material_code=moc_price_map.code';
+			//$criteria->select = array('Material.id','Material.name','Material.detail','spec_doc_compare.spec_id AS spec_id','moc_price.name AS dimension');
+			//$criteria->addCondition("spec_doc.id IS NOT NULL ");
+			//$criteria->addCondition("spec_doc_compare.id IS NOT NULL OR moc_price.id IS NOT NULL");
 
 		    return new CActiveDataProvider($this, array(
 		        'criteria' => $criteria,
