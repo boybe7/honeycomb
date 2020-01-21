@@ -113,6 +113,7 @@
 								
 							  	'name'=>array(
 									    'name' => 'name',
+									    'value' => '$data["name"]',
 									    'filter'=>CHtml::activeTextField($model, 'name',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("name"))),
 										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
@@ -120,24 +121,25 @@
 							
 							  	'detail'=>array(
 									    'name' => 'detail',
+									    'value' => '$data["detail"]',
 									    'filter'=>CHtml::activeTextField($model, 'detail',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("detail"))),
 										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),
-								'spec_id'=>array(
-									    'name' => 'spec_id',
-									    'header' => '<a class="sort-link">ขนาด/ชนิด/ประเภท</a>',
-									    'type'=>'raw', 
-									    'value' => function($model){
-									    		if(empty($model->spec_id))
-									    		   return $model->dimension;		
-									    		else
-							                  	   return SpecDoc::model()->findByPK($model->spec_id)->dimension;
-							                },
-									    'filter'=>false,
-										'headerHtmlOptions' => array('style' => 'width:20%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
-							  	),
+								// 'spec_id'=>array(
+								// 	    'name' => 'spec_id',
+								// 	    'header' => '<a class="sort-link">ขนาด/ชนิด/ประเภท</a>',
+								// 	    'type'=>'raw', 
+								// 	    'value' => function($model){
+								// 	    		if(empty($model->spec_id))
+								// 	    		   return $model->dimension;		
+								// 	    		else
+							 //                  	   return SpecDoc::model()->findByPK($model->spec_id)->dimension;
+							 //                },
+								// 	    'filter'=>false,
+								// 		'headerHtmlOptions' => array('style' => 'width:20%;text-align:center;background-color: #f5f5f5'),  	            	  	
+								// 		'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
+							 //  	),
 							 
 								'export'=>array(
 									    'name' => 'filename',
@@ -157,53 +159,13 @@
 							),
 
 						));
-  		
+
+
   	?>
     
 
 </div>	
 
 <?php
-/*
-$widget=$this->createWidget('ext.EDataTables.EDataTables', array(
- 'id'            => 'products',
- 'dataProvider'  => $model->searchByID(1),
- 'ajaxUrl'       => $this->createUrl('/products/index'),
- 'columns'       => array(
-								'no'=>array(
-									    'name' => 'no',
-									    'value' => '$this->grid->dataProvider->pagination->currentPage * $this->grid->dataProvider->pagination->pageSize + ($row+1)',
-									    'filter'=>false,
-										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
-							  	),
-							  	'material'=>array(
-									    'name' => 'material',
-									    'filter'=>CHtml::activeTextField($model, 'material',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("material"))),
-										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
-							  	),
-								'name'=>array(
-									    'name' => 'detail',
-									    'filter'=>CHtml::activeTextField($model, 'detail',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("detail"))),
-										'headerHtmlOptions' => array('style' => 'width:20%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
-							  	),
-							  	'dimension'=>array(
-									    'name' => 'dimension',
-									    'filter'=>CHtml::activeTextField($model, 'dimension',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("dimension"))),
-										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
-							  	),
-							  	'unit'=>array(
-									    'name' => 'unit',
-									    'filter'=>CHtml::activeTextField($model, 'unit',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("unit"))),
-										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
-							  	),
-							  )
-));
 
-$widget->run();
-*/
 ?>
