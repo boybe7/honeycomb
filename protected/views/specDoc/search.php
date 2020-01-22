@@ -103,7 +103,7 @@
 							'id'=>'search-grid',
 							'dataProvider'=>$model->search(),
 							'itemsCssClass'=>'table table-bordered table-condensed',
-							'mergeColumns' => array('name'), 
+							'mergeColumns' => array('material_name'), 
 							//'selectableRows' =>2,
 							'htmlOptions'=>array('style'=>'padding-top:10px'),
 						    'enablePagination' => true,
@@ -111,10 +111,10 @@
 						    'template'=>"{items}<div class='row-fluid'><div class='span6'>{pager}</div><div class='span6'>{summary}</div></div>",
 							'columns'=>array(
 								
-							  	'name'=>array(
-									    'name' => 'name',
-									    'value' => '$data["name"]',
-									    'filter'=>CHtml::activeTextField($model, 'name',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("name"))),
+							  	'material_name'=>array(
+									    'name' => 'material_name',
+									    'value' => '$data["material_name"]',
+									   
 										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),
@@ -123,6 +123,13 @@
 									    'name' => 'detail',
 									    'value' => '$data["detail"]',
 									    'filter'=>CHtml::activeTextField($model, 'detail',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("detail"))),
+										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
+							  	),
+							  	'dimension'=>array(
+									    'name' => 'dimension',
+									    'value' => '$data["dimension"]',
+									   
 										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),

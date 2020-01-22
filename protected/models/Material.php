@@ -12,6 +12,10 @@ class Material extends CActiveRecord
 	
 	public $spec_id;
     public $dimension;
+    public $material_id;
+    public $material_name;
+    public $material_name1;
+    public $moc_id;
 
 	/**
 	 * @return string the associated database table name
@@ -92,41 +96,23 @@ class Material extends CActiveRecord
 			$criteria->alias = 'material';
 			//$criteria->join='LEFT JOIN moc_price_map ON moc_price_map.material_id=Material.id LEFT JOIN moc_price ON moc_price.code=moc_price_map.code LEFT JOIN spec_doc_compare ON spec_doc_compare.material_id=Material.id';
 			$criteria->join='LEFT JOIN moc_price_map ON moc_price_map.material_id=material.id LEFT JOIN moc_price ON moc_price.code=moc_price_map.code ';
-			$criteria->select = array('material.id','material.name','material.detail','moc_price.unit','moc_price.name AS dimension',"CONCAT(moc_price.year,'-',LPAD(moc_price.month,2,'00'),'-01') as date",'moc_price.id as moc_id','"-" as spec_id');
+			$criteria->select = array('material.id as material_id','material.name AS material_name',"CONCAT(material.name,1) as material_name1",'material.detail','moc_price.unit','moc_price.name AS dimension',"CONCAT(moc_price.year,'-',LPAD(moc_price.month,2,'00'),'-01') as date",'moc_price.id as moc_id','"-" as spec_id');
 			//$criteria->addCondition("spec_doc.id IS NOT NULL ");
 			//$criteria->addCondition("spec_doc_compare.id IS NOT NULL OR moc_price.id IS NOT NULL");
+			$criteria->order = 'material.id ASC';
+			$criteria->limit = 50;
 
 
 			$criteria2 = new CDbCriteria();
 			$criteria2->alias = 'material';
 			$criteria2->join='LEFT JOIN spec_doc ON spec_doc.material=material.name WHERE spec_doc.id IS NOT NULL';
-			$criteria2->select = array('material.id','material.name','material.detail','spec_doc.unit','spec_doc.dimension AS dimension',"DATE(spec_doc.create_date) as date",'"-" as moc_id','spec_doc.id as spec_id');
+			$criteria2->select = array('material.id as material_id','material.name AS material_name',"CONCAT(material.name,2) as material_name1",'material.detail','spec_doc.unit','spec_doc.dimension AS dimension',"DATE(spec_doc.create_date) as date",'"-" as moc_id','spec_doc.id as spec_id');
 
-			
-
-
-			$sql = "SELECT material.id,material.name as name,material.detail as detail,moc_price.unit,moc_price.name as dimension,CONCAT(moc_price.year,'-',LPAD(moc_price.month,2,'00'),'-01') as date,moc_price.id as moc_id,'-' as spec_id FROM `material` LEFT JOIN moc_price_map ON moc_price_map.material_id=material.id LEFT JOIN moc_price ON moc_price.code=moc_price_map.code UNION SELECT material.id,material.name as name,material.detail as detail,spec_doc.unit,spec_doc.dimension as dimension,DATE(spec_doc.create_date) AS date, '-' as moc_id,spec_doc.id as spec_id FROM `material`  LEFT JOIN spec_doc ON spec_doc.material=material.name WHERE spec_doc.id IS NOT NULL";
-
-			/*return new CSqlDataProvider($sql, [
-			    // 'params' => [
-			    //     ':t_assignee' => 3,
-			    //     ':m_id' => $this->manager_id,
-			    //     ':role' => 1,
-			    // ]
-			]);*/
+			$criteria2->order = 'material.id ASC';
 
 
-			$rawData = Yii::app()->db->createCommand("SELECT material.id,material.name as name,material.detail as detail,moc_price.unit,moc_price.name as dimension,CONCAT(moc_price.year,'-',LPAD(moc_price.month,2,'00'),'-01') as date,moc_price.id as moc_id,'-' as spec_id FROM `material` LEFT JOIN moc_price_map ON moc_price_map.material_id=material.id LEFT JOIN moc_price ON moc_price.code=moc_price_map.code"); 
+			$sql = "SELECT material.id,material.name as name,material.detail as detail,moc_price.unit,moc_price.name as dimension,CONCAT(moc_price.year,'-',LPAD(moc_price.month,2,'00'),'-01') as date,moc_price.id as moc_id,'-' as spec_id FROM `material` LEFT JOIN moc_price_map ON moc_price_map.material_id=material.id LEFT JOIN moc_price ON moc_price.code=moc_price_map.code UNION SELECT material.id,material.name as name,material.detail as detail,spec_doc.unit,spec_doc.dimension as dimension,DATE(spec_doc.create_date) AS date, '-' as moc_id,spec_doc.id as spec_id FROM `material`  LEFT JOIN spec_doc ON spec_doc.material=material.name WHERE spec_doc.id IS NOT NULL ORDER BY material.id ASC";
 
-			$count = Yii::app()->db->createCommand('SELECT COUNT(*) FROM (' . $sql . ') as count_alias')->queryScalar(); //the count
-
-			/*return new CSqlDataProvider($rawData, array(
-					'totalItemCount' => $count,
-			    	'pagination' => array(
-			            'pageSize' => 25,
-			        ),
-			    )
-			);*/
 
 			$prov1 = new CActiveDataProvider($this, array(
 				'criteria' => $criteria
@@ -136,7 +122,21 @@ class Material extends CActiveRecord
 				'criteria' => $criteria2
 			));
 
-			$records= array_merge($prov1->data , $prov2->data);
+		
+			$records= array_merge( Material::model()->findAll($criteria2),Material::model()->findAll($criteria));
+
+			function build_sorter($key) {
+			    return function ($a, $b) use ($key) {
+			        return strnatcmp($a[$key], $b[$key]);
+			    };
+			}
+
+			uasort($records, build_sorter("material_name1"));
+			
+			echo "<pre>";
+			
+			print_r($records);
+			echo "</pre>";
 
 
 			//$records=Yii::app()->db->createCommand($sql)->queryAll();
@@ -145,13 +145,14 @@ class Material extends CActiveRecord
                            'keyField'=>false,
                             'sort' => array( //optional and sortring
                                 'attributes' => array(
+                                	'material_name'
                                   ),
                             ),
                             'pagination' => array('pageSize' => 100) //optional add a pagination
                         )
         );
-		   /* return new CActiveDataProvider($this, array(
-		        'criteria' => $criteria,
+		  /*  return new CActiveDataProvider($this, array(
+		        'criteria' => $criteria->mergeWith($criteria2),
 		        'pagination' => array(
 		            'pagesize' => 25,
 		        )
@@ -181,5 +182,85 @@ class Material extends CActiveRecord
     	}
     	return $str;
     }
+
+    function merge_sorted_arrays_by_field ($merge_arrays, $sort_field, $sort_desc = false, $limit = 0) 
+{ 
+    $array_count = count($merge_arrays); 
+    
+    // fast special cases... 
+    switch ($array_count) 
+    { 
+        case 0: return array(); 
+        case 1: return $limit ? array_slice(reset($merge_arrays), 0, $limit) : reset($merge_arrays); 
+    } 
+    
+    if ($limit === 0) 
+        $limit = PHP_INT_MAX; 
+    
+    // rekey merge_arrays array 0->N 
+    $merge_arrays = array_values($merge_arrays); 
+
+    $best_array = false; 
+    $best_value = false; 
+    
+    $results = array(); 
+    
+    // move sort order logic outside the inner loop to speed things up 
+    if ($sort_desc) 
+    { 
+        for ($i = 0; $i < $limit; ++$i) 
+        { 
+            for ($j = 0; $j < $array_count; ++$j) 
+            { 
+                // if the array $merge_arrays[$j] is empty, skip to next 
+                if (false === ($current_value = current($merge_arrays[$j]))) 
+                    continue; 
+                
+                // if we don't have a value for this round, or if the current value is bigger...
+                if ($best_value === false || $current_value[$sort_field] > $best_value[$sort_field]) 
+                { 
+                    $best_array = $j; 
+                    $best_value = $current_value; 
+                } 
+            } 
+            
+            // all arrays empty? 
+            if ($best_value === false) 
+                break; 
+            
+            $results[] = $best_value; 
+            $best_value = false; 
+            next($merge_arrays[$best_array]); 
+        } 
+    } 
+    else 
+    { 
+        for ($i = 0; $i < $limit; ++$i) 
+        { 
+            for ($j = 0; $j < $array_count; ++$j) 
+            { 
+                if (false === ($current_value = current($merge_arrays[$j]))) 
+                    continue; 
+                
+                // if we don't have a value for this round, or if the current value is smaller... 
+                if ($best_value === false || $current_value[$sort_field] < $best_value[$sort_field]) 
+                { 
+                    $best_array = $j; 
+                    $best_value = $current_value; 
+                } 
+            } 
+            
+            // all arrays empty? 
+            if ($best_value === false) 
+                break; 
+            
+            $results[] = $best_value; 
+            $best_value = false; 
+            next($merge_arrays[$best_array]); 
+        } 
+    } 
+    
+    return $results; 
+} 
 
 }
