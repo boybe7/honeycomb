@@ -16,6 +16,7 @@ class Material extends CActiveRecord
     public $material_name;
     public $material_name1;
     public $moc_id;
+    public $category;
 
 	/**
 	 * @return string the associated database table name
@@ -96,7 +97,7 @@ class Material extends CActiveRecord
 			$criteria->alias = 'material';
 			//$criteria->join='LEFT JOIN moc_price_map ON moc_price_map.material_id=Material.id LEFT JOIN moc_price ON moc_price.code=moc_price_map.code LEFT JOIN spec_doc_compare ON spec_doc_compare.material_id=Material.id';
 			$criteria->join='LEFT JOIN moc_price_map ON moc_price_map.material_id=material.id LEFT JOIN moc_price ON moc_price.code=moc_price_map.code ';
-			$criteria->select = array('material.id as material_id','material.name AS material_name',"CONCAT(material.name,1) as material_name1",'material.detail','moc_price.unit','moc_price.name AS dimension',"CONCAT(moc_price.year,'-',LPAD(moc_price.month,2,'00'),'-01') as date",'moc_price.id as moc_id','"-" as spec_id');
+			$criteria->select = array('material.id as material_id','material.name AS material_name',"CONCAT(material.name,1) as material_name1",'material.detail','moc_price.unit','moc_price.name AS dimension',"CONCAT(moc_price.year,'-',LPAD(moc_price.month,2,'00'),'-01') as date",'moc_price.id as moc_id','"-" as spec_id',"1 AS category");
 			//$criteria->addCondition("spec_doc.id IS NOT NULL ");
 			//$criteria->addCondition("spec_doc_compare.id IS NOT NULL OR moc_price.id IS NOT NULL");
 			$criteria->order = 'material.id ASC';
@@ -106,12 +107,12 @@ class Material extends CActiveRecord
 			$criteria2 = new CDbCriteria();
 			$criteria2->alias = 'material';
 			$criteria2->join='LEFT JOIN spec_doc ON spec_doc.material=material.name WHERE spec_doc.id IS NOT NULL';
-			$criteria2->select = array('material.id as material_id','material.name AS material_name',"CONCAT(material.name,2) as material_name1",'material.detail','spec_doc.unit','spec_doc.dimension AS dimension',"DATE(spec_doc.create_date) as date",'"-" as moc_id','spec_doc.id as spec_id');
+			$criteria2->select = array('material.id as material_id','material.name AS material_name',"CONCAT(material.name,2) as material_name1",'material.detail','spec_doc.unit','spec_doc.dimension AS dimension',"DATE(spec_doc.create_date) as date",'"-" as moc_id','spec_doc.id as spec_id',"2 AS category");
 
 			$criteria2->order = 'material.id ASC';
 
 
-			$sql = "SELECT material.id,material.name as name,material.detail as detail,moc_price.unit,moc_price.name as dimension,CONCAT(moc_price.year,'-',LPAD(moc_price.month,2,'00'),'-01') as date,moc_price.id as moc_id,'-' as spec_id FROM `material` LEFT JOIN moc_price_map ON moc_price_map.material_id=material.id LEFT JOIN moc_price ON moc_price.code=moc_price_map.code UNION SELECT material.id,material.name as name,material.detail as detail,spec_doc.unit,spec_doc.dimension as dimension,DATE(spec_doc.create_date) AS date, '-' as moc_id,spec_doc.id as spec_id FROM `material`  LEFT JOIN spec_doc ON spec_doc.material=material.name WHERE spec_doc.id IS NOT NULL ORDER BY material.id ASC";
+			/*$sql = "SELECT material.id,material.name as name,material.detail as detail,moc_price.unit,moc_price.name as dimension,CONCAT(moc_price.year,'-',LPAD(moc_price.month,2,'00'),'-01') as date,moc_price.id as moc_id,'-' as spec_id FROM `material` LEFT JOIN moc_price_map ON moc_price_map.material_id=material.id LEFT JOIN moc_price ON moc_price.code=moc_price_map.code UNION SELECT material.id,material.name as name,material.detail as detail,spec_doc.unit,spec_doc.dimension as dimension,DATE(spec_doc.create_date) AS date, '-' as moc_id,spec_doc.id as spec_id FROM `material`  LEFT JOIN spec_doc ON spec_doc.material=material.name WHERE spec_doc.id IS NOT NULL ORDER BY material.id ASC";
 
 
 			$prov1 = new CActiveDataProvider($this, array(
@@ -120,7 +121,7 @@ class Material extends CActiveRecord
 
 			$prov2 = new CActiveDataProvider($this, array(
 				'criteria' => $criteria2
-			));
+			));*/
 
 		
 			$records= array_merge( Material::model()->findAll($criteria2),Material::model()->findAll($criteria));
@@ -133,10 +134,10 @@ class Material extends CActiveRecord
 
 			uasort($records, build_sorter("material_name1"));
 			
-			echo "<pre>";
+			// echo "<pre>";
 			
-			print_r($records);
-			echo "</pre>";
+			// print_r($records);
+			// echo "</pre>";
 
 
 			//$records=Yii::app()->db->createCommand($sql)->queryAll();

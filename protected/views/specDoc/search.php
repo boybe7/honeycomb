@@ -103,7 +103,7 @@
 							'id'=>'search-grid',
 							'dataProvider'=>$model->search(),
 							'itemsCssClass'=>'table table-bordered table-condensed',
-							'mergeColumns' => array('material_name'), 
+							'mergeColumns' => array('material_name','category'), 
 							//'selectableRows' =>2,
 							'htmlOptions'=>array('style'=>'padding-top:10px'),
 						    'enablePagination' => true,
@@ -122,8 +122,15 @@
 							  	'detail'=>array(
 									    'name' => 'detail',
 									    'value' => '$data["detail"]',
-									    'filter'=>CHtml::activeTextField($model, 'detail',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("detail"))),
+									   
 										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
+							  	),
+							  	'category'=>array(
+									    'name' => 'category',
+									    'value' => '$data["category"]',
+									   
+										'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),
 							  	'dimension'=>array(
