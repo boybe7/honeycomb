@@ -17,6 +17,9 @@ class Material extends CActiveRecord
     public $material_name1;
     public $moc_id;
     public $category;
+    public $date;
+    public $unit;
+    public $code;
 
 	/**
 	 * @return string the associated database table name
@@ -93,22 +96,25 @@ class Material extends CActiveRecord
 		        
 		    }
 
+		    $date_condition = "'2019-04-01' AND '2019-07-01' ";
+
 
 			$criteria->alias = 'material';
 			//$criteria->join='LEFT JOIN moc_price_map ON moc_price_map.material_id=Material.id LEFT JOIN moc_price ON moc_price.code=moc_price_map.code LEFT JOIN spec_doc_compare ON spec_doc_compare.material_id=Material.id';
 			$criteria->join='LEFT JOIN moc_price_map ON moc_price_map.material_id=material.id LEFT JOIN moc_price ON moc_price.code=moc_price_map.code ';
-			$criteria->select = array('material.id as material_id','material.name AS material_name',"CONCAT(material.name,1) as material_name1",'material.detail','moc_price.unit','moc_price.name AS dimension',"CONCAT(moc_price.year,'-',LPAD(moc_price.month,2,'00'),'-01') as date",'moc_price.id as moc_id','"-" as spec_id',"1 AS category");
-			//$criteria->addCondition("spec_doc.id IS NOT NULL ");
+			$criteria->select = array('material.id as material_id','material.name AS material_name',"CONCAT(material.name,1) as material_name1",'material.detail','moc_price.unit as unit','moc_price.name AS dimension',"CONCAT(moc_price.year-543,'-',LPAD(moc_price.month,2,'00'),'-01') as date",'moc_price.id as moc_id','"-" as spec_id',"CONCAT(1,'-',material.id) AS category","moc_price.code as code");
+			$criteria->condition = ("CONCAT(moc_price.year-543,'-',LPAD(moc_price.month,2,'00'),'-01') BETWEEN  ".$date_condition);
+			$criteria->group = "moc_price.code";
 			//$criteria->addCondition("spec_doc_compare.id IS NOT NULL OR moc_price.id IS NOT NULL");
 			$criteria->order = 'material.id ASC';
-			$criteria->limit = 50;
+			//$criteria->limit = 50;
 
 
 			$criteria2 = new CDbCriteria();
 			$criteria2->alias = 'material';
 			$criteria2->join='LEFT JOIN spec_doc ON spec_doc.material=material.name WHERE spec_doc.id IS NOT NULL';
-			$criteria2->select = array('material.id as material_id','material.name AS material_name',"CONCAT(material.name,2) as material_name1",'material.detail','spec_doc.unit','spec_doc.dimension AS dimension',"DATE(spec_doc.create_date) as date",'"-" as moc_id','spec_doc.id as spec_id',"2 AS category");
-
+			$criteria2->select = array('material.id as material_id','material.name AS material_name',"CONCAT(material.name,2) as material_name1",'material.detail','spec_doc.unit as unit','spec_doc.dimension AS dimension',"DATE(spec_doc.create_date) as date",'"-" as moc_id','spec_doc.id as spec_id',"CONCAT(2,'-',material.id) as category","spec_doc.id as code");
+			$criteria2->group = "spec_doc.id ";
 			$criteria2->order = 'material.id ASC';
 
 
@@ -125,6 +131,9 @@ class Material extends CActiveRecord
 
 		
 			$records= array_merge( Material::model()->findAll($criteria2),Material::model()->findAll($criteria));
+
+			//$query = Material::model()->getCommandBuilder()->createFindCommand(Material::model()->getTableSchema(), $criteria)->getText();
+			//print_r($query);
 
 			function build_sorter($key) {
 			    return function ($a, $b) use ($key) {
@@ -146,7 +155,7 @@ class Material extends CActiveRecord
                            'keyField'=>false,
                             'sort' => array( //optional and sortring
                                 'attributes' => array(
-                                	'material_name'
+                                	'material_id'
                                   ),
                             ),
                             'pagination' => array('pageSize' => 100) //optional add a pagination

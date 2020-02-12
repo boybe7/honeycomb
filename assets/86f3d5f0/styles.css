@@ -1,0 +1,47 @@
+/**
+ * style.css
+ *
+ * Part of YiiCalendar extension for Yii 1.x (based on ecalendarview extension).
+ *
+ * @website   http://www.yiiframework.com/extension/yii-calendar/
+ * @website   https://github.com/trejder/yii-calendar
+ * @author    Tomasz Trejderowski <tomasz@trejderowski.pl>
+ * @author    Martin Ludvik <matolud@gmail.com>
+ * @copyright Copyright (c) 2014 by Tomasz Trejderowski & Martin Ludvik
+ * @license   http://opensource.org/licenses/MIT (MIT license)
+ */
+
+table.yiicalendar thead th,
+table.yiicalendar tbody td
+{
+    padding: 2px;
+    text-align: center;
+}
+
+table.yiicalendar thead th
+{
+    color: #777;
+    font-weight: normal;
+    background-color: #eee;
+    border: 1px solid #ccc;
+}
+
+table.yiicalendar thead tr.weekdays-row th {font-size: 14px;}
+
+table.yiicalendar tbody td
+{
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+}
+
+table.yiicalendar td.current
+{
+    opacity: 0.5;
+    background-color: #C3D6E4;
+    border: 1px solid #C3D6E4;
+}
+
+table.yiicalendar td.not-relevant {color: rgb(221, 221, 221);}
+
+table.yiicalendar a.navigation-link {font-size: 21px}

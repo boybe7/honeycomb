@@ -96,6 +96,7 @@
 
   	<?php
 
+  	
   						$model = new Material('search');
   						
 
@@ -114,7 +115,7 @@
 							  	'material_name'=>array(
 									    'name' => 'material_name',
 									    'value' => '$data["material_name"]',
-									   
+									   'header' => '<a class="sort-link">วัสดุ</a>',
 										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),
@@ -122,22 +123,53 @@
 							  	'detail'=>array(
 									    'name' => 'detail',
 									    'value' => '$data["detail"]',
-									   
+									    'header' => '<a class="sort-link">รายละเอียด</a>',
 										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),
 							  	'category'=>array(
 									    'name' => 'category',
-									    'value' => '$data["category"]',
-									   
-										'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
+									    'header' => '<a class="sort-link">ประเภทข้อมูล</a>',
+									    //'value' => '$data["category"]',
+									    'type'=>'html',
+									    
+									     'value' => function($model){
+									    	$str = explode("-", $model->category);
+									    	
+									    	return $str[0]==1 ? 'ราคากลางกระทรวงพานิชย์ <font color="white">-'.$str[1].'</font>': 'สืบราคา <font color="white">-'.$str[1].'</font>';
+									    },
+										'headerHtmlOptions' => array('style' => 'width:13%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),
+							  	// 'code'=>array(
+									 //    'name' => 'code',
+									 //    'value' => '$data["code"]',
+									 //   //------------hidden column---------------//
+									 //    'htmlOptions' => array('style' => 'display:none;'),
+							   //          'headerHtmlOptions'=>array('style' => 'display:none;'),
+							   //          'filterHtmlOptions'=>array('style' => 'display:none;'),
+							   //          //-------------end -----------------------//
+							  	// ),
 							  	'dimension'=>array(
 									    'name' => 'dimension',
 									    'value' => '$data["dimension"]',
-									   
+									   'header' => '<a class="sort-link">ขนาด/ชนิด/ประเภท</a>',
 										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
+							  	),
+							  	'unit'=>array(
+									    'name' => 'unit',
+									    'value' => '$data["unit"]',
+									    'header' => '<a class="sort-link">หน่วย</a>',
+										'headerHtmlOptions' => array('style' => 'width:7%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
+							  	),
+							  
+							  	'date'=>array(
+									    'name' => 'date',
+									    'value' => '$data["date"]',
+									    'header' => '<a class="sort-link">ราคากลางวัสดุ</a>',
+										'headerHtmlOptions' => array('style' => 'width:18%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),
 								// 'spec_id'=>array(
