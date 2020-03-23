@@ -153,7 +153,12 @@ $this->widget('ext.groupgridview.BootGroupGridView', array(
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
 			'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),
-									'template' => '{update} {delete}'
+			'template' => '{update} {delete}',
+			'buttons'=>array(
+				'update'=> array('visible' =>'Yii::app()->user->isAdmin()' ),
+				'delete'=> array('visible' =>'Yii::app()->user->isAdmin()' ),
+			)
+
 		),
       
       ),

@@ -340,6 +340,28 @@ select, input[type="file"] {
     line-height: 30px;
 }
 
+.menunav{
+  padding-top: 40px;
+}
+
+.nav-header2{
+    display: block;
+    padding: 3px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 20px;
+    color: #999999;
+   
+}
+
+.nav-list2 > li > a {
+  
+    margin-left: 20px;
+    color: #73cdfb;
+    padding: 5px;
+    /* text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); */
+}
+
 </style>     
      
 <body class="body">
@@ -385,6 +407,8 @@ if(!Yii::app()->user->isGuest)
         ),
         ),
     ));
+
+   
 }
 else{
     $this->widget('bootstrap.widgets.TbNavbar',array(
@@ -397,6 +421,93 @@ else{
 }   
  
    ?>
+
+
+<style type="text/css">
+  .vertical-nav {
+  min-width: 17rem;
+  width: 17rem;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s;
+}
+
+.page-content {
+  width: calc(100% - 17rem);
+  margin-left: 17rem;
+  transition: all 0.4s;
+}
+
+
+.nav-link{
+  color : white;
+}
+
+/* for toggle behavior */
+
+#sidebar.active {
+  margin-left: -17rem;
+}
+
+#content.active {
+  width: 100%;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+    margin-left: -17rem;
+  }
+  #sidebar.active {
+    margin-left: 0;
+  }
+  #content {
+    width: 100%;
+    margin: 0;
+  }
+  #content.active {
+    margin-left: 17rem;
+    width: calc(100% - 17rem);
+  }
+}
+</style>
+
+<?php   
+  if(!empty(Yii::app()->user->id))
+  {
+?>
+
+        <div class="vertical-nav bg-dark" id="sidebar">
+         
+          <ul class="nav flex-column" style="padding-top: 80px">
+                <?php
+                            
+
+                            echo  '<li><label class="tree-toggle nav-header2" style="color:white">เมนู<hr></hr></label>';
+                            echo  '<ul class="nav nav-list2 tree">';
+                          
+                              
+                                echo '<li>'.CHtml::link('<i class="icon-book icon-white"></i>  สืบค้นราคาวัสดุในงานก่อสร้าง',Yii::app()->baseUrl.'/specdoc/search').'</li>';
+                                echo '<li>'.CHtml::link('<i class="icon-thumbs-up icon-white"></i>  สืบค้นราคาค่าแรงงานและค่าดำเนินการ',Yii::app()->baseUrl.'/laborcost/index').'</li>';
+                                echo '<li>'.CHtml::link('<i class="icon-hdd icon-white"></i>  จัดเก็บ Spec. วัสดุในงานก่อสร้าง',Yii::app()->baseUrl.'/specdoc/index').'</li>';
+                                echo '<li>'.CHtml::link('<i class="icon-list-alt icon-white"></i>  จัดทำ Spec. วัสดุในงานก่อสร้าง',Yii::app()->baseUrl.'/writespec/index').'</li>';
+                                echo '<li>'.CHtml::link('<i class="icon-bullhorn icon-white"></i>  กฎ ระเบียบ พรบ. หลักเกณฑ์เกี่ยวกับงานก่อสร้าง',Yii::app()->baseUrl.'/regulation/index').'</li>';
+                                echo '<li>'.CHtml::link('<i class="icon-shopping-cart icon-white"></i>  Contact List สินค้าและบริการ ',Yii::app()->baseUrl.'/contact/index').'</li>';
+                          
+                            echo '</ul>';
+                            
+                  
+                    
+                   
+                ?>
+                    </ul>
+        </div>
+<?php } ?>
+
 <div id="wrap">
     <div class="container" id="page" >
 

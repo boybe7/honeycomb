@@ -36,7 +36,7 @@ class SiteController extends Controller
                 $this->redirect(array('site/login'));
             else
             {
-            	$this->layout='//layouts/column2';
+            	$this->layout='//layouts/main';
 				$this->render('index');
             }
 	}

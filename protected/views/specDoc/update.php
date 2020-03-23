@@ -1,11 +1,3 @@
-<?php
-$this->breadcrumbs=array(
-	'Spec Docs'=>array('index'),
-	'Update',
-);
-
-
-?>
 
 <h4>แก้ไขข้อมูลรายละเอียดประกอบแบบทั่วไป</h4>
 

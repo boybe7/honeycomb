@@ -1,4 +1,5 @@
 <?php
+ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 	Yii::app()->clientScript->registerScript('search', "
 
 
@@ -40,6 +41,10 @@
 		});
 	");
 
+
+
+			
+
 ?>
 
 
@@ -49,18 +54,63 @@
 		<div class="container" style="padding-top:5px">
 			<p class="brand2 pull-left">รายละเอียดแบบประกอบงานก่อสร้าง</p>
 		
-			<form class="navbar-form pull-right" id="search-form" action="/honeycomb/specdoc/admin" method="get">
+			<form class="navbar-form pull-right" id="search-form" action="/honeycomb/specdoc/search" method="get" enctype="application/x-www-form-urlencoded">
 
 			  <input type="text" name="search_key" id='search_key' class="search-query" placeholder="Search" style="margin-right:10px;">
 			
 			  <?php
 
+			  		$startDate = isset($_GET['startDate']) ? $_GET['startDate'] : 'วันที่เริ่ม';
+			  		$endDate = isset($_GET['endDate']) ? $_GET['endDate'] : 'วันที่สิ้นสุด';
+			  	
 
-			  		$this->widget('bootstrap.widgets.TbButton', array(
+			  		echo '<span  style="margin-top:10px;margin-right:10px;">'; //ใส่ icon ลงไป
+                        $this->widget('zii.widgets.jui.CJuiDatePicker',
+
+		                        array(
+		                            'name'=>'startDate',
+		                            'attribute'=>'startDate',
+		                            
+		                            'defaultOptions' => array(
+		                                              'mode'=>'focus',
+		                                              'showOn' => 'both',
+		                                              'dateFormat'=>'mm.yy',
+
+       										 			'minDate'=>0,
+		                                              'showAnim' => 'slideDown',
+		                                              ),
+		                            'value'=>$startDate,
+		                            'htmlOptions'=>array('class'=>'span2'),  // ใส่ค่าเดิม ในเหตุการ Update 
+		                         )
+                    );
+                    echo '</span>';
+
+                    echo '<span  style="margin-top:10px;margin-right:10px;">'; //ใส่ icon ลงไป
+                        $this->widget('zii.widgets.jui.CJuiDatePicker',
+
+		                        array(
+		                            'name'=>'endDate',
+		                            'attribute'=>'endDate',
+		                            
+		                            'defaultOptions' => array(
+		                                              'mode'=>'focus',
+		                                              'showOn' => 'both',
+		                                              'dateFormat'=>'mm.yy',
+
+       										 			'minDate'=>0,
+		                                              'showAnim' => 'slideDown',
+		                                              ),
+		                            'value'=>$endDate,
+		                            'htmlOptions'=>array('class'=>'span2'),  // ใส่ค่าเดิม ในเหตุการ Update 
+		                         )
+                    );
+                    echo '</span>';
+
+                    	$this->widget('bootstrap.widgets.TbButton', array(
 						    'buttonType'=>'submit',
 						    
 						    'type'=>'info',
-						    'label'=>'',
+						    'label'=>'ค้นหา',
 						    'icon'=>'search',
 						 
 						    'htmlOptions'=>array('class'=>'','style'=>'margin-right:10px;',
@@ -72,15 +122,15 @@
 
 				//if(Yii::app()->user->getAccess(Yii::app()->request->url))
 				//{
-				   $this->widget('bootstrap.widgets.TbButton', array(
-						    'buttonType'=>'link',
+				  //  $this->widget('bootstrap.widgets.TbButton', array(
+						//     'buttonType'=>'link',
 						    
-						    'type'=>'success',
-						    'label'=>'เพิ่มข้อมูล',
-						    'icon'=>'plus-sign',
-						    'url'=>array('create'),
-						    'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-bottom:10px;'),
-						)); 
+						//     'type'=>'success',
+						//     'label'=>'เพิ่มข้อมูล',
+						//     'icon'=>'plus-sign',
+						//     'url'=>array('create'),
+						//     'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-bottom:10px;'),
+						// )); 
 				//}
 			?>
 
@@ -104,7 +154,7 @@
 							'id'=>'search-grid',
 							'dataProvider'=>$model->search(),
 							'itemsCssClass'=>'table table-bordered table-condensed',
-							'mergeColumns' => array('material_name','category'), 
+							'mergeColumns' => array('material_name','category','detail'), 
 							//'selectableRows' =>2,
 							'htmlOptions'=>array('style'=>'padding-top:10px'),
 						    'enablePagination' => true,
@@ -122,8 +172,14 @@
 							
 							  	'detail'=>array(
 									    'name' => 'detail',
-									    'value' => '$data["detail"]',
+									    //'value' => '$data["detail"]',
 									    'header' => '<a class="sort-link">รายละเอียด</a>',
+									    'type'=>'html',
+									    
+									     'value' => function($model){
+									    	
+									    	return $model->detail.'<font color="white">-'.$model->material_id.'</font>';
+									    },
 										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),
@@ -141,20 +197,12 @@
 										'headerHtmlOptions' => array('style' => 'width:13%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),
-							  	// 'code'=>array(
-									 //    'name' => 'code',
-									 //    'value' => '$data["code"]',
-									 //   //------------hidden column---------------//
-									 //    'htmlOptions' => array('style' => 'display:none;'),
-							   //          'headerHtmlOptions'=>array('style' => 'display:none;'),
-							   //          'filterHtmlOptions'=>array('style' => 'display:none;'),
-							   //          //-------------end -----------------------//
-							  	// ),
+							
 							  	'dimension'=>array(
 									    'name' => 'dimension',
 									    'value' => '$data["dimension"]',
 									   'header' => '<a class="sort-link">ขนาด/ชนิด/ประเภท</a>',
-										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'headerHtmlOptions' => array('style' => 'width:20%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),
 							  	'unit'=>array(
@@ -165,16 +213,18 @@
 										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
 							  	),
 							  
-							  	'date'=>array(
-									    'name' => 'date',
-									    'value' => '$data["date"]',
+							  	'price'=>array(
+									    'name' => 'price',
+									    //'value' => '$data["date"]',
+									    'type'=>'html',
+									    'value'=>'$data->getPrice($data)',
 									    'header' => '<a class="sort-link">ราคากลางวัสดุ</a>',
-										'headerHtmlOptions' => array('style' => 'width:18%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),
 								// 'spec_id'=>array(
 								// 	    'name' => 'spec_id',
-								// 	    'header' => '<a class="sort-link">ขนาด/ชนิด/ประเภท</a>',
+								// 	    'header' => '<a class="sort-link">ราคากลางวัสดุ</a>',
 								// 	    'type'=>'raw', 
 								// 	    'value' => function($model){
 								// 	    		if(empty($model->spec_id))
@@ -197,11 +247,11 @@
 										'htmlOptions'=>array('style'=>'text-align:center;')
 							  	),
 							  
-								array(
-									'class'=>'bootstrap.widgets.TbButtonColumn',
-									'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),
-									'template' => '{update} {delete}'
-								),
+								// array(
+								// 	'class'=>'bootstrap.widgets.TbButtonColumn',
+								// 	'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),
+								// 	'template' => '{update} {delete}'
+								// ),
 							),
 
 						));
