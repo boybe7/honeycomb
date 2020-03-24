@@ -188,3 +188,22 @@ REQUEST_URI=/honeycomb/site/index
 in C:\xampp\htdocs\honeycomb\protected\extensions\ecalendarview\views\month.php (19)
 in C:\xampp\htdocs\honeycomb\protected\extensions\ecalendarview\views\main.php (23)
 in C:\xampp\htdocs\honeycomb\protected\extensions\ecalendarview\ECalendarView.php (186)
+2020/02/16 14:25:01 [error] [exception.Error] Error: Call to a member function getAttributes() on array in C:\xampp\htdocs\honeycomb\protected\views\site\index.php:33
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(126): require()
+#1 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp\\htdocs...', NULL, true)
+#2 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp\\htdocs...', NULL, true)
+#3 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): CController->renderPartial('index', NULL, true)
+#4 C:\xampp\htdocs\honeycomb\protected\controllers\SiteController.php(40): CController->render('index')
+#5 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(49): SiteController->actionIndex()
+#6 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#7 C:\xampp\htdocs\honeycomb\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#8 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#9 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('index')
+#10 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('site/index')
+#11 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#12 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#13 {main}
+REQUEST_URI=/honeycomb/site/index
+HTTP_REFERER=http://localhost/honeycomb/site/login
+---

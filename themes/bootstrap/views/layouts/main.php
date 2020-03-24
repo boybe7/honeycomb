@@ -173,6 +173,8 @@ float: none;
       letter-spacing: 2px;
   }
 
+ 
+
   .navbar-inner2 {
       background-color: #090909;
       color: #ffffff;

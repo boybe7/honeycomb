@@ -29,6 +29,9 @@ $cs->registerScriptFile( $theme->getBaseUrl() . '/js/highcharts.js' );
 
   <?php
 
+$model=User::model()->findAll();
+echo CJSON::encode($model->getAttributes());
+
 $this->widget('ext.EFullCalendar.EFullCalendar', array(
     // polish version available, uncomment to use it
     // 'lang'=>'pl',
