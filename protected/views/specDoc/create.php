@@ -1,11 +1,3 @@
-<?php
-$this->breadcrumbs=array(
-	'Spec Docs'=>array('index'),
-	'Create',
-);
-
-
-?>
 
 <h4>ข้อมูลรายละเอียดประกอบแบบทั่วไป</h4>
 
