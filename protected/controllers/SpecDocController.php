@@ -31,7 +31,7 @@ class SpecDocController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','export','moc','download','search'),
+				'actions'=>array('create','update','export','moc','download','search','compare'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -171,6 +171,122 @@ class SpecDocController extends Controller
 	 	}   	
 
 		$this->render('create',array(
+			'model'=>$model,'compares'=>$compares
+		));
+	}
+
+	public function actionCompare()
+	{
+		$model=new SpecDoc;
+
+		$compares[0] = new SpecDocCompareTemp;
+		$compares[1] = new SpecDocCompareTemp;
+		$compares[2] = new SpecDocCompareTemp;
+	
+		$saveOK = true;
+		$transaction=Yii::app()->db->beginTransaction();
+		try 
+		{
+
+			if(isset($_POST['SpecDoc']))
+			{
+				$model->attributes=$_POST['SpecDoc'];
+				$model->dimension = trim($_POST['SpecDoc']['dimension']);
+				$model->unit = trim($_POST['SpecDoc']['unit']);
+				$model->created_by = Yii::app()->user->ID;
+
+				date_default_timezone_set("Asia/Bangkok");
+
+				$model->create_date = date("Y-m-d H:i:s");
+				$model->update_date = date("Y-m-d H:i:s");
+
+				//header('Content-type: text/plain');
+
+				//print_r($model);
+				
+				
+				if(isset($_POST['SpecDocCompareTemp']))
+				{
+
+					if($model->save())
+					{
+						$i = 1;
+						foreach ($_POST['SpecDocCompareTemp'] as $key => $compare) {
+
+							$model_com = new SpecDocCompareTemp;
+							$model_com2 = new SpecDocCompare;
+
+							$model_com->attributes=$compare;
+							$compares[$i-1] = $model_com;
+						
+							//print_r($model_com);
+							
+							$model_com2->spec_id = $model->id;
+							$model_com2->brand = $model_com->brand;
+							$model_com2->model  =$model_com->model;
+							$model_com2->price  =$model_com->price;
+							$model_com2->date_price  =$model_com->date_price;
+							$model_com2->no = $i;
+
+
+							$uploadFile = CUploadedFile::getInstance($model_com, 'attach_file'.$i);
+							
+							//print_r($uploadFile);
+							//exit;
+
+							$i++;
+					
+							
+						    $filesave = '';
+							if($uploadFile !== null) {
+
+
+									$uploadFileName = time()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
+									
+									$filesave = Yii::app()->basePath .'/../specfile/'.iconv("UTF-8", "TIS-620",$uploadFileName);
+									$model_com2->attach_file = $uploadFile;
+
+									if($model_com2->attach_file->saveAs($filesave)){
+
+
+										$model_com2->attach_file = $uploadFileName;																	
+										if(!$model_com2->save())
+											$saveOK = false;
+										//print_r($model_com2);
+										
+									
+									}
+							
+							}
+							
+						}
+
+						if($saveOK)
+						{
+							$transaction->commit();
+							$this->redirect(array('index'));	
+						}
+						else
+						{	$model->addError('contract', 'เกิดข้อผิดพลาดในการบันทึกข้อมูลคู่เทียบ.');}
+
+					}
+				}
+
+			
+			
+			}
+		}
+		catch(Exception $e)
+	 	{
+	 				$transaction->rollBack();	
+	 				$model->addError('contract', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล.');
+	 				Yii::trace(CVarDumper::dumpAsString($e->getMessage()));
+	 	        	//you should do sth with this exception (at least log it or show on page)
+	 	        	Yii::log( 'Exception when saving data: ' . $e->getMessage(), CLogger::LEVEL_ERROR );
+	 
+	 	}   	
+
+		$this->render('compare',array(
 			'model'=>$model,'compares'=>$compares
 		));
 	}

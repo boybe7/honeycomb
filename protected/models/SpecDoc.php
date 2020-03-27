@@ -156,6 +156,9 @@ class SpecDoc extends CActiveRecord
 		        $criteria->addCondition('work_category_id='.$work_category_id);
 		    }
 
+		    if(!Yii::app()->user->isAdmin())
+		    	$criteria->addCondition('status=1');
+		  
 		    return new CActiveDataProvider($this, array(
 		        'criteria' => $criteria,
 		        'pagination' => array(

@@ -55,7 +55,7 @@
 			
 			  <?php
 
-
+                  
 			  		$this->widget('bootstrap.widgets.TbButton', array(
 						    'buttonType'=>'submit',
 						    
@@ -72,7 +72,8 @@
 
 				//if(Yii::app()->user->getAccess(Yii::app()->request->url))
 				//{
-				   $this->widget('bootstrap.widgets.TbButton', array(
+					 if(Yii::app()->user->isAdmin())
+				         $this->widget('bootstrap.widgets.TbButton', array(
 						    'buttonType'=>'link',
 						    
 						    'type'=>'success',
@@ -132,6 +133,7 @@
 									    'name' => 'no',
 									    'value' => '$this->grid->dataProvider->pagination->currentPage * $this->grid->dataProvider->pagination->pageSize + ($row+1)',
 									    'filter'=>false,
+
 										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
 							  	),
@@ -194,6 +196,17 @@
 										'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
 							  	),
+							  	'status'=>array(
+									    'name' => 'status',								
+									    'value' => function($model){
+							                  return $model->status==0 ? "ไม่ใช้งาน" : "ใช้งาน";
+							                },
+							            'type'=>'raw', 
+							            'visible'=>Yii::app()->user->isAdmin() ? true : false,
+									    'filter'=>false,
+										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:center;')
+							  	),
 								'export'=>array(
 									    'name' => 'filename',
 									    'header' => 'Export',
@@ -206,6 +219,7 @@
 							  
 								array(
 									'class'=>'bootstrap.widgets.TbButtonColumn',
+									'visible'=>Yii::app()->user->isAdmin() ? true : false,
 									'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),
 									'template' => '{update} {delete}'
 								),
