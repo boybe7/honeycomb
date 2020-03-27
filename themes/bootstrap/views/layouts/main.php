@@ -514,7 +514,7 @@ else{
         <style type="text/css">
           .sidebar {
             height: 100%;
-            width: 250px;
+            width: 30px;
             position: fixed;
             z-index: 1;
             top: 0;
