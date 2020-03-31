@@ -311,7 +311,44 @@ function checkFile(electObject){
 			
 		</div>
 	</div>
+    
+    <h4>คุณสมบัติเฉพาะ</h4>
+    <div class="row-fluid">
+    	<div class="span9">
+    		<input type="text" name="spec_list" id="spec_list" class="span12">
+    	</div>
+    	<div class="span3">
+    		<button id="addButton" type="button" class=" btn btn-success">เพิ่มคุณสมบัติ</button>
+    		
+    	</div>	
+	</div>
+	<table id="spec-list-table" class="table table-bordered table-condensed table">
+		<thead>
+			<tr><th width='5%'>No.</th><th width='40%'></th><th width='18%' style="text-align: center">คู่เทียบ 1</th><th style="text-align: center" width='18%'>คู่เทียบ 2</th><th style="text-align: center" width='18%'>คู่เทียบ 3</th><th width='6%'></th></tr>
+		</thead>
+		<tbody id="tbl_posts_body">
+			
+		</tbody>
+	</table>
+
+
+<script type="text/javascript">
 	
+
+	$("#addButton").click(function(){  
+
+	   
+
+	    // var content = jQuery('#sample_table tr'),
+	     size = jQuery('#spec-list-table >tbody >tr').length + 1;
+	     content = "<tr><td style='text-align: center'>"+size+"</td><td width='40%'>"+$("#spec_list").val()+"</td><td width='15%'><input type='checkbox' id='vehicle2' name='vehicle2'> มี <input type='text'></td><td width='15%'><input type='checkbox' id='vehicle2' name='vehicle2'> มี <input type='text'></td><td width='15%'><input type='checkbox' id='vehicle2' name='vehicle2'> มี <input type='text'></td></tr>";   
+
+	     
+	     $(content).appendTo('#tbl_posts_body');
+	     
+	    //$(newRowContent).appendTo($("#spec-list-table"));
+	});
+</script>
 	
 
 	<div class="row-fluid ">
