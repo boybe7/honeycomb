@@ -8,7 +8,7 @@
 
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
-<script type="text/javascript" src="/engstd/themes/bootstrap/js/jquery.yiigridview.js"></script>
+<script type="text/javascript" src="/honeycomb/themes/bootstrap/js/jquery.yiigridview.js"></script>
 	<?php 
        /* Yii::app()->getClientScript()->reset(); 
         Yii::app()->bootstrap->register();   */
@@ -19,7 +19,7 @@
         //$cs->registerScriptFile(Yii::app()->theme->getBaseUrl().'/js/jquery.yiigridview.js');     
   ?>
 </head>
-<link rel="shortcut icon" href="/engstd/favicon.ico">
+<link rel="shortcut icon" href="/honeycomb/favicon.ico">
 <style>
 
 .dropdown-menu {
@@ -223,11 +223,11 @@ nav .badge.red {
 
 @font-face {
     font-family: 'sukhumvitreg';
-    src: url('/mtr/fonts/sukhumvitreg-webfont.eot');
-    src: url('/mtr/fonts/sukhumvitreg-webfont?#iefix') format('embedded-opentype'),
-         url('/mtr/fonts/sukhumvitreg-webfont.woff') format('woff'),
-         url('/mtr/fonts/sukhumvitreg-webfont.ttf') format('truetype'),
-         url('/mtr/fonts/sukhumvitreg-webfont.svg#quarkbold') format('svg');
+    src: url('/honeycomb/fonts/sukhumvitreg-webfont.eot');
+    src: url('/honeycomb/fonts/sukhumvitreg-webfont?#iefix') format('embedded-opentype'),
+         url('/honeycomb/fonts/sukhumvitreg-webfont.woff') format('woff'),
+         url('/honeycomb/fonts/sukhumvitreg-webfont.ttf') format('truetype'),
+         url('/honeycomb/fonts/sukhumvitreg-webfont.svg#quarkbold') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -235,28 +235,28 @@ nav .badge.red {
 
 @font-face {
     font-family: 'Boon400';
-    src: url('/mtr/fonts/boon-400.eot');
-    src: url('/mtr/fonts/boon-400.eot') format('embedded-opentype'),
-         url('/mtr/fonts/boon-400.woff') format('woff'),
-         url('/mtr/fonts/boon-400.ttf') format('truetype'),
-         url('/mtr/fonts/boon-400.svg#Boon400') format('svg');
+    src: url('/honeycomb/fonts/boon-400.eot');
+    src: url('/honeycomb/fonts/boon-400.eot') format('embedded-opentype'),
+         url('/honeycomb/fonts/boon-400.woff') format('woff'),
+         url('/honeycomb/fonts/boon-400.ttf') format('truetype'),
+         url('/honeycomb/fonts/boon-400.svg#Boon400') format('svg');
 }
 
 @font-face {
     font-family: 'Boon700';
-    src: url('/mtr/fonts/boon-700.eot');
-    src: url('/mtr/fonts/boon-700.eot') format('embedded-opentype'),
-         url('/mtr/fonts/boon-700.woff') format('woff'),
-         url('/mtr/fonts/boon-700.ttf') format('truetype'),
-         url('/mtr/fonts/boon-700.svg#Boon700') format('svg');
+    src: url('/honeycomb/fonts/boon-700.eot');
+    src: url('/honeycomb/fonts/boon-700.eot') format('embedded-opentype'),
+         url('/honeycomb/fonts/boon-700.woff') format('woff'),
+         url('/honeycomb/fonts/boon-700.ttf') format('truetype'),
+         url('/honeycomb/fonts/boon-700.svg#Boon700') format('svg');
 }
 
 @font-face {
     font-family: 'THSarabunPSK';
-    src: url('/mtr/fonts/thsarabunnew-webfont.eot');
-    src: url('/mtr/fonts/thsarabunnew-webfont.eot') format('embedded-opentype'),
-         url('/mtr/fonts/thsarabunnew-webfont.woff') format('woff'),
-         url('/mtr/fonts/thsarabunnew-webfont.ttf') format('truetype');
+    src: url('/honeycomb/fonts/thsarabunnew-webfont.eot');
+    src: url('/honeycomb/fonts/thsarabunnew-webfont.eot') format('embedded-opentype'),
+         url('/honeycomb/fonts/thsarabunnew-webfont.woff') format('woff'),
+         url('/honeycomb/fonts/thsarabunnew-webfont.ttf') format('truetype');
        
 }
 
@@ -579,12 +579,12 @@ else{
                             echo  '<label style="color:white">เมนู<hr></hr>';
                           
                               
-                                echo CHtml::link('<i class="icon-book icon-white" style="padding-right:10px;"></i>สืบค้นราคาวัสดุในงานก่อสร้าง',Yii::app()->baseUrl.'/specdoc/search');
-                                echo CHtml::link('<i class="icon-thumbs-up icon-white" style="padding-right:10px;"></i>สืบค้นราคาค่าแรงงานและค่าดำเนินการ',Yii::app()->baseUrl.'/laborcost/index');
-                                echo CHtml::link('<i class="icon-hdd icon-white" style="padding-right:10px;"></i>  จัดเก็บ Spec. วัสดุในงานก่อสร้าง',Yii::app()->baseUrl.'/specdoc/index');
-                                echo CHtml::link('<i class="icon-list-alt icon-white" style="padding-right:10px;"></i>จัดทำ Spec. วัสดุในงานก่อสร้าง',Yii::app()->baseUrl.'/writespec/index');
-                                echo CHtml::link('<i class="icon-bullhorn icon-white" style="padding-right:10px;"></i>  กฎ ระเบียบ พรบ. และหลักเกณฑ์',Yii::app()->baseUrl.'/regulation/index');
-                                echo CHtml::link('<i class="icon-shopping-cart icon-white" style="padding-right:10px;"></i>Contact List สินค้าและบริการ ',Yii::app()->baseUrl.'/contact/index');
+                                echo CHtml::link('<i class="icon-book icon-white" style="padding-right:10px;"></i>สืบค้นราคาวัสดุในงานก่อสร้าง',Yii::app()->baseUrl.'/SpecDoc/search');
+                                echo CHtml::link('<i class="icon-thumbs-up icon-white" style="padding-right:10px;"></i>สืบค้นราคาค่าแรงงานและค่าดำเนินการ',Yii::app()->baseUrl.'/LaborCost/index');
+                                echo CHtml::link('<i class="icon-hdd icon-white" style="padding-right:10px;"></i>  จัดเก็บ Spec. วัสดุในงานก่อสร้าง',Yii::app()->baseUrl.'/SpecDoc/index');
+                                echo CHtml::link('<i class="icon-list-alt icon-white" style="padding-right:10px;"></i>จัดทำ Spec. วัสดุในงานก่อสร้าง',Yii::app()->baseUrl.'/SpecDoc/compare');
+                                echo CHtml::link('<i class="icon-bullhorn icon-white" style="padding-right:10px;"></i>  กฎ ระเบียบ พรบ. และหลักเกณฑ์',Yii::app()->baseUrl.'/Regulation/index');
+                                echo CHtml::link('<i class="icon-shopping-cart icon-white" style="padding-right:10px;"></i>Contact List สินค้าและบริการ ',Yii::app()->baseUrl.'/Contact/index');
                        
                    
                 ?>
