@@ -315,7 +315,7 @@ function checkFile(electObject){
     <h4>คุณสมบัติเฉพาะ</h4>
     <div class="row-fluid">
     	<div class="span9">
-    		<input type="text" name="spec_list" id="spec_list" class="span12">
+    		<input type="text" name="spec_list_add" id="spec_list_add" class="span12">
     	</div>
     	<div class="span3">
     		<button id="addButton" type="button" class=" btn btn-success">เพิ่มคุณสมบัติ</button>
@@ -332,6 +332,21 @@ function checkFile(electObject){
 	</table>
 
 
+</style>
+<style type="text/css">
+	table {
+   
+    /*border-collapse:collapse;*/
+    /*table-layout: fixed;*/
+}
+
+td input {
+    width: 100%;
+    height: 25px;
+    line-height: 25px;
+    box-sizing: border-box;
+}
+</style>
 <script type="text/javascript">
 	
 
@@ -341,13 +356,41 @@ function checkFile(electObject){
 
 	    // var content = jQuery('#sample_table tr'),
 	     size = jQuery('#spec-list-table >tbody >tr').length + 1;
-	     content = "<tr><td style='text-align: center'>"+size+"</td><td width='40%'>"+$("#spec_list").val()+"</td><td width='15%'><input type='checkbox' id='vehicle2' name='vehicle2'> มี <input type='text'></td><td width='15%'><input type='checkbox' id='vehicle2' name='vehicle2'> มี <input type='text'></td><td width='15%'><input type='checkbox' id='vehicle2' name='vehicle2'> มี <input type='text'></td></tr>";   
+	     listname = 'spec_list['+size+']';
+	     check1 = 'check_spec1['+size+']';
+	     note1 = 'note_spec1['+size+']';
+	     check2 = 'check_spec2['+size+']';
+	     note2 = 'note_spec2['+size+']';
+	     check3 = 'check_spec3['+size+']';
+	     note3 = 'note_spec3['+size+']';
+
+	     content = "<tr id='rec-"+size+"'><td style='text-align: center'>"+size+"</td><td width='40%'>&nbsp;<input size='500' name="+listname+" type='hidden' value="+$("#spec_list_add").val()+">"+$("#spec_list_add").val()+"</td><td width='15%'><input type='checkbox' name='"+check1+"'> มี <input type='text' name='"+note1+"'></td><td width='15%'><input type='checkbox' name='"+check2+"'> มี <input type='text'  name='"+note2+"'></td><td width='15%'><input type='checkbox' name='"+check3+"'> มี <input type='text'  name='"+note3+"'></td><td><a class='btn btn-xs delete-record' data-id="+size+"><i class='icon icon-trash'></i></a></td></tr>";   
 
 	     
 	     $(content).appendTo('#tbl_posts_body');
 	     
 	    //$(newRowContent).appendTo($("#spec-list-table"));
 	});
+
+
+	jQuery(document).delegate('a.delete-record', 'click', function(e) {
+		     e.preventDefault();    
+		     var didConfirm = confirm("Are you sure You want to delete");
+		     if (didConfirm == true) {
+		      var id = jQuery(this).attr('data-id');
+		      var targetDiv = jQuery(this).attr('targetDiv');
+		      jQuery('#rec-' + id).remove();
+		      
+		    //regnerate index number on table
+		    $('#tbl_posts_body tr').each(function(index) {
+		      //alert(index);
+		      $(this).find('span.sn').html(index+1);
+		    });
+		    return true;
+		  } else {
+		    return false;
+		  }
+		});
 </script>
 	
 
