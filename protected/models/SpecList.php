@@ -10,6 +10,9 @@
  * @property integer $spec_compare_id1
  * @property integer $spec_compare_id2
  * @property integer $spec_compare_id3
+ * @property string $note1
+ * @property string $note2
+ * @property string $note3
  */
 class SpecList extends CActiveRecord
 {
@@ -32,9 +35,10 @@ class SpecList extends CActiveRecord
 			array('detail, spec_id', 'required'),
 			array('spec_id, spec_compare_id1, spec_compare_id2, spec_compare_id3', 'numerical', 'integerOnly'=>true),
 			array('detail', 'length', 'max'=>500),
+			array('note1, note2, note3', 'length', 'max'=>200),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, detail, spec_id, spec_compare_id1, spec_compare_id2, spec_compare_id3', 'safe', 'on'=>'search'),
+			array('id, detail, spec_id, spec_compare_id1, spec_compare_id2, spec_compare_id3, note1, note2, note3', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,6 +65,9 @@ class SpecList extends CActiveRecord
 			'spec_compare_id1' => 'Spec Compare Id1',
 			'spec_compare_id2' => 'Spec Compare Id2',
 			'spec_compare_id3' => 'Spec Compare Id3',
+			'note1' => 'Note1',
+			'note2' => 'Note2',
+			'note3' => 'Note3',
 		);
 	}
 
@@ -88,6 +95,9 @@ class SpecList extends CActiveRecord
 		$criteria->compare('spec_compare_id1',$this->spec_compare_id1);
 		$criteria->compare('spec_compare_id2',$this->spec_compare_id2);
 		$criteria->compare('spec_compare_id3',$this->spec_compare_id3);
+		$criteria->compare('note1',$this->note1,true);
+		$criteria->compare('note2',$this->note2,true);
+		$criteria->compare('note3',$this->note3,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

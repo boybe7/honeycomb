@@ -108,6 +108,7 @@ function checkFile(electObject){
 		                            'id'=>'dimension',
 		                             'value'=> $model->dimension,		                   
 		                            'source'=>'js: function(request, response) {
+		                              if($("#material_id").val()!="")	
 		                                $.ajax({
 		                                    url: "'.$this->createUrl('material/GetDimension').'",
 		                                    dataType: "json",

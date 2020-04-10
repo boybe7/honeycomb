@@ -49,7 +49,7 @@
 		<div class="container" style="padding-top:5px">
 			<p class="brand2 pull-left">รายละเอียดแบบประกอบงานก่อสร้าง</p>
 		
-			<form class="navbar-form pull-right" id="search-form" action="/honeycomb/specdoc/admin" method="get">
+			<form class="navbar-form pull-right" id="search-form" action="/honeycomb/SpecDoc/admin" method="get">
 
 			  <input type="text" name="search_key" id='search_key' class="search-query" placeholder="Search" style="margin-right:10px;">
 			

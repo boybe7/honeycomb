@@ -96,6 +96,7 @@ function checkFile(electObject){
 		                            'id'=>'dimension',
 		                             'value'=> $model->dimension,		                   
 		                            'source'=>'js: function(request, response) {
+		                            	if($("#material_id").val()!="")
 		                                $.ajax({
 		                                    url: "'.$this->createUrl('material/GetDimension').'",
 		                                    dataType: "json",
@@ -327,7 +328,26 @@ function checkFile(electObject){
 			<tr><th width='5%'>No.</th><th width='40%'></th><th width='18%' style="text-align: center">คู่เทียบ 1</th><th style="text-align: center" width='18%'>คู่เทียบ 2</th><th style="text-align: center" width='18%'>คู่เทียบ 3</th><th width='6%'></th></tr>
 		</thead>
 		<tbody id="tbl_posts_body">
-			
+			<?php
+			    $no = 1;
+				foreach ($specList as $key => $value) {
+					$listname = 'spec_list['.$no.']';
+				     $check1 = 'check_spec1['.$no.']';
+				     $note1 = 'note_spec1['.$no.']';
+				     $check2 = 'check_spec2['.$no.']';
+				     $note2 = 'note_spec2['.$no.']';
+				     $check3 = 'check_spec3['.$no.']';
+				     $note3 = 'note_spec3['.$no.']';
+
+				     $check1_checked = $value->spec_compare_id1>=1 ? '  checked' : '';
+				     $check2_checked = $value->spec_compare_id2>=1 ? '  checked' : '';
+				     $check3_checked = $value->spec_compare_id3>=1 ? '  checked' : '';
+
+					echo "<tr id='rec-".$no."'><td style='text-align: center'>".$no."</td><td width='40%'>&nbsp;<input size='500' name=".$listname." type='hidden' value=".$value->detail.">".$value->detail."</td><td width='15%'><input type='checkbox' name='".$check1."'  ".$check1_checked."> มี <input type='text' style='height:30px' name='".$note1."' value=".$value->note1."></td><td width='15%'><input type='checkbox' name='".$check2."' ".$check2_checked."> มี <input  style='height:30px' type='text'  name='".$note2." value=".$value->note2."'></td><td width='15%'><input type='checkbox' name='".$check3."'  ".$check3_checked."> มี <input  style='height:30px' type='text'  name='".$note3."' value='".$value->note3."'></td><td><a class='btn btn-xs delete-record' data-id=".$no."><i class='icon icon-trash'></i></a></td></tr>";
+					$no++;
+				}
+
+			?>
 		</tbody>
 	</table>
 
@@ -353,23 +373,29 @@ td input {
 	$("#addButton").click(function(){  
 
 	   
+		if($("#spec_list_add").val()!="")
+		{
+		    // var content = jQuery('#sample_table tr'),
+		     size = jQuery('#spec-list-table >tbody >tr').length + 1;
+		     listname = 'spec_list['+size+']';
+		     check1 = 'check_spec1['+size+']';
+		     note1 = 'note_spec1['+size+']';
+		     check2 = 'check_spec2['+size+']';
+		     note2 = 'note_spec2['+size+']';
+		     check3 = 'check_spec3['+size+']';
+		     note3 = 'note_spec3['+size+']';
 
-	    // var content = jQuery('#sample_table tr'),
-	     size = jQuery('#spec-list-table >tbody >tr').length + 1;
-	     listname = 'spec_list['+size+']';
-	     check1 = 'check_spec1['+size+']';
-	     note1 = 'note_spec1['+size+']';
-	     check2 = 'check_spec2['+size+']';
-	     note2 = 'note_spec2['+size+']';
-	     check3 = 'check_spec3['+size+']';
-	     note3 = 'note_spec3['+size+']';
+		     content = "<tr id='rec-"+size+"'><td style='text-align: center'>"+size+"</td><td width='40%'>&nbsp;<input size='500' name="+listname+" type='hidden' value="+$("#spec_list_add").val()+">"+$("#spec_list_add").val()+"</td><td width='15%'><input type='checkbox' name='"+check1+"'> มี <input type='text' style='height:30px' name='"+note1+"'></td><td width='15%'><input type='checkbox' name='"+check2+"'> มี <input  style='height:30px' type='text'  name='"+note2+"'></td><td width='15%'><input type='checkbox' name='"+check3+"'> มี <input  style='height:30px' type='text'  name='"+note3+"'></td><td><a class='btn btn-xs delete-record' data-id="+size+"><i class='icon icon-trash'></i></a></td></tr>";   
 
-	     content = "<tr id='rec-"+size+"'><td style='text-align: center'>"+size+"</td><td width='40%'>&nbsp;<input size='500' name="+listname+" type='hidden' value="+$("#spec_list_add").val()+">"+$("#spec_list_add").val()+"</td><td width='15%'><input type='checkbox' name='"+check1+"'> มี <input type='text' name='"+note1+"'></td><td width='15%'><input type='checkbox' name='"+check2+"'> มี <input type='text'  name='"+note2+"'></td><td width='15%'><input type='checkbox' name='"+check3+"'> มี <input type='text'  name='"+note3+"'></td><td><a class='btn btn-xs delete-record' data-id="+size+"><i class='icon icon-trash'></i></a></td></tr>";   
-
-	     
-	     $(content).appendTo('#tbl_posts_body');
+		     
+		     $(content).appendTo('#tbl_posts_body');
+		     $("#spec_list_add").val("");
+		}
+		else{
+			bootbox.alert("คุณสมบัติไม่ควรเป็นค่าว่าง");
 	     
 	    //$(newRowContent).appendTo($("#spec-list-table"));
+		}
 	});
 
 

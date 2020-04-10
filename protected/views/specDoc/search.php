@@ -54,7 +54,7 @@ ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 		<div class="container" style="padding-top:5px">
 			<p class="brand2 pull-left">รายละเอียดแบบประกอบงานก่อสร้าง</p>
 		
-			<form class="navbar-form pull-right" id="search-form" action="/honeycomb/specdoc/search" method="get" enctype="application/x-www-form-urlencoded">
+			<form class="navbar-form pull-right" id="search-form" action="/honeycomb/SpecDoc/search" method="get" enctype="application/x-www-form-urlencoded">
 
 			  <input type="text" name="search_key" id='search_key' class="search-query" placeholder="Search" style="margin-right:10px;">
 			

@@ -34,13 +34,13 @@ class SpecDoc extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('detail, work_category_id,material', 'required'),
+			array('material', 'required'),
 			array(' work_category_id, status', 'numerical', 'integerOnly'=>true),
 			array('detail, filename, contract_id, detail_approve, created_by', 'length', 'max'=>255),
 			array('filename', 'file',  'allowEmpty'=>true, 'types'=>'docx,pdf,xls,xlsx,doc', 'safe' => false),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, no,material,dimension,unit, detail, filename, detail_approve, work_category_id, contract_id, created_by, create_date, update_date, status', 'safe', 'on'=>'search'),
+			array('id, no,material,dimension,unit, detail, filename, detail_approve, work_category_id, contract_id, created_by, create_date, update_date, status,send', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -75,6 +75,7 @@ class SpecDoc extends CActiveRecord
 			'material' => 'วัสดุ',
 			'dimension' => 'ขนาด',
 			'unit' => 'หน่วย',
+			'send'=>"จัดเก็บ"
 
 		);
 	}
@@ -158,6 +159,34 @@ class SpecDoc extends CActiveRecord
 
 		    if(!Yii::app()->user->isAdmin())
 		    	$criteria->addCondition('status=1');
+
+		    $criteria->addCondition('is_written=0 OR (is_written=1 AND send=1)') ;
+		  
+		    return new CActiveDataProvider($this, array(
+		        'criteria' => $criteria,
+		        'pagination' => array(
+		            'pagesize' => 25,
+		        )
+		    ));
+
+	}
+
+
+	public function searchWrite()
+	{
+		
+		$criteria = new CDbCriteria;
+
+		    $searchterm = empty($searchterm) ? trim(Yii::app()->request->getParam('search')) : $searchterm;
+		    
+		    $searchterm = htmlspecialchars($searchterm, ENT_QUOTES);
+		    if (!empty($searchterm)) {
+		        $criteria->addCondition(' (t.detail like "%' . $searchterm . '%" OR
+		              t.material like "%' . $searchterm . '%" OR
+		              t.dimension like "%' . $searchterm.'%") ');
+		    } 
+
+		    $criteria->addCondition('is_written=1') ;
 		  
 		    return new CActiveDataProvider($this, array(
 		        'criteria' => $criteria,

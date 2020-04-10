@@ -582,7 +582,7 @@ else{
                                 echo CHtml::link('<i class="icon-book icon-white" style="padding-right:10px;"></i>สืบค้นราคาวัสดุในงานก่อสร้าง',Yii::app()->baseUrl.'/SpecDoc/search');
                                 echo CHtml::link('<i class="icon-thumbs-up icon-white" style="padding-right:10px;"></i>สืบค้นราคาค่าแรงงานและค่าดำเนินการ',Yii::app()->baseUrl.'/LaborCost/index');
                                 echo CHtml::link('<i class="icon-hdd icon-white" style="padding-right:10px;"></i>  จัดเก็บ Spec. วัสดุในงานก่อสร้าง',Yii::app()->baseUrl.'/SpecDoc/index');
-                                echo CHtml::link('<i class="icon-list-alt icon-white" style="padding-right:10px;"></i>จัดทำ Spec. วัสดุในงานก่อสร้าง',Yii::app()->baseUrl.'/SpecDoc/compare');
+                                echo CHtml::link('<i class="icon-list-alt icon-white" style="padding-right:10px;"></i>จัดทำ Spec. วัสดุในงานก่อสร้าง',Yii::app()->baseUrl.'/SpecDoc/write');
                                 echo CHtml::link('<i class="icon-bullhorn icon-white" style="padding-right:10px;"></i>  กฎ ระเบียบ พรบ. และหลักเกณฑ์',Yii::app()->baseUrl.'/Regulation/index');
                                 echo CHtml::link('<i class="icon-shopping-cart icon-white" style="padding-right:10px;"></i>Contact List สินค้าและบริการ ',Yii::app()->baseUrl.'/Contact/index');
                        
