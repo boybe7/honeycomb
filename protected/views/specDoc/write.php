@@ -73,6 +73,68 @@
 				//if(Yii::app()->user->getAccess(Yii::app()->request->url))
 				//{
 					 if(Yii::app()->user->isAdmin())
+					 {
+
+				         $this->widget('bootstrap.widgets.TbButton', array(
+						    'buttonType'=>'link',
+						    
+						    'type'=>'info',
+						    'label'=>'ส่งเข้าระบบจัดเก็บ Spec',
+						    'icon'=>'share-alt',
+						    //'url'=>array('sendCompare'),
+						    'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-bottom:10px;',
+						    	
+							            'onclick'=>'js:bootbox.prompt({
+						                      title: "เลือกประเภทงาน",
+						                      inputType: "select",
+						                      inputOptions: [
+						                        {
+						                            text: "งานโครงสร้าง",
+						                            value: 1,
+						                        },
+						                        {
+						                            text: "งานสถาปัตย์",
+						                            value: 2,
+						                        },
+						                        {
+						                            text: "งานสุขาภิบาล",
+						                            value: 3,
+						                        },
+						                        {
+						                            text: "งานไฟฟ้า",
+						                            value: 4,
+						                        }
+						                        ,
+						                        {
+						                            text: "งานถนน",
+						                            value: 5,
+						                        },
+						                        {
+						                            text: "รายละเอียดประกอบแบบทั่วไป",
+						                            value: 6,
+						                        }
+						                        ],
+						                      callback: function (result) {
+						                        if(result>0)
+						                        {
+						                            $.ajax({
+						                                    url: "'.$this->createUrl('specDoc/sendSelected').'",
+						                                    type: "POST",
+						                                    data: { selectedID: $.fn.yiiGridView.getSelection("write-grid"),type: result},
+						                                    success: function (msg) {
+						                                           
+						                                          $("#write-grid").yiiGridView("update",{});
+						                                    }
+						                                })
+						                               
+						                        }
+						                      }
+
+						                  });'
+						),
+						)); 
+
+
 				         $this->widget('bootstrap.widgets.TbButton', array(
 						    'buttonType'=>'link',
 						    
@@ -80,8 +142,12 @@
 						    'label'=>'เพิ่มข้อมูล',
 						    'icon'=>'plus-sign',
 						    'url'=>array('compare'),
-						    'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-bottom:10px;'),
+						    'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-bottom:10px;margin-right:10px;',
+						    	
+
+							),
 						)); 
+				      }    
 				//}
 			?>
 
@@ -109,6 +175,16 @@
 						    'summaryText'=>'แสดงผล {start} ถึง {end} จากทั้งหมด {count} ข้อมูล',
 						    'template'=>"{items}<div class='row-fluid'><div class='span6'>{pager}</div><div class='span6'>{summary}</div></div>",
 							'columns'=>array(
+								'checkbox'=> array(
+						        	    'id'=>'selectedID',
+						            	'class'=>'CCheckBoxColumn',
+						            	//'selectableRows' => 2, 
+						        		 'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),
+							  	         'htmlOptions'=>array(
+							  	            	  			'style'=>'text-align:center'
+
+							  	            	  		)   	  		
+						        ),
 								'no'=>array(
 									    'name' => 'no',
 									    'value' => '$this->grid->dataProvider->pagination->currentPage * $this->grid->dataProvider->pagination->pageSize + ($row+1)',
@@ -125,6 +201,7 @@
 							  	),
 								'name'=>array(
 									    'name' => 'detail',
+									    //'value'=> '$data->getWriteDetail()',
 									    'filter'=>CHtml::activeTextField($model, 'detail',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("detail"))),
 										'headerHtmlOptions' => array('style' => 'width:20%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
@@ -211,6 +288,21 @@
 								            'url'=>function($data){
 
 													            return Yii::app()->createUrl('/SpecDoc/updateCompare/',
+
+													                    array('id'=>$data->id) /* <- customise that */
+
+													            );
+
+													        }, 
+								            
+								        ),
+								        'delete' => array
+								        (
+								            'label'=>'ลบ',
+								            //'visible'=>'$data->status != "Approved" && $data->status != "Cancel"',
+								            'url'=>function($data){
+
+													            return Yii::app()->createUrl('/SpecDoc/deleteCompare/',
 
 													                    array('id'=>$data->id) /* <- customise that */
 

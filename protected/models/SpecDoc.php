@@ -258,4 +258,14 @@ class SpecDoc extends CActiveRecord
     	return $str;
     }
 
+    public function getWriteDetail()
+    {
+    	$str = "";
+    	if(!empty($this->detail))
+    	{
+    		$str = $this->detail;
+    	}
+    	return $str;
+    }
+
 }

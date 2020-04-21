@@ -31,7 +31,7 @@ class SpecDocController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','write','export','moc','download','search','compare','updateCompare'),
+				'actions'=>array('create','update','write','export','moc','download','search','compare','updateCompare','deleteCompare','sendSelected'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -220,6 +220,7 @@ class SpecDocController extends Controller
 				//header('Content-type: text/plain');
 
 				//print_r($model);
+				$specList = array();
 				if(isset($_POST['spec_list']))
 				{
 					$check_spec1 = isset($_POST['check_spec1']) ? $_POST['check_spec1']  : array();
@@ -232,29 +233,35 @@ class SpecDocController extends Controller
 
 					$index = 1;
 					$spec_detail = "";
+					$score = 0;
 					foreach ($_POST['spec_list'] as $key => $value) {
 						$m_list = new SpecList;
 						$m_list->detail = $value;
-						$m_list->spec_compare_id1 = !empty($check_spec1[$index]) ? 1 : 0;
-						$m_list->spec_compare_id2 = !empty($check_spec2[$index]) ? 1 : 0;
-						$m_list->spec_compare_id3 = !empty($check_spec3[$index]) ? 1 : 0;
+						$m_list->spec_compare_id1 = !empty($check_spec1[$index]) ? $check_spec1[$index] : 0;
+						$m_list->spec_compare_id2 = !empty($check_spec2[$index]) ? $check_spec2[$index] : 0;
+						$m_list->spec_compare_id3 = !empty($check_spec3[$index]) ? $check_spec3[$index] : 0;
 						$m_list->note1 =  $note_spec1[$index];
 						$m_list->note2 =  $note_spec2[$index];
 						$m_list->note3 =  $note_spec3[$index];
 
-						$score = $m_list->spec_compare_id1 + $m_list->spec_compare_id2 + $m_list->spec_compare_id3;
+						$score1 = !empty($check_spec1[$index]) ? 1 : 0;
+						$score2 = !empty($check_spec2[$index]) ? 1 : 0;
+						$score3 = !empty($check_spec3[$index]) ? 1 : 0;
+
+						$score = $score1 + $score2 + $score3;
 						if($score > 1 ) //detail more than 2 comapny
 							$spec_detail .= $value."  ";
 						//print_r($m_list);
+							
 						$specList[] = $m_list;
 						$index++;
 					}
 				}
 				
 				
-				if(isset($_POST['SpecDocCompareTemp']))
+				if(isset($_POST['SpecDocCompareTemp']) && !empty($_POST['SpecDocCompareTemp']))
 				{
-
+					$model->detail = $spec_detail;
 					if($model->save())
 					{
 						//check material has exist
@@ -274,6 +281,11 @@ class SpecDocController extends Controller
 
 
 						$i = 1;
+						$ncompare_save = 0;
+						$compare_id[0] = NULL;
+						$compare_id[1] = NULL;
+						$compare_id[2] = NULL;
+
 						foreach ($_POST['SpecDocCompareTemp'] as $key => $compare) {
 
 							$model_com = new SpecDocCompareTemp;
@@ -294,12 +306,7 @@ class SpecDocController extends Controller
 
 
 							$uploadFile = CUploadedFile::getInstance($model_com, 'attach_file'.$i);
-							
-							//print_r($uploadFile);
-							//exit;
-
-							$i++;
-					
+						
 							
 						    $filesave = '';
 							if($uploadFile !== null) {
@@ -319,7 +326,7 @@ class SpecDocController extends Controller
 										else
 										{
 
-
+											$ncompare_save++;
 
 										}
 										//print_r($model_com2);
@@ -328,20 +335,49 @@ class SpecDocController extends Controller
 									}
 							
 							}
+
+							$compare_id[$i-1] = $model_com2->id;
+							$i++;
+
 							
 						}
 
-						if($saveOK)
+						foreach ($specList as $key => $mlist) {
+							// echo "<pre>";
+							// print_r($mlist);
+							// echo "</pre>";
+							$mlist->spec_compare_id1 = !empty($mlist->spec_compare_id1) ? $compare_id[0] : 0;
+							$mlist->spec_compare_id2 = !empty($mlist->spec_compare_id2) ? $compare_id[1] : 0;
+							$mlist->spec_compare_id3 = !empty($mlist->spec_compare_id3) ? $compare_id[2] : 0;
+							$mlist->spec_id = $model->id;
+
+							$mlist->save();
+
+							// echo "<pre>";
+							// print_r($mlist);
+							// echo "</pre>";
+						}
+
+						if($saveOK && $ncompare_save>0)
 						{
 							$transaction->commit();
-							$this->redirect(array('write'));	
+							$this->redirect(array('write'));
+							
 						}
 						else
-						{	$model->addError('contract', 'เกิดข้อผิดพลาดในการบันทึกข้อมูลคู่เทียบ.');}
+						{	
+							$model->addError('contract', 'เกิดข้อผิดพลาดในการบันทึกข้อมูลคู่เทียบ.');
+							//echo "<br><br><br><br>คู่เทียบควรnoว่าง".$ncompare_save;	
+
+						}
 
 					}
 				}
-
+				else
+				{
+					$model->addError('specdoc', 'คู่เทียบไม่ควรว่าง');
+					//echo "<br><br><br><br>คู่เทียบไม่ควรว่าง";
+				}
 			
 			
 			}
@@ -349,7 +385,7 @@ class SpecDocController extends Controller
 		catch(Exception $e)
 	 	{
 	 				$transaction->rollBack();	
-	 				$model->addError('contract', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล.');
+	 				$model->addError('specdoc', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล.');
 	 				Yii::trace(CVarDumper::dumpAsString($e->getMessage()));
 	 	        	//you should do sth with this exception (at least log it or show on page)
 	 	        	Yii::log( 'Exception when saving data: ' . $e->getMessage(), CLogger::LEVEL_ERROR );
@@ -429,6 +465,7 @@ class SpecDocController extends Controller
 
 					$index = 1;
 					$spec_detail = "";
+					$score = 0;
 					foreach ($_POST['spec_list'] as $key => $value) {
 						$m_list = new SpecList;
 						$m_list->detail = $value;
@@ -439,7 +476,11 @@ class SpecDocController extends Controller
 						$m_list->note2 =  $note_spec2[$index];
 						$m_list->note3 =  $note_spec3[$index];
 
-						$score = $m_list->spec_compare_id1 + $m_list->spec_compare_id2 + $m_list->spec_compare_id3;
+						$score1 = !empty($check_spec1[$index]) ? 1 : 0;
+						$score2 = !empty($check_spec2[$index]) ? 1 : 0;
+						$score3 = !empty($check_spec3[$index]) ? 1 : 0;
+
+						$score = $score1 + $score2 + $score3;
 						if($score > 1 ) //detail more than 2 comapny
 							$spec_detail .= $value."  ";
 						//print_r($m_list);
@@ -453,6 +494,8 @@ class SpecDocController extends Controller
 				if(isset($_POST['SpecDocCompareTemp']))
 				{
 
+					$model->detail = $spec_detail;
+					
 					if($model->save())
 					{
 						//check material has exist
@@ -476,7 +519,7 @@ class SpecDocController extends Controller
 						$compare_id[0] = NULL;
 						$compare_id[1] = NULL;
 						$compare_id[2] = NULL;
-
+						$ncompare_save = 0;
 						foreach ($_POST['SpecDocCompareTemp'] as $key => $compare) {
 
 							$model_com = new SpecDocCompareTemp;
@@ -506,7 +549,7 @@ class SpecDocController extends Controller
 							//print_r($uploadFile);
 							//exit;
 
-							$i++;
+							
 					
 							
 						    $filesave = '';
@@ -527,7 +570,7 @@ class SpecDocController extends Controller
 																					
 										if($model_com2->save())
 										{
-
+											$ncompare_save++;
 											
 											if (!empty($oldfile) && file_exists($filesaveold)) 
 											{
@@ -547,30 +590,41 @@ class SpecDocController extends Controller
 							{ 
 								$model_com2->attach_file = $oldfile;	
 								if($model_com2->brand!="")						
-									$model_com2->save();
+								{
+									if($model_com2->save())
+										$ncompare_save++;							
+								}	
 
 							}
+
+							$compare_id[$i-1] = $model_com2->id;
+							$i++;
 							
 						}
 
 						//save speclist
 						Yii::app()->db->createCommand('DELETE FROM spec_list WHERE spec_id='.$id)->execute();
-
+						//print_r($compare_id);
 						foreach ($specList as $key => $mlist) {
-							$mlist->spec_compare_id1 = $compare_id[0];
-							$mlist->spec_compare_id2 = $compare_id[1];
-							$mlist->spec_compare_id3 = $compare_id[2];
+							// echo "<pre>";
+							// print_r($mlist);
+							// echo "</pre>";
+							$mlist->spec_compare_id1 = !empty($mlist->spec_compare_id1) ? $compare_id[0] : 0;
+							$mlist->spec_compare_id2 = !empty($mlist->spec_compare_id2) ? $compare_id[1] : 0;
+							$mlist->spec_compare_id3 = !empty($mlist->spec_compare_id3) ? $compare_id[2] : 0;
 							$mlist->spec_id = $id;
 
 							$mlist->save();
 
-							//print_r($mlist);
+							// echo "<pre>";
+							// print_r($mlist);
+							// echo "</pre>";
 						}
 
 						if($saveOK)
 						{
 							$transaction->commit();
-							//$this->redirect(array('write'));	
+							$this->redirect(array('write'));	
 						}
 						else
 						{	$model->addError('contract', 'เกิดข้อผิดพลาดในการบันทึกข้อมูลคู่เทียบ.');}
@@ -804,6 +858,53 @@ class SpecDocController extends Controller
 					
 					$value->delete();
 				}
+			}
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+
+	public function actionSendSelected()
+    {
+    	$autoIdAll = $_POST['selectedID'];
+    	$type = $_POST['type'];
+        if(count($autoIdAll)>0)
+        {
+            foreach($autoIdAll as $autoId)
+            {
+                $model = $this->loadModel($autoId);
+                $model->send = 1;
+                $model->work_category_id = $type;
+                $model->save();
+            }
+        }    
+    }
+
+
+	public function actionDeleteCompare($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow deletion via POST request
+			if($this->loadModel($id)->delete()){
+				//delete spec_compare
+				$spec_compares = SpecDocCompare::model()->findAll(array("condition"=>"spec_id='$id'"));
+
+				foreach ($spec_compares as $key => $value) {
+					//delete file
+					$file = Yii::app()->basePath .'/../specfile/'.$value->attach_file;
+					if(file_exists($file))
+						unlink($file);
+					
+					$value->delete();
+				}
+
+				//
+				Yii::app()->db->createCommand('DELETE FROM spec_list WHERE spec_id='.$id)->execute();
 			}
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
