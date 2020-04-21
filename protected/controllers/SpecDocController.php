@@ -135,6 +135,7 @@ class SpecDocController extends Controller
 									
 									$filesave = Yii::app()->basePath .'/../specfile/'.iconv("UTF-8", "TIS-620",$uploadFileName);
 									$model_com2->attach_file = $uploadFile;
+									
 
 									if($model_com2->attach_file->saveAs($filesave)){
 

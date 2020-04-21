@@ -540,3 +540,144 @@ Stack trace:
 REQUEST_URI=/honeycomb/SpecDoc/sendCompare
 HTTP_REFERER=http://localhost/honeycomb/SpecDoc/write
 ---
+2020/04/21 10:58:01 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'is_written' in 'where clause'. The SQL statement executed was: SELECT COUNT(*) FROM `spec_doc` `t` WHERE is_written=1.
+in C:\xampp\htdocs\honeycomb\protected\extensions\bootstrap\widgets\TbGridView.php (49)
+in C:\xampp\htdocs\honeycomb\protected\views\specDoc\write.php (319)
+in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php (942)
+2020/04/21 10:58:01 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand ล้มเหลวในการดำเนินการเรียกลักษณะของ SQL: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'is_written' in 'where clause'. The SQL statement executed was: SELECT COUNT(*) FROM `spec_doc` `t` WHERE is_written=1' in C:\xampp\htdocs\honeycomb\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\db\CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 C:\xampp\htdocs\honeycomb\framework\db\ar\CActiveRecord.php(1601): CDbCommand->queryScalar()
+#2 C:\xampp\htdocs\honeycomb\framework\web\CActiveDataProvider.php(228): CActiveRecord->count(Object(CDbCriteria))
+#3 C:\xampp\htdocs\honeycomb\framework\web\CDataProvider.php(224): CActiveDataProvider->calculateTotalItemCount()
+#4 C:\xampp\htdocs\honeycomb\framework\web\CActiveDataProvider.php(178): CDataProvider->getTotalItemCount()
+#5 C:\xampp\htdocs\honeycomb\framework\web\CDataProvider.php(168): CActiveDataProvider->fetchData()
+#6 C:\xampp\htdocs\honeycomb\framework\zii\widgets\CBaseListView.php(111): CDataProvider->getData()
+#7 C:\xampp\htdocs\honeycomb\framework\zii\widgets\grid\CGridView.php(339): CBaseListView->init()
+#8 C:\xampp\htdocs\honeycomb\protected\extensions\bootstrap\widgets\TbGridView.php(49): CGridView->init()
+#9 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(147): TbGridView->init()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(172): CBaseController->createWidget('bootstrap.widge...', Array)
+#11 C:\xampp\htdocs\honeycomb\protected\views\specDoc\write.php(319): CBaseController->widget('bootstrap.widge...', Array)
+#12 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(126): require('C:\\xampp\\htdocs...')
+#13 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp\\htdocs...', Array, true)
+#14 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp\\htdocs...', Array, true)
+#15 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): CController->renderPartial('write', Array, true)
+#16 C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php(942): CController->render('write', Array)
+#17 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(49): SpecDocController->actionWrite()
+#18 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#19 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#20 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#21 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#22 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#23 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#24 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#25 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#26 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('write')
+#27 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('SpecDoc/write')
+#28 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#29 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#30 {main}
+REQUEST_URI=/honeycomb/SpecDoc/write
+HTTP_REFERER=http://localhost/honeycomb/site/index
+---
+2020/04/21 11:04:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "Contact/index".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('Contact/index')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/Contact/index
+HTTP_REFERER=http://localhost/honeycomb/SpecDoc/write
+---
+2020/04/21 11:34:36 [error] [exception.CException] exception 'CException' with message 'Contact and its behaviors do not have a method or closure named "searchByID".' in C:\xampp\htdocs\honeycomb\framework\base\CComponent.php:266
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\db\ar\CActiveRecord.php(227): CComponent->__call('searchByID', Array)
+#1 C:\xampp\htdocs\honeycomb\protected\views\contact\admin.php(77): CActiveRecord->__call('searchByID', Array)
+#2 C:\xampp\htdocs\honeycomb\protected\views\contact\admin.php(77): Contact->searchByID('1')
+#3 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(126): require('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp\\htdocs...', Array, true)
+#5 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp\\htdocs...', Array, true)
+#6 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): CController->renderPartial('admin', Array, true)
+#7 C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php(137): CController->render('admin', Array)
+#8 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(49): ContactController->actionIndex()
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#10 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#12 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#13 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#14 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#16 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('index')
+#18 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('Contact/index')
+#19 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#20 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#21 {main}
+REQUEST_URI=/honeycomb/Contact/index
+HTTP_REFERER=http://localhost/honeycomb/SpecDoc/write
+---
+2020/04/21 15:38:15 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "img/image.png".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('img/image.png')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/img/image.png
+HTTP_REFERER=http://localhost/honeycomb/contact/create
+---
+2020/04/21 15:49:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "img/image.png".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('img/image.png')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/img/image.png
+HTTP_REFERER=http://localhost/honeycomb/contact/create
+---
+2020/04/21 15:49:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'ระบบไม่สามารถดำเนินการ "images" ตามคำสั่งได้' in C:\xampp\htdocs\honeycomb\framework\web\CController.php:483
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CController.php(270): CController->missingAction('images')
+#1 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('images')
+#2 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('contact/images/...')
+#3 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/honeycomb/contact/images/avatar.jpg
+HTTP_REFERER=http://localhost/honeycomb/contact/create
+---
+2020/04/21 15:50:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "img/image.png".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('img/image.png')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/img/image.png
+HTTP_REFERER=http://localhost/honeycomb/contact/create
+---
+2020/04/21 15:52:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "img/image.png".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('img/image.png')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/img/image.png
+HTTP_REFERER=http://localhost/honeycomb/contact/create
+---
+2020/04/21 15:53:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "img/image.png".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('img/image.png')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/img/image.png
+HTTP_REFERER=http://localhost/honeycomb/contact/create
+---
+2020/04/21 15:54:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "img/image.png".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('img/image.png')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/img/image.png
+HTTP_REFERER=http://localhost/honeycomb/contact/create
+---
