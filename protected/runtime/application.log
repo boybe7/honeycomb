@@ -681,3 +681,400 @@ Stack trace:
 REQUEST_URI=/honeycomb/img/image.png
 HTTP_REFERER=http://localhost/honeycomb/contact/create
 ---
+2020/04/22 17:30:49 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'category' in 'where clause'. The SQL statement executed was: SELECT COUNT(*) FROM `contact` `t` WHERE category=:ycp0.
+in C:\xampp\htdocs\honeycomb\protected\extensions\bootstrap\widgets\TbGridView.php (49)
+in C:\xampp\htdocs\honeycomb\protected\views\contact\admin.php (110)
+in C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php (147)
+2020/04/22 17:30:49 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand ล้มเหลวในการดำเนินการเรียกลักษณะของ SQL: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'category' in 'where clause'. The SQL statement executed was: SELECT COUNT(*) FROM `contact` `t` WHERE category=:ycp0' in C:\xampp\htdocs\honeycomb\framework\db\CDbCommand.php:543
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\db\CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 C:\xampp\htdocs\honeycomb\framework\db\ar\CActiveRecord.php(1601): CDbCommand->queryScalar()
+#2 C:\xampp\htdocs\honeycomb\framework\web\CActiveDataProvider.php(228): CActiveRecord->count(Object(CDbCriteria))
+#3 C:\xampp\htdocs\honeycomb\framework\web\CDataProvider.php(224): CActiveDataProvider->calculateTotalItemCount()
+#4 C:\xampp\htdocs\honeycomb\framework\web\CActiveDataProvider.php(178): CDataProvider->getTotalItemCount()
+#5 C:\xampp\htdocs\honeycomb\framework\web\CDataProvider.php(168): CActiveDataProvider->fetchData()
+#6 C:\xampp\htdocs\honeycomb\framework\zii\widgets\CBaseListView.php(111): CDataProvider->getData()
+#7 C:\xampp\htdocs\honeycomb\framework\zii\widgets\grid\CGridView.php(339): CBaseListView->init()
+#8 C:\xampp\htdocs\honeycomb\protected\extensions\bootstrap\widgets\TbGridView.php(49): CGridView->init()
+#9 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(147): TbGridView->init()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(172): CBaseController->createWidget('bootstrap.widge...', Array)
+#11 C:\xampp\htdocs\honeycomb\protected\views\contact\admin.php(110): CBaseController->widget('bootstrap.widge...', Array)
+#12 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(126): require('C:\\xampp\\htdocs...')
+#13 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp\\htdocs...', Array, true)
+#14 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp\\htdocs...', Array, true)
+#15 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): CController->renderPartial('admin', Array, true)
+#16 C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php(147): CController->render('admin', Array)
+#17 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(49): ContactController->actionIndex()
+#18 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#19 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#20 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#21 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#22 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#23 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#24 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#25 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#26 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('index')
+#27 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('Contact/index')
+#28 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#29 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#30 {main}
+REQUEST_URI=/honeycomb/Contact/index
+HTTP_REFERER=http://localhost/honeycomb/SpecDoc/index
+---
+2020/04/22 18:51:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'ระบบไม่สามารถดำเนินการ "Contact" ตามคำสั่งได้' in C:\xampp\htdocs\honeycomb\framework\web\CController.php:483
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CController.php(270): CController->missingAction('Contact')
+#1 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('Contact')
+#2 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('contact/Contact...')
+#3 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/honeycomb/contact/Contact/createContactList/1
+HTTP_REFERER=http://localhost/honeycomb/contact/update/1
+---
+2020/04/22 18:52:25 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in C:\xampp\htdocs\honeycomb\framework\web\CController.php:336
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#3 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#7 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('update')
+#9 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('contact/update/...')
+#10 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#11 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#12 {main}
+REQUEST_URI=/honeycomb/contact/update/createContactList/1
+HTTP_REFERER=http://localhost/honeycomb/contact/update/1
+---
+2020/04/23 17:37:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "deleteContactList/id".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('deleteContactLi...')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/deleteContactList/id/3
+HTTP_REFERER=http://localhost/honeycomb/contact/update/1
+---
+2020/04/23 17:38:33 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Invalid request. Please do not repeat this request again.' in C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php:183
+Stack trace:
+#0 [internal function]: ContactController->actionDeleteContactList('3')
+#1 C:\xampp\htdocs\honeycomb\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(ContactController), Array)
+#2 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(ContactController), Object(ReflectionMethod), Array)
+#3 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('deleteContactLi...')
+#12 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('Contact/deleteC...')
+#13 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/honeycomb/Contact/deleteContactList/3
+HTTP_REFERER=http://localhost/honeycomb/contact/update/1
+---
+2020/04/23 18:21:17 [error] [php] Undefined variable: data (C:\xampp\htdocs\honeycomb\protected\views\contact\_formUpdate.php:284)
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): ContactController->renderFile()
+#1 C:\xampp\htdocs\honeycomb\protected\views\contact\update.php(3): ContactController->renderPartial()
+#2 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(126): require()
+#3 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(95): ContactController->renderInternal()
+#4 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): ContactController->renderFile()
+#5 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): ContactController->renderPartial()
+#6 C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php(135): ContactController->render()
+#7 unknown(0): ContactController->actionUpdate()
+#8 C:\xampp\htdocs\honeycomb\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#9 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams()
+#11 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): ContactController->runAction()
+#12 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#13 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#14 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): ContactController->filterAccessControl()
+#15 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#16 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#17 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): ContactController->runActionWithFilters()
+#18 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): ContactController->run()
+#19 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#20 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#21 C:\xampp\htdocs\honeycomb\index.php(13): CWebApplication->run()
+REQUEST_URI=/honeycomb/contact/update/1
+in C:\xampp\htdocs\honeycomb\protected\views\contact\_formUpdate.php (284)
+in C:\xampp\htdocs\honeycomb\protected\views\contact\update.php (3)
+in C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php (135)
+2020/04/23 18:25:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'ระบบไม่สามารถดำเนินการ "Contact" ตามคำสั่งได้' in C:\xampp\htdocs\honeycomb\framework\web\CController.php:483
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CController.php(270): CController->missingAction('Contact')
+#1 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('Contact')
+#2 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('contact/Contact...')
+#3 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/honeycomb/contact/Contact/deleteContactList/$data-%3Eid
+HTTP_REFERER=http://localhost/honeycomb/contact/update/1
+---
+2020/04/24 14:46:20 [error] [exception.CException] exception 'CException' with message 'ContactController ไม่สามารถค้นหา "view" ตามคำสั่งได้' in C:\xampp\htdocs\honeycomb\framework\web\CController.php:878
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): CController->renderPartial('view', Array, true)
+#1 C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php(55): CController->render('view', Array)
+#2 [internal function]: ContactController->actionView('1')
+#3 C:\xampp\htdocs\honeycomb\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(ContactController), Array)
+#4 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(ContactController), Object(ReflectionMethod), Array)
+#5 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#7 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#8 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#9 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#10 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#12 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('view')
+#14 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('contact/view')
+#15 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#16 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/honeycomb/contact/1
+HTTP_REFERER=http://localhost/honeycomb/contact/update/1
+---
+2020/04/24 16:10:57 [error] [exception.CException] exception 'CException' with message 'ContactListTemp and its behaviors do not have a method or closure named "searchByUser".' in C:\xampp\htdocs\honeycomb\framework\base\CComponent.php:266
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\db\ar\CActiveRecord.php(227): CComponent->__call('searchByUser', Array)
+#1 C:\xampp\htdocs\honeycomb\protected\views\contact\_form.php(143): CActiveRecord->__call('searchByUser', Array)
+#2 C:\xampp\htdocs\honeycomb\protected\views\contact\_form.php(143): ContactListTemp->searchByUser()
+#3 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(126): require('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp\\htdocs...', Array, true)
+#5 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp\\htdocs...', Array, true)
+#6 C:\xampp\htdocs\honeycomb\protected\views\contact\create.php(4): CController->renderPartial('_form', Array)
+#7 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(126): require('C:\\xampp\\htdocs...')
+#8 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp\\htdocs...', Array, true)
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp\\htdocs...', Array, true)
+#10 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): CController->renderPartial('create', Array, true)
+#11 C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php(88): CController->render('create', Array)
+#12 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(49): ContactController->actionCreate()
+#13 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#14 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#15 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#16 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#17 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#18 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#19 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#20 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#21 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('create')
+#22 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('contact/create')
+#23 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#24 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#25 {main}
+REQUEST_URI=/honeycomb/contact/create
+HTTP_REFERER=http://localhost/honeycomb/contact/
+---
+2020/04/24 16:12:24 [error] [exception.CException] exception 'CException' with message 'คุณสมบัติ "CWebApplication.user_id" ยังไม่ถูกกำหนด' in C:\xampp\htdocs\honeycomb\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\base\CModule.php(105): CComponent->__get('user_id')
+#1 C:\xampp\htdocs\honeycomb\protected\models\ContactListTemp.php(110): CModule->__get('user_id')
+#2 C:\xampp\htdocs\honeycomb\protected\views\contact\_form.php(143): ContactListTemp->searchByUser()
+#3 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(126): require('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp\\htdocs...', Array, true)
+#5 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp\\htdocs...', Array, true)
+#6 C:\xampp\htdocs\honeycomb\protected\views\contact\create.php(4): CController->renderPartial('_form', Array)
+#7 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(126): require('C:\\xampp\\htdocs...')
+#8 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp\\htdocs...', Array, true)
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp\\htdocs...', Array, true)
+#10 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): CController->renderPartial('create', Array, true)
+#11 C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php(88): CController->render('create', Array)
+#12 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(49): ContactController->actionCreate()
+#13 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#14 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#15 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#16 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#17 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#18 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#19 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#20 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#21 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('create')
+#22 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('contact/create')
+#23 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#24 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#25 {main}
+REQUEST_URI=/honeycomb/contact/create
+HTTP_REFERER=http://localhost/honeycomb/contact/
+---
+2020/04/24 16:18:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "specfile/empty.jpg".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('specfile/empty....')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/specfile/empty.jpg
+HTTP_REFERER=http://localhost/honeycomb/contact/create
+---
+2020/04/24 16:19:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "createContactList".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('createContactLi...')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/createContactList/
+HTTP_REFERER=http://localhost/honeycomb/contact/create
+---
+2020/04/24 16:32:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "createContactListTemp".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('createContactLi...')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/createContactListTemp/
+HTTP_REFERER=http://localhost/honeycomb/contact/create
+---
+2020/04/27 14:57:47 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Invalid request. Please do not repeat this request again.' in C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php:233
+Stack trace:
+#0 [internal function]: ContactController->actionDelete('3')
+#1 C:\xampp\htdocs\honeycomb\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(ContactController), Array)
+#2 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(ContactController), Object(ReflectionMethod), Array)
+#3 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('delete')
+#12 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('contact/delete')
+#13 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/honeycomb/contact/delete/3
+HTTP_REFERER=http://localhost/honeycomb/Contact/index
+---
+2020/04/27 14:58:18 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Invalid request. Please do not repeat this request again.' in C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php:233
+Stack trace:
+#0 [internal function]: ContactController->actionDelete('3')
+#1 C:\xampp\htdocs\honeycomb\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(ContactController), Array)
+#2 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(ContactController), Object(ReflectionMethod), Array)
+#3 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('delete')
+#12 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('contact/delete')
+#13 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/honeycomb/contact/delete/3
+HTTP_REFERER=http://localhost/honeycomb/Contact/index
+---
+2020/04/27 15:00:12 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Invalid request. Please do not repeat this request again.' in C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php:233
+Stack trace:
+#0 [internal function]: ContactController->actionDelete('3')
+#1 C:\xampp\htdocs\honeycomb\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(ContactController), Array)
+#2 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(ContactController), Object(ReflectionMethod), Array)
+#3 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('delete')
+#12 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('contact/delete')
+#13 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/honeycomb/contact/delete/3
+HTTP_REFERER=http://localhost/honeycomb/Contact/index
+---
+2020/04/27 15:00:56 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Invalid request. Please do not repeat this request again.' in C:\xampp\htdocs\honeycomb\protected\controllers\SpecDocController.php:869
+Stack trace:
+#0 [internal function]: SpecDocController->actionDelete('1')
+#1 C:\xampp\htdocs\honeycomb\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(SpecDocController), Array)
+#2 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(SpecDocController), Object(ReflectionMethod), Array)
+#3 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('delete')
+#12 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('specDoc/delete')
+#13 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/honeycomb/specDoc/delete/1
+HTTP_REFERER=http://localhost/honeycomb/SpecDoc/index
+---
+2020/04/27 15:04:40 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Invalid request. Please do not repeat this request again.' in C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php:233
+Stack trace:
+#0 [internal function]: ContactController->actionDelete('3')
+#1 C:\xampp\htdocs\honeycomb\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(ContactController), Array)
+#2 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(ContactController), Object(ReflectionMethod), Array)
+#3 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('delete')
+#12 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('contact/delete')
+#13 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/honeycomb/contact/delete/3
+HTTP_REFERER=http://localhost/honeycomb/Contact/index
+---
+2020/04/27 15:06:35 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Invalid request. Please do not repeat this request again.' in C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php:233
+Stack trace:
+#0 [internal function]: ContactController->actionDelete('3')
+#1 C:\xampp\htdocs\honeycomb\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(ContactController), Array)
+#2 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(ContactController), Object(ReflectionMethod), Array)
+#3 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('delete')
+#12 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('contact/delete')
+#13 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/honeycomb/contact/delete/3
+HTTP_REFERER=http://localhost/honeycomb/Contact/index
+---
+2020/04/27 15:07:29 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Invalid request. Please do not repeat this request again.' in C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php:233
+Stack trace:
+#0 [internal function]: ContactController->actionDelete('3')
+#1 C:\xampp\htdocs\honeycomb\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(ContactController), Array)
+#2 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(ContactController), Object(ReflectionMethod), Array)
+#3 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#6 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#7 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#8 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#11 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('delete')
+#12 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('contact/delete')
+#13 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#14 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#15 {main}
+REQUEST_URI=/honeycomb/contact/delete/3
+HTTP_REFERER=http://localhost/honeycomb/Contact/index
+---

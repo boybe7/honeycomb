@@ -1,24 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "contact_list".
+ * This is the model class for table "quotation_detail".
  *
- * The followings are the available columns in table 'contact_list':
+ * The followings are the available columns in table 'quotation_detail':
  * @property integer $id
  * @property string $name
- * @property string $telephone
- * @property string $line
- * @property string $email
- * @property integer $contact_id
+ * @property integer $amount
+ * @property string $unit
+ * @property integer $request_id
  */
-class ContactList extends CActiveRecord
+class QuotationDetail extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'contact_list';
+		return 'quotation_detail';
 	}
 
 	/**
@@ -29,14 +28,13 @@ class ContactList extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, contact_id', 'required'),
-			array('contact_id', 'numerical', 'integerOnly'=>true),
+			array('name, amount, unit, request_id', 'required'),
+			array('amount, request_id', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>255),
-			array('telephone', 'length', 'max'=>15),
-			array('line, email', 'length', 'max'=>50),
+			array('unit', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, telephone, line, email, contact_id', 'safe', 'on'=>'search'),
+			array('id, name, amount, unit, request_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,11 +56,10 @@ class ContactList extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'ชื่อ-นามสกุล',
-			'telephone' => 'เบอร์โทร',
-			'line' => 'Line',
-			'email' => 'E-mail',
-			'contact_id' => 'Contact',
+			'name' => 'Name',
+			'amount' => 'Amount',
+			'unit' => 'Unit',
+			'request_id' => 'Request',
 		);
 	}
 
@@ -78,7 +75,7 @@ class ContactList extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
-	public function search($id)
+	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
@@ -86,10 +83,9 @@ class ContactList extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('telephone',$this->telephone,true);
-		$criteria->compare('line',$this->line,true);
-		$criteria->compare('email',$this->email,true);
-		$criteria->compare('contact_id',$id);
+		$criteria->compare('amount',$this->amount);
+		$criteria->compare('unit',$this->unit,true);
+		$criteria->compare('request_id',$this->request_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -100,7 +96,7 @@ class ContactList extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return ContactList the static model class
+	 * @return QuotationDetail the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

@@ -1,24 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "contact_list".
+ * This is the model class for table "request_quotation".
  *
- * The followings are the available columns in table 'contact_list':
+ * The followings are the available columns in table 'request_quotation':
  * @property integer $id
- * @property string $name
- * @property string $telephone
- * @property string $line
- * @property string $email
+ * @property string $detail
  * @property integer $contact_id
+ * @property string $date
  */
-class ContactList extends CActiveRecord
+class RequestQuotation extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'contact_list';
+		return 'request_quotation';
 	}
 
 	/**
@@ -29,14 +27,12 @@ class ContactList extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, contact_id', 'required'),
+			array('detail, contact_id, date', 'required'),
 			array('contact_id', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>255),
-			array('telephone', 'length', 'max'=>15),
-			array('line, email', 'length', 'max'=>50),
+			array('detail', 'length', 'max'=>500),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, telephone, line, email, contact_id', 'safe', 'on'=>'search'),
+			array('id, detail, contact_id, date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,11 +54,9 @@ class ContactList extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'ชื่อ-นามสกุล',
-			'telephone' => 'เบอร์โทร',
-			'line' => 'Line',
-			'email' => 'E-mail',
+			'detail' => 'รายละเอียด',
 			'contact_id' => 'Contact',
+			'date' => 'วัน/เดือน/ปี',
 		);
 	}
 
@@ -85,11 +79,9 @@ class ContactList extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('telephone',$this->telephone,true);
-		$criteria->compare('line',$this->line,true);
-		$criteria->compare('email',$this->email,true);
+		$criteria->compare('detail',$this->detail,true);
 		$criteria->compare('contact_id',$id);
+		$criteria->compare('date',$this->date,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -100,7 +92,7 @@ class ContactList extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return ContactList the static model class
+	 * @return RequestQuotation the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

@@ -31,11 +31,11 @@ class ContactController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','createContactList','updateContactList','deleteContactList','createContactListTemp','updateContactListTemp','deleteContactListTemp','delete','createRequestQuotation','updateRequestQuotation','deleteRequestQuotation'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -66,26 +66,114 @@ class ContactController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
+
 		if(isset($_POST['Contact']))
 		{
 			$model->attributes=$_POST['Contact'];
-			$model->category = 0;
-
+			
 			$profileImageName = time() . '-' . $_FILES["profileImage"]["name"];
 			$filesave = Yii::app()->basePath .'/../specfile/'.$profileImageName;
 
 			if(move_uploaded_file($_FILES["profileImage"]["tmp_name"], $filesave)) {
 		        $model->card = $profileImageName;
-		        if($model->save())
-				    $this->redirect(array('index'));	
+		        
 		    } 
+
+		    if($model->save())
+		        {
+		        	$m = ContactListTemp::model()->findAll(array("condition"=>"user_id = '".Yii::app()->user->ID."' "));
+		        	foreach ($m as $key => $value) {
+		        		$contact = new ContactList;
+		        		$contact->name = $value->name;
+		        		$contact->telephone = $value->telephone;
+		        		$contact->line = $value->line;
+		        		$contact->email = $value->email;
+		        		$contact->contact_id = $model->id;
+
+		        		if($contact->save())
+		        			$value->delete();
+
+		        	}
+				    $this->redirect(array('index'));	
+		        }
 
 			
 		}
+		else if(!isset($_GET['ajax']))
+			Yii::app()->db->createCommand('DELETE FROM contact_list_temp WHERE user_id='.Yii::app()->user->ID)->execute();
 
 		$this->render('create',array(
 			'model'=>$model,
 		));
+	}
+
+	public function actionCreateContactList($id)
+	{
+		$model=new ContactList;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['ContactList']))
+		{
+			$model->attributes=$_POST['ContactList'];
+			$model->contact_id = $id;
+			if($model->save())
+				echo CJSON::encode(array('success' => true));
+			else
+				echo CJSON::encode(array('fail' => true));
+		   
+			
+		}
+		else
+			$this->renderPartial('_formContactList', array('model'=>$model), false, true);
+	
+	}
+
+	public function actionCreateRequestQuotation($id)
+	{
+		$model=new RequestQuotation;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['RequestQuotation']))
+		{
+			$model->attributes=$_POST['RequestQuotation'];
+			$model->contact_id = $id;
+			if($model->save())
+			{
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			}
+		   
+			
+		}
+		else
+			$this->render('_formRequestQuotation', array('model'=>$model), false, true);
+	
+	}
+
+	public function actionCreateContactListTemp()
+	{
+		$model=new ContactListTemp;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['ContactListTemp']))
+		{
+			$model->attributes=$_POST['ContactListTemp'];
+			$model->user_id = Yii::app()->user->ID;
+			if($model->save())
+				echo CJSON::encode(array('success' => true));
+			else
+				echo CJSON::encode(array('fail' => true));
+		   
+			
+		}
+		else
+			$this->renderPartial('_formContactList', array('model'=>$model), false, true);
+	
 	}
 
 	/**
@@ -103,14 +191,48 @@ class ContactController extends Controller
 		if(isset($_POST['Contact']))
 		{
 			$model->attributes=$_POST['Contact'];
+
+			$profileImageName = time() . '-' . $_FILES["profileImage"]["name"];
+			$filesave = Yii::app()->basePath .'/../specfile/'.$profileImageName;
+
+			if(move_uploaded_file($_FILES["profileImage"]["tmp_name"], $filesave)) {
+		        $model->card = $profileImageName;
+		        
+		    } 
+
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('index'));	
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
 		));
 	}
+
+	public function actionUpdateContactList()
+    {
+	    $es = new EditableSaver('ContactList');
+	    try {
+	    	$es->update();
+	    } catch(CException $e) {
+	    	echo CJSON::encode(array('success' => false, 'msg' => $e->getMessage()));
+	    	return;
+	    }
+	    echo CJSON::encode(array('success' => true));
+    }
+
+    public function actionUpdateContactListTemp()
+    {
+	    $es = new EditableSaver('ContactListTemp');
+	    try {
+	    	$es->update();
+	    } catch(CException $e) {
+	    	echo CJSON::encode(array('success' => false, 'msg' => $e->getMessage()));
+	    	return;
+	    }
+	    echo CJSON::encode(array('success' => true));
+    }
+
 
 	/**
 	 * Deletes a particular model.
@@ -124,12 +246,32 @@ class ContactController extends Controller
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
+			Yii::app()->db->createCommand('DELETE FROM contact_list WHERE contact_id='.$id)->execute();
+
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 		}
 		else
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+
+	public function actionDeleteContactList($id)
+	{
+		
+			ContactList::model()->findByPk($id)->delete();
+			return true;
+		   // $this->redirect( $_POST['returnUrl'] );
+		
+	}
+
+	public function actionDeleteContactListTemp($id)
+	{
+		
+			ContactListTemp::model()->findByPk($id)->delete();
+			return true;
+		   // $this->redirect( $_POST['returnUrl'] );
+		
 	}
 
 	/**

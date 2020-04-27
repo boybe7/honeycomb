@@ -98,6 +98,24 @@
 										'headerHtmlOptions' => array('style' => 'width:20%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
 							  	),
+							  	'detail'=>array(
+									    'name' => 'detail',
+									    'filter'=>CHtml::activeTextField($model, 'detail',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("detail"))),
+										'headerHtmlOptions' => array('style' => 'width:20%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
+							  	),
+							  	'telephone'=>array(
+									    'name' => 'telephone',
+									    'filter'=>CHtml::activeTextField($model, 'telephone',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("telephone"))),
+										'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
+							  	),
+							  	'website'=>array(
+									    'name' => 'website',
+									    'filter'=>CHtml::activeTextField($model, 'website',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("website"))),
+										'headerHtmlOptions' => array('style' => 'width:20%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
+							  	),
 							  
 								array(
 									'class'=>'bootstrap.widgets.TbButtonColumn',

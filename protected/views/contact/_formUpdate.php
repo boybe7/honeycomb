@@ -1,4 +1,4 @@
-	<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'contact-form',
 	'enableAjaxValidation'=>false,
 	'htmlOptions' => array('enctype' => 'multipart/form-data','class'=>'well'),
@@ -24,7 +24,6 @@
 		        $typelist = CHtml::listData($workcat,'id','name');
 		        echo $form->dropDownListRow($model, 'category', $typelist,array('class'=>'span12'), array('options' => array('work_category_id'=>array('selected'=>true)))); 
 			 ?>
-
 		</div>	 
 		<div class="span4">
 			<div class="form-group text-center" style="position: relative;" >
@@ -97,7 +96,7 @@ function displayImage(e) {
 						    	'onclick'=>'
 
 						    		$.ajax({
-		                                    url: "../Contact/createContactListTemp/" ,
+		                                    url: "../createContactList/'.$model->id.'" ,
 		                                    type: "POST",
 		                                    success: function (data) {
 							
@@ -120,7 +119,7 @@ function displayImage(e) {
 		                                                        callback: function(){
 		                                                             $.ajax({
 		                                                                      type: "POST",
-		                                                                      url: "../Contact/createContactListTemp/" ,
+		                                                                      url: "../createContactList/'.$model->id.'" ,
 		                                                                      dataType:"json",
 		                                                                      data: $(".modal-body #contactlist-form").serialize(),
 		                                                                      success: function (data) {
@@ -144,10 +143,10 @@ function displayImage(e) {
 						)); 
 
 
-	                $modelList = new ContactListTemp('search');
+	                $modelList = new ContactList('search');
 					$this->widget('bootstrap.widgets.TbGridView',array(
 							'id'=>'list-grid',
-							'dataProvider'=>$modelList->searchByUser(),
+							'dataProvider'=>$modelList->search($model->id),
 							'type'=>'bordered condensed',
 							//'filter'=>$model,
 							'selectableRows' =>2,
@@ -174,7 +173,7 @@ function displayImage(e) {
 										'editable' => array( //editable section
 										
 											'title'=>'แก้ไข',
-											'url' => $this->createUrl('updateContactListTemp'),
+											'url' => $this->createUrl('updateContactList'),
 											'success' => 'js: function(response, newValue) {
 																if(!response.success) return response.msg;
 
@@ -199,7 +198,7 @@ function displayImage(e) {
 										'editable' => array( //editable section
 										
 											'title'=>'แก้ไข',
-											'url' => $this->createUrl('updateContactListTemp'),
+											'url' => $this->createUrl('updateContactList'),
 											'success' => 'js: function(response, newValue) {
 																if(!response.success) return response.msg;
 
@@ -224,7 +223,7 @@ function displayImage(e) {
 										'editable' => array( //editable section
 										
 											'title'=>'แก้ไข',
-											'url' => $this->createUrl('updateContactListTemp'),
+											'url' => $this->createUrl('updateContactList'),
 											'success' => 'js: function(response, newValue) {
 																if(!response.success) return response.msg;
 
@@ -249,7 +248,7 @@ function displayImage(e) {
 										'editable' => array( //editable section
 										
 											'title'=>'แก้ไข',
-											'url' => $this->createUrl('updateContactListTemp'),
+											'url' => $this->createUrl('updateContactList'),
 											'success' => 'js: function(response, newValue) {
 																if(!response.success) return response.msg;
 
@@ -278,7 +277,7 @@ function displayImage(e) {
 								        
 								            'url'=>function($data){
 
-													            return Yii::app()->createUrl('/Contact/deleteContactListTemp/',
+													            return Yii::app()->createUrl('/Contact/deleteContactList/',
 
 													                    array('id'=>$data->id) /* <- customise that */
 
@@ -306,6 +305,136 @@ function displayImage(e) {
 
 						));
 
+
+
+	echo "<b>เอกสารขอใบเสนอราคา/Spec. สินค้า</b>";
+
+			 $this->widget('bootstrap.widgets.TbButton', array(
+						    'buttonType'=>'link',
+						    
+						    'type'=>'success',
+						    'label'=>'เพิ่มข้อมูล',
+						    'icon'=>'plus-sign',
+						    'url'=>array('createRequestQuotation/'.$model->id),
+						    'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-bottom:10px;',
+						    	
+
+							),
+						)); 
+
+					$modelQuotation = new RequestQuotation('search');
+					$this->widget('bootstrap.widgets.TbGridView',array(
+							'id'=>'quotation-grid',
+							'dataProvider'=>$modelQuotation->search($model->id),
+							'type'=>'bordered condensed',
+							//'filter'=>$model,
+							'selectableRows' =>2,
+							'htmlOptions'=>array('style'=>'padding-top:10px'),
+						    'enablePagination' => true,
+						    'summaryText'=>'แสดงผล {start} ถึง {end} จากทั้งหมด {count} ข้อมูล',
+						    'template'=>"{items}<div class='row-fluid'><div class='span6'>{pager}</div><div class='span6'>{summary}</div></div>",
+							'columns'=>array(
+								'no'=>array(
+									    'name' => 'no',
+									    'value' => '$this->grid->dataProvider->pagination->currentPage * $this->grid->dataProvider->pagination->pageSize + ($row+1)',
+									    'filter'=>false,
+
+										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
+							  	),
+							  	
+							
+							  	'detail'=>array(
+									    'name' => 'detail',
+									    'filter'=>false,
+										'headerHtmlOptions' => array('style' => 'width:40%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;'),
+										'class' => 'editable.EditableColumn',
+										'editable' => array( //editable section
+										
+											'title'=>'แก้ไข',
+											'url' => $this->createUrl('updateContactList'),
+											'success' => 'js: function(response, newValue) {
+																if(!response.success) return response.msg;
+
+																$("#list-grid").yiiGridView("update",{});
+															}',
+											'options' => array(
+												'ajaxOptions' => array('dataType' => 'json'),
+
+											), 
+											'placement' => 'right',
+											'display' => 'js: function(value, sourceData) {
+											    
+											}'
+										)
+							  	),
+							  	
+							  	'date'=>array(
+									    'name' => 'date',
+									    'filter'=>false,
+										'headerHtmlOptions' => array('style' => 'width:20%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;'),
+										'class' => 'editable.EditableColumn',
+										'editable' => array( //editable section
+										
+											'title'=>'แก้ไข',
+											'url' => $this->createUrl('updateContactList'),
+											'success' => 'js: function(response, newValue) {
+																if(!response.success) return response.msg;
+
+																$("#list-grid").yiiGridView("update",{});
+															}',
+											'options' => array(
+												'ajaxOptions' => array('dataType' => 'json'),
+
+											), 
+											'placement' => 'right',
+											'display' => 'js: function(value, sourceData) {
+											    
+											}'
+										)
+							  	),
+							  
+								array(
+									'class'=>'bootstrap.widgets.TbButtonColumn',
+									'visible'=>Yii::app()->user->isAdmin() ? true : false,
+									'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),
+									'template' => '{delete}',
+									'buttons'=>array
+								    (
+								        'delete' => array
+								        (
+								        
+								            'url'=>function($data){
+
+													            return Yii::app()->createUrl('/Contact/deleteContactList/',
+
+													                    array('id'=>$data->id) /* <- customise that */
+
+													            );
+
+													        }, 
+											'click'=>'js: function(data){
+												$.ajax({
+                                                                      type: "POST",
+                                                                      url : this.getAttribute("href"),
+                                                                      success: function (data) {
+
+                                                                        $.fn.yiiGridView.update("list-grid",{});
+                                                                      }
+                                                 });
+										         
+
+										          return false;
+
+										      }',		        
+								        ),
+								    ),
+								),
+							),
+
+						));
 	?>
 	
 

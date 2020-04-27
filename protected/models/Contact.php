@@ -64,7 +64,7 @@ class Contact extends CActiveRecord
 			'telephone' => 'เบอร์โทร',
 			'website' => 'Website',
 			'card' => 'Card',
-			'category' => 'Category',
+			'category' => 'ประเภทงาน',
 		);
 	}
 
