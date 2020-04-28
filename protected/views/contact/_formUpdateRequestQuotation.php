@@ -54,7 +54,7 @@
 						    	'onclick'=>'
 
 						    		$.ajax({
-		                                    url: "../createQuotationDetailTemp" ,
+		                                    url: "../createQuotationDetail/'.$model->id.'" ,
 		                                    type: "POST",
 		                                    success: function (data) {
 							
@@ -77,7 +77,7 @@
 		                                                        callback: function(){
 		                                                             $.ajax({
 		                                                                      type: "POST",
-		                                                                      url: "../createQuotationDetailTemp" ,
+		                                                                      url: "../createQuotationDetail/'.$model->id.'" ,
 		                                                                      dataType:"json",
 		                                                                      data: $(".modal-body #quotation-form").serialize(),
 		                                                                      success: function (data) {
@@ -100,10 +100,10 @@
 							),
 						)); 
 
-					$modelQuotation = new QuotationDetailTemp('search');
+					$modelQuotation = new QuotationDetail('search');
 					$this->widget('bootstrap.widgets.TbGridView',array(
 							'id'=>'quotation-grid',
-							'dataProvider'=>$modelQuotation->search(Yii::app()->user->ID),
+							'dataProvider'=>$modelQuotation->search($model->id),
 							'type'=>'bordered condensed',
 							//'filter'=>$model,
 							'selectableRows' =>2,
@@ -131,7 +131,7 @@
 										'editable' => array( //editable section
 										
 											'title'=>'แก้ไข',
-											'url' => $this->createUrl('updateQuotationDetailTemp'),
+											'url' => $this->createUrl('updateQuotationDetail'),
 											'success' => 'js: function(response, newValue) {
 																if(!response.success) return response.msg;
 
@@ -157,7 +157,7 @@
 										'editable' => array( //editable section
 										
 											'title'=>'แก้ไข',
-											'url' => $this->createUrl('updateQuotationDetailTemp'),
+											'url' => $this->createUrl('updateQuotationDetail'),
 											'success' => 'js: function(response, newValue) {
 																if(!response.success) return response.msg;
 
@@ -183,7 +183,7 @@
 										'editable' => array( //editable section
 										
 											'title'=>'แก้ไข',
-											'url' => $this->createUrl('updateQuotationDetailTemp'),
+											'url' => $this->createUrl('updateQuotationDetail'),
 											'success' => 'js: function(response, newValue) {
 																if(!response.success) return response.msg;
 
@@ -212,7 +212,7 @@
 								        
 								            'url'=>function($data){
 
-													            return Yii::app()->createUrl('/Contact/deleteQuotationDetailTemp/',
+													            return Yii::app()->createUrl('/Contact/deleteQuotationDetail/',
 
 													                    array('id'=>$data->id) /* <- customise that */
 

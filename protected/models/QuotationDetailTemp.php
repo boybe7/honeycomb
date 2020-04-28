@@ -1,23 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "quotation_detail".
+ * This is the model class for table "quotation_detail_temp".
  *
- * The followings are the available columns in table 'quotation_detail':
+ * The followings are the available columns in table 'quotation_detail_temp':
  * @property integer $id
  * @property string $name
  * @property integer $amount
  * @property string $unit
- * @property integer $request_id
+ * @property integer $user_id
  */
-class QuotationDetail extends CActiveRecord
+class QuotationDetailTemp extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'quotation_detail';
+		return 'quotation_detail_temp';
 	}
 
 	/**
@@ -28,13 +28,13 @@ class QuotationDetail extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, amount, unit, request_id', 'required'),
-			array('amount, request_id', 'numerical', 'integerOnly'=>true),
+			array('name, amount, unit, user_id', 'required'),
+			array('amount, user_id', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>255),
 			array('unit', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, amount, unit, request_id', 'safe', 'on'=>'search'),
+			array('id, name, amount, unit, user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,7 +59,7 @@ class QuotationDetail extends CActiveRecord
 			'name' => 'รายละเอียด',
 			'amount' => 'จำนวน',
 			'unit' => 'หน่วย',
-			'request_id' => 'Request',
+			'user_id' => 'User',
 		);
 	}
 
@@ -85,7 +85,7 @@ class QuotationDetail extends CActiveRecord
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('amount',$this->amount);
 		$criteria->compare('unit',$this->unit,true);
-		$criteria->compare('request_id',$id);
+		$criteria->compare('user_id',Yii::app()->user->ID);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -96,7 +96,7 @@ class QuotationDetail extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return QuotationDetail the static model class
+	 * @return QuotationDetailTemp the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

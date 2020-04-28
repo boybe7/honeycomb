@@ -315,7 +315,7 @@ function displayImage(e) {
 						    'type'=>'success',
 						    'label'=>'เพิ่มข้อมูล',
 						    'icon'=>'plus-sign',
-						    'url'=>array('createRequestQuotation/'.$model->id),
+						    'url'=>array('/Contact/createRequestQuotation/'.$model->id),
 						    'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-bottom:10px;',
 						    	
 
@@ -349,66 +349,52 @@ function displayImage(e) {
 									    'filter'=>false,
 										'headerHtmlOptions' => array('style' => 'width:40%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;'),
-										'class' => 'editable.EditableColumn',
-										'editable' => array( //editable section
 										
-											'title'=>'แก้ไข',
-											'url' => $this->createUrl('updateContactList'),
-											'success' => 'js: function(response, newValue) {
-																if(!response.success) return response.msg;
-
-																$("#list-grid").yiiGridView("update",{});
-															}',
-											'options' => array(
-												'ajaxOptions' => array('dataType' => 'json'),
-
-											), 
-											'placement' => 'right',
-											'display' => 'js: function(value, sourceData) {
-											    
-											}'
-										)
 							  	),
 							  	
 							  	'date'=>array(
 									    'name' => 'date',
 									    'filter'=>false,
 										'headerHtmlOptions' => array('style' => 'width:20%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;'),
-										'class' => 'editable.EditableColumn',
-										'editable' => array( //editable section
+										'htmlOptions'=>array('style'=>'text-align:center;'),
 										
-											'title'=>'แก้ไข',
-											'url' => $this->createUrl('updateContactList'),
-											'success' => 'js: function(response, newValue) {
-																if(!response.success) return response.msg;
-
-																$("#list-grid").yiiGridView("update",{});
-															}',
-											'options' => array(
-												'ajaxOptions' => array('dataType' => 'json'),
-
-											), 
-											'placement' => 'right',
-											'display' => 'js: function(value, sourceData) {
-											    
-											}'
-										)
+							  	),
+							  	'export'=>array(
+									    'name' => 'filename',
+									    'header' => 'Export',
+									    'type'=> 'raw',
+									    'value'=>'CHtml::link(CHtml::image(Yii::app()->request->baseUrl."/images/download.png"), "../exportQuotation/".$data->id)',
+									    'filter'=>false,
+										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:center;')
 							  	),
 							  
 								array(
 									'class'=>'bootstrap.widgets.TbButtonColumn',
 									'visible'=>Yii::app()->user->isAdmin() ? true : false,
 									'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),
-									'template' => '{delete}',
+									'template' => '{update} {delete}',
 									'buttons'=>array
 								    (
+								    	'update' => array
+								        (
+								        
+								            'url'=>function($data){
+
+													            return Yii::app()->createUrl('/Contact/updateRequestQuotation/',
+
+													                    array('id'=>$data->id) /* <- customise that */
+
+													            );
+
+											   }
+								        ),
 								        'delete' => array
 								        (
 								        
 								            'url'=>function($data){
 
-													            return Yii::app()->createUrl('/Contact/deleteContactList/',
+													            return Yii::app()->createUrl('/Contact/deleteRequestQuotation/',
 
 													                    array('id'=>$data->id) /* <- customise that */
 
@@ -421,7 +407,7 @@ function displayImage(e) {
                                                                       url : this.getAttribute("href"),
                                                                       success: function (data) {
 
-                                                                        $.fn.yiiGridView.update("list-grid",{});
+                                                                        $.fn.yiiGridView.update("quotation-grid",{});
                                                                       }
                                                  });
 										         

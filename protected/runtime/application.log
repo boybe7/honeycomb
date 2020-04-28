@@ -1078,3 +1078,126 @@ Stack trace:
 REQUEST_URI=/honeycomb/contact/delete/3
 HTTP_REFERER=http://localhost/honeycomb/Contact/index
 ---
+2020/04/28 12:10:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "createRequestQuotation/view".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('createRequestQu...')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/createRequestQuotation/2
+HTTP_REFERER=http://localhost/honeycomb/contact/update/2
+---
+2020/04/28 13:41:43 [error] [exception.CException] exception 'CException' with message 'คุณสมบัติ "RequestQuotation.name" ยังไม่ถูกกำหนด' in C:\xampp\htdocs\honeycomb\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\db\ar\CActiveRecord.php(145): CComponent->__get('name')
+#1 C:\xampp\htdocs\honeycomb\framework\web\helpers\CHtml.php(2529): CActiveRecord->__get('name')
+#2 C:\xampp\htdocs\honeycomb\framework\web\helpers\CHtml.php(2252): CHtml::resolveValue(Object(RequestQuotation), 'name')
+#3 C:\xampp\htdocs\honeycomb\framework\web\helpers\CHtml.php(1434): CHtml::activeInputField('text', Object(RequestQuotation), 'name', Array)
+#4 C:\xampp\htdocs\honeycomb\framework\web\widgets\CActiveForm.php(725): CHtml::activeTextField(Object(RequestQuotation), 'name', Array)
+#5 C:\xampp\htdocs\honeycomb\protected\extensions\bootstrap\widgets\input\TbInputVertical.php(208): CActiveForm->textField(Object(RequestQuotation), 'name', Array)
+#6 C:\xampp\htdocs\honeycomb\protected\extensions\bootstrap\widgets\input\TbInput.php(231): TbInputVertical->textField()
+#7 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(173): TbInput->run()
+#8 C:\xampp\htdocs\honeycomb\protected\extensions\bootstrap\widgets\TbActiveForm.php(548): CBaseController->widget('bootstrap.widge...', Array)
+#9 C:\xampp\htdocs\honeycomb\protected\extensions\bootstrap\widgets\TbActiveForm.php(237): TbActiveForm->inputRow('text', Object(RequestQuotation), 'name', NULL, Array)
+#10 C:\xampp\htdocs\honeycomb\protected\views\contact\_formRequestQuotation.php(12): TbActiveForm->textFieldRow(Object(RequestQuotation), 'name', Array)
+#11 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(126): require('C:\\xampp\\htdocs...')
+#12 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp\\htdocs...', Array, true)
+#13 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp\\htdocs...', Array, true)
+#14 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): CController->renderPartial('_formRequestQuo...', Array, true)
+#15 C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php(152): CController->render('_formRequestQuo...', Array, false, true)
+#16 [internal function]: ContactController->actionCreateRequestQuotation('2')
+#17 C:\xampp\htdocs\honeycomb\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(ContactController), Array)
+#18 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(ContactController), Object(ReflectionMethod), Array)
+#19 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#20 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#21 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#22 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#23 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#24 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#25 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#26 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#27 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('createRequestQu...')
+#28 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('Contact/createR...')
+#29 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#30 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#31 {main}
+REQUEST_URI=/honeycomb/Contact/createRequestQuotation/2
+HTTP_REFERER=http://localhost/honeycomb/contact/update/2
+---
+2020/04/28 13:47:53 [error] [exception.CException] exception 'CException' with message 'คุณสมบัติ "RequestQuotation.date_price" ยังไม่ถูกกำหนด' in C:\xampp\htdocs\honeycomb\framework\base\CComponent.php:130
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\db\ar\CActiveRecord.php(145): CComponent->__get('date_price')
+#1 C:\xampp\htdocs\honeycomb\framework\web\helpers\CHtml.php(2529): CActiveRecord->__get('date_price')
+#2 C:\xampp\htdocs\honeycomb\framework\web\helpers\CHtml.php(2252): CHtml::resolveValue(Object(RequestQuotation), 'date_price')
+#3 C:\xampp\htdocs\honeycomb\framework\web\helpers\CHtml.php(1434): CHtml::activeInputField('text', Object(RequestQuotation), 'date_price', Array)
+#4 C:\xampp\htdocs\honeycomb\framework\zii\widgets\jui\CJuiDatePicker.php(84): CHtml::activeTextField(Object(RequestQuotation), 'date_price', Array)
+#5 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(173): CJuiDatePicker->run()
+#6 C:\xampp\htdocs\honeycomb\protected\views\contact\_formRequestQuotation.php(36): CBaseController->widget('zii.widgets.jui...', Array)
+#7 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(126): require('C:\\xampp\\htdocs...')
+#8 C:\xampp\htdocs\honeycomb\framework\web\CBaseController.php(95): CBaseController->renderInternal('C:\\xampp\\htdocs...', Array, true)
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): CBaseController->renderFile('C:\\xampp\\htdocs...', Array, true)
+#10 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): CController->renderPartial('_formRequestQuo...', Array, true)
+#11 C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php(152): CController->render('_formRequestQuo...', Array, false, true)
+#12 [internal function]: ContactController->actionCreateRequestQuotation('2')
+#13 C:\xampp\htdocs\honeycomb\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(ContactController), Array)
+#14 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(ContactController), Object(ReflectionMethod), Array)
+#15 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#16 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#17 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#18 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CFilter->filter(Object(CFilterChain))
+#19 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#20 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#21 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#22 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#23 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('createRequestQu...')
+#24 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('Contact/createR...')
+#25 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#26 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#27 {main}
+REQUEST_URI=/honeycomb/Contact/createRequestQuotation/2
+HTTP_REFERER=http://localhost/honeycomb/contact/update/2
+---
+2020/04/28 14:43:17 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "update/view".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('update/view')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/update/2
+HTTP_REFERER=http://localhost/honeycomb/Contact/createRequestQuotation/2
+---
+2020/04/28 14:43:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'ระบบไม่สามารถดำเนินการ "updateRequestQuotation" ตามคำสั่งได้' in C:\xampp\htdocs\honeycomb\framework\web\CController.php:483
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CController.php(270): CController->missingAction('updateRequestQu...')
+#1 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): CController->run('updateRequestQu...')
+#2 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('Contact/updateR...')
+#3 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/honeycomb/Contact/updateRequestQuotation/2
+HTTP_REFERER=http://localhost/honeycomb/contact/update/2
+---
+2020/04/28 14:48:35 [error] [php] Undefined variable: id (C:\xampp\htdocs\honeycomb\protected\views\contact\_formUpdateRequestQuotation.php:106)
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CController.php(869): ContactController->renderFile()
+#1 C:\xampp\htdocs\honeycomb\framework\web\CController.php(782): ContactController->renderPartial()
+#2 C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php(190): ContactController->render()
+#3 unknown(0): ContactController->actionUpdateRequestQuotation()
+#4 C:\xampp\htdocs\honeycomb\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs()
+#5 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#6 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams()
+#7 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): ContactController->runAction()
+#8 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#9 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#10 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): ContactController->filterAccessControl()
+#11 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#12 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#13 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): ContactController->runActionWithFilters()
+#14 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): ContactController->run()
+#15 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#16 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#17 C:\xampp\htdocs\honeycomb\index.php(13): CWebApplication->run()
+REQUEST_URI=/honeycomb/Contact/updateRequestQuotation/2
+in C:\xampp\htdocs\honeycomb\protected\views\contact\_formUpdateRequestQuotation.php (106)
+in C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php (190)
+in C:\xampp\htdocs\honeycomb\index.php (13)

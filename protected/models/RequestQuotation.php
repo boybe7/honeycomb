@@ -88,6 +88,35 @@ class RequestQuotation extends CActiveRecord
 		));
 	}
 
+	public function beforeSave()
+    {
+
+
+        $str_date = explode("/", $this->date);
+        if(count($str_date)>1)
+        	$this->date= ($str_date[2]-543)."-".$str_date[1]."-".$str_date[0];
+
+
+        return parent::beforeSave();
+   }
+     protected function afterSave(){
+            parent::afterSave();
+            $str_date = explode("-", $this->date);
+            if(count($str_date)>1)
+            	$this->date = $str_date[2]."/".$str_date[1]."/".($str_date[0]+543);
+
+         
+        
+    }
+    protected function afterFind(){
+            parent::afterFind();
+            $str_date = explode("-", $this->date);
+            if(count($str_date)>1)
+            	$this->date = $str_date[2]."/".$str_date[1]."/".($str_date[0]+543);
+
+               
+    }
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

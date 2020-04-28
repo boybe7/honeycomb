@@ -31,7 +31,7 @@ class ContactController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','createContactList','updateContactList','deleteContactList','createContactListTemp','updateContactListTemp','deleteContactListTemp','delete','createRequestQuotation','updateRequestQuotation','deleteRequestQuotation'),
+				'actions'=>array('create','update','createContactList','updateContactList','deleteContactList','createContactListTemp','updateContactListTemp','deleteContactListTemp','delete','createRequestQuotation','updateRequestQuotation','deleteRequestQuotation','createQuotationDetailTemp','deleteQuotationDetailTemp','deleteQuotationDetail','createQuotationDetail','updateQuotationDetail','updateQuotationDetailTemp'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -143,13 +143,51 @@ class ContactController extends Controller
 			$model->contact_id = $id;
 			if($model->save())
 			{
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+				$m = QuotationDetailTemp::model()->findAll(array("condition"=>"user_id = '".Yii::app()->user->ID."' "));
+		        foreach ($m as $key => $value) {
+		        		$detail = new QuotationDetail;
+		        		$detail->name = $value->name;
+		        		$detail->amount = $value->amount;
+		        		$detail->unit = $value->unit;
+		        		$detail->request_id = $model->id;
+
+		        		if($detail->save())
+		        			$value->delete();
+
+		        }
+
+				$this->redirect(array('Contact/update/'.$id,));
 			}
 		   
 			
 		}
 		else
 			$this->render('_formRequestQuotation', array('model'=>$model), false, true);
+	
+	}
+
+	public function actionUpdateRequestQuotation($id)
+	{
+		$model=RequestQuotation::model()->findByPk($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['RequestQuotation']))
+		{
+			$model->attributes=$_POST['RequestQuotation'];
+			
+			if($model->save())
+			{
+				
+
+				$this->redirect(array('Contact/update/'.$id,));
+			}
+		   
+			
+		}
+		else
+			$this->render('_formUpdateRequestQuotation', array('model'=>$model), false, true);
 	
 	}
 
@@ -175,6 +213,63 @@ class ContactController extends Controller
 			$this->renderPartial('_formContactList', array('model'=>$model), false, true);
 	
 	}
+
+	public function actionCreateQuotationDetailTemp()
+	{
+		$model=new QuotationDetailTemp;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['QuotationDetailTemp']))
+		{
+			$model->attributes=$_POST['QuotationDetailTemp'];
+			$model->user_id = Yii::app()->user->ID;
+			if($model->save())
+				echo CJSON::encode(array('success' => true));
+			else
+				echo CJSON::encode(array('fail' => true));
+		   
+			
+		}
+		else
+		{
+			//if(!isset($_GET['ajax']))
+			//   Yii::app()->db->createCommand('DELETE FROM quotation_detail_temp WHERE user_id='.Yii::app()->user->ID)->execute();
+
+			$this->renderPartial('_formQuotationDetail', array('model'=>$model), false, true);
+		}
+	
+	}
+
+	public function actionCreateQuotationDetail($id)
+	{
+		$model=new QuotationDetail;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['QuotationDetail']))
+		{
+			$model->attributes=$_POST['QuotationDetail'];
+			$model->request_id = $id;
+			if($model->save())
+				echo CJSON::encode(array('success' => true));
+			else
+				echo CJSON::encode(array('fail' => true));
+		   
+			
+		}
+		else
+		{
+			//if(!isset($_GET['ajax']))
+			//   Yii::app()->db->createCommand('DELETE FROM quotation_detail_temp WHERE user_id='.Yii::app()->user->ID)->execute();
+
+			$this->renderPartial('_formQuotationDetail', array('model'=>$model), false, true);
+		}
+	
+	}
+
 
 	/**
 	 * Updates a particular model.
@@ -221,6 +316,30 @@ class ContactController extends Controller
 	    echo CJSON::encode(array('success' => true));
     }
 
+    public function actionUpdateQuotationDetail()
+    {
+	    $es = new EditableSaver('QuotationDetail');
+	    try {
+	    	$es->update();
+	    } catch(CException $e) {
+	    	echo CJSON::encode(array('success' => false, 'msg' => $e->getMessage()));
+	    	return;
+	    }
+	    echo CJSON::encode(array('success' => true));
+    }
+
+     public function actionUpdateQuotationDetailTemp()
+    {
+	    $es = new EditableSaver('QuotationDetailTemp');
+	    try {
+	    	$es->update();
+	    } catch(CException $e) {
+	    	echo CJSON::encode(array('success' => false, 'msg' => $e->getMessage()));
+	    	return;
+	    }
+	    echo CJSON::encode(array('success' => true));
+    }
+
     public function actionUpdateContactListTemp()
     {
 	    $es = new EditableSaver('ContactListTemp');
@@ -245,8 +364,34 @@ class ContactController extends Controller
 		{
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
-
 			Yii::app()->db->createCommand('DELETE FROM contact_list WHERE contact_id='.$id)->execute();
+
+			//delete request quotations
+			$requests = RequestQuotation::model()->findAll(array('condition'=>'contact_id='.$id));
+			foreach ($requests as $key => $req) {
+				$req->delete();
+				Yii::app()->db->createCommand('DELETE FROM quotation_detail WHERE request_id='.$req->id)->execute();
+			}
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+
+
+	
+	
+	public function actionDeleteRequestQuotation($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow deletion via POST request
+			RequestQuotation::model()->findByPk($id)->delete();
+
+			Yii::app()->db->createCommand('DELETE FROM quotation_detail WHERE request_id='.$id)->execute();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -260,6 +405,24 @@ class ContactController extends Controller
 	{
 		
 			ContactList::model()->findByPk($id)->delete();
+			return true;
+		   // $this->redirect( $_POST['returnUrl'] );
+		
+	}
+
+	public function actionDeleteQuotationDetail($id)
+	{
+		
+			QuotationDetail::model()->findByPk($id)->delete();
+			return true;
+		   // $this->redirect( $_POST['returnUrl'] );
+		
+	}
+
+	public function actionDeleteQuotationDetailTemp($id)
+	{
+		
+			QuotationDetailTemp::model()->findByPk($id)->delete();
 			return true;
 		   // $this->redirect( $_POST['returnUrl'] );
 		
