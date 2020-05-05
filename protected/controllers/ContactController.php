@@ -31,7 +31,7 @@ class ContactController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','createContactList','updateContactList','deleteContactList','createContactListTemp','updateContactListTemp','deleteContactListTemp','delete','createRequestQuotation','updateRequestQuotation','deleteRequestQuotation','createQuotationDetailTemp','deleteQuotationDetailTemp','deleteQuotationDetail','createQuotationDetail','updateQuotationDetail','updateQuotationDetailTemp'),
+				'actions'=>array('create','update','createContactList','updateContactList','deleteContactList','createContactListTemp','updateContactListTemp','deleteContactListTemp','delete','createRequestQuotation','updateRequestQuotation','deleteRequestQuotation','createQuotationDetailTemp','deleteQuotationDetailTemp','deleteQuotationDetail','createQuotationDetail','updateQuotationDetail','updateQuotationDetailTemp','exportQuotation'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -491,5 +491,15 @@ class ContactController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+
+	public function actionExportQuotation($id)
+	{
+		$model=$this->loadModel($id);
+
+		$filename = $_GET["filename"];
+		$this->render('_formPDF',array('model'=>$this->loadModel($id),'filename'=>$filename));
+
+		echo json_encode($filename);
 	}
 }

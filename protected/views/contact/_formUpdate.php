@@ -363,7 +363,7 @@ function displayImage(e) {
 									    'name' => 'filename',
 									    'header' => 'Export',
 									    'type'=> 'raw',
-									    'value'=>'CHtml::link(CHtml::image(Yii::app()->request->baseUrl."/images/download.png"), "../exportQuotation/".$data->id)',
+									    'value'=>'CHtml::link(CHtml::image(Yii::app()->request->baseUrl."/images/download.png"), "../exportQuotation/".$data->id,array("target"=>"_blank","class"=>"export"))',
 									    'filter'=>false,
 										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:center;')
@@ -432,4 +432,29 @@ function displayImage(e) {
 		)); ?>
 	</div>
 
-<?php $this->endWidget(); ?>
+<?php 
+
+Yii::app()->clientScript->registerScript('printReport', '
+$(".export").click(function(e){
+    e.preventDefault();
+    filename = "export_"+$.now()+".pdf";
+
+    $.ajax({
+        url: $(this).attr("href"),
+        data: {filename: filename},
+        success:function(response){
+     
+             //alert("OK")
+             window.open("../../report/temp/"+filename, "_blank", "fullscreen=yes");              
+            
+        }
+
+    });
+
+});
+', CClientScript::POS_END);
+
+
+
+
+$this->endWidget(); ?>
