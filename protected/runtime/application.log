@@ -1376,3 +1376,21 @@ Stack trace:
 REQUEST_URI=/honeycomb/Contact/report/temp/export_1588333485898.pdf
 HTTP_REFERER=http://localhost/honeycomb/Contact/update/2
 ---
+2020/05/05 10:04:01 [error] [php] Undefined index: filename (C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php:500)
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\actions\CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#1 C:\xampp\htdocs\honeycomb\framework\web\CController.php(308): CInlineAction->runWithParams()
+#2 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(133): ContactController->runAction()
+#3 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilter.php(40): CFilterChain->run()
+#4 C:\xampp\htdocs\honeycomb\framework\web\CController.php(1145): CAccessControlFilter->filter()
+#5 C:\xampp\htdocs\honeycomb\framework\web\filters\CInlineFilter.php(58): ContactController->filterAccessControl()
+#6 C:\xampp\htdocs\honeycomb\framework\web\filters\CFilterChain.php(130): CInlineFilter->filter()
+#7 C:\xampp\htdocs\honeycomb\framework\web\CController.php(291): CFilterChain->run()
+#8 C:\xampp\htdocs\honeycomb\framework\web\CController.php(265): ContactController->runActionWithFilters()
+#9 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(282): ContactController->run()
+#10 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#11 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#12 C:\xampp\htdocs\honeycomb\index.php(13): CWebApplication->run()
+REQUEST_URI=/honeycomb/contact/exportQuotation/1
+in C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php (500)
+in C:\xampp\htdocs\honeycomb\index.php (13)

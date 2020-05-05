@@ -495,10 +495,10 @@ class ContactController extends Controller
 
 	public function actionExportQuotation($id)
 	{
-		$model=$this->loadModel($id);
+		$model=RequestQuotation::model()->findByPk($id);
 
-		$filename = $_GET["filename"];
-		$this->render('_formPDF',array('model'=>$this->loadModel($id),'filename'=>$filename));
+		$filename = $_POST["filename"];
+		$this->render('_formPDF',array('model'=>$model,'filename'=>$filename));
 
 		echo json_encode($filename);
 	}

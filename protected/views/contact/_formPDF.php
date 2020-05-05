@@ -43,7 +43,8 @@ function renderDate2($value)
 
 
 // Include the main TCPDF library (search for installation path).
-require_once('/../tcpdf/tcpdf.php');
+Yii::import('ext.tcpdf.tcpdf',true);
+//require_once('tcpdf.php');
 
 class MYPDF extends TCPDF {
 
@@ -67,9 +68,9 @@ class MYPDF extends TCPDF {
         // Logo
         //$image_file = 'bank/image/mwa2.jpg';
         //$this->Image($image_file, 170, 270, 25, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
-        $this->Cell(0, 5, date("d/m/Y"), 0, false, 'R', 0, '', 0, false, 'T', 'M');
+        //$this->Cell(0, 5, date("d/m/Y"), 0, false, 'R', 0, '', 0, false, 'T', 'M');
 
-        $this->writeHTMLCell(145, 550, 70, 200, '-'.$this->getAliasNumPage().'/'.$this->getAliasNbPages().'-', 0, 1, false, true, 'C', false);
+        //$this->writeHTMLCell(145, 550, 70, 200, '-'.$this->getAliasNumPage().'/'.$this->getAliasNbPages().'-', 0, 1, false, true, 'C', false);
         //writeHTMLCell ($w, $h, $x, $y, $html='', $border=0, $ln=0, $fill=false, $reseth=true, $align='', $autopadding=true)
     }
 }
