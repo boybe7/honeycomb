@@ -31,7 +31,7 @@ class ContactController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','createContactList','updateContactList','deleteContactList','createContactListTemp','updateContactListTemp','deleteContactListTemp','delete','createRequestQuotation','updateRequestQuotation','deleteRequestQuotation','createQuotationDetailTemp','deleteQuotationDetailTemp','deleteQuotationDetail','createQuotationDetail','updateQuotationDetail','updateQuotationDetailTemp','exportQuotation'),
+				'actions'=>array('create','update','createContactList','updateContactList','deleteContactList','createContactListTemp','updateContactListTemp','deleteContactListTemp','delete','createRequestQuotation','updateRequestQuotation','deleteRequestQuotation','createQuotationDetailTemp','deleteQuotationDetailTemp','deleteQuotationDetail','createQuotationDetail','updateQuotationDetail','updateQuotationDetailTemp','exportQuotation','download'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -176,6 +176,27 @@ class ContactController extends Controller
 		if(isset($_POST['RequestQuotation']))
 		{
 			$model->attributes=$_POST['RequestQuotation'];
+
+			$uploadFile = CUploadedFile::getInstance($model, 'filename');
+			
+			if($uploadFile !== null) {
+
+
+				$uploadFileName = "quotation_".time()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
+									
+				$filesave = Yii::app()->basePath .'/../specfile/'.iconv("UTF-8", "TIS-620",$uploadFileName);
+				$model->filename = $uploadFile;
+									
+
+				if($model->filename->saveAs($filesave)){
+
+
+					$model->filename = $uploadFileName;																	
+		
+									
+				}
+							
+			}
 			
 			if($model->save())
 			{
@@ -502,4 +523,42 @@ class ContactController extends Controller
 
 		echo json_encode($filename);
 	}
+
+	public function actionDownload($filename)
+    {
+   
+			$file = Yii::app()->basePath .'/../specfile/'.$filename;
+			if (file_exists($file)) {
+
+			    header('Content-Description: File Transfer');
+
+			    header('Content-Type: application/octet-stream');
+
+			    header('Content-Disposition: attachment; filename='.basename($file));
+			    header('Content-Transfer-Encoding: binary');
+
+			    header('Expires: 0');
+
+			    header('Cache-Control: must-revalidate');
+
+			    header('Pragma: public');
+
+			    header('Content-Length: ' . filesize($file));
+
+			    ob_clean();
+
+			    flush();
+
+			    readfile($file);
+
+			    exit;
+
+			}
+			else{
+				echo "File $file not exist";
+			}
+
+             
+    }
+
 }

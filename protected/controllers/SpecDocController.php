@@ -31,7 +31,7 @@ class SpecDocController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','write','export','moc','download','search','compare','updateCompare','deleteCompare','sendSelected'),
+				'actions'=>array('create','update','write','export','exportWrite','moc','download','search','compare','updateCompare','deleteCompare','sendSelected'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -222,6 +222,7 @@ class SpecDocController extends Controller
 
 				//print_r($model);
 				$specList = array();
+				$spec_detail = "";
 				if(isset($_POST['spec_list']))
 				{
 					$check_spec1 = isset($_POST['check_spec1']) ? $_POST['check_spec1']  : array();
@@ -252,7 +253,7 @@ class SpecDocController extends Controller
 						$score = $score1 + $score2 + $score3;
 						if($score > 1 ) //detail more than 2 comapny
 							$spec_detail .= $value."  ";
-						//print_r($m_list);
+						print_r($m_list);
 							
 						$specList[] = $m_list;
 						$index++;
@@ -262,6 +263,7 @@ class SpecDocController extends Controller
 				
 				if(isset($_POST['SpecDocCompareTemp']) && !empty($_POST['SpecDocCompareTemp']))
 				{
+
 					$model->detail = $spec_detail;
 					if($model->save())
 					{
@@ -343,6 +345,7 @@ class SpecDocController extends Controller
 							
 						}
 
+						if(isset($_POST['spec_list']))
 						foreach ($specList as $key => $mlist) {
 							// echo "<pre>";
 							// print_r($mlist);
@@ -353,10 +356,11 @@ class SpecDocController extends Controller
 							$mlist->spec_id = $model->id;
 
 							$mlist->save();
-
-							// echo "<pre>";
-							// print_r($mlist);
-							// echo "</pre>";
+							// header('Content-type: text/plain');
+							//  echo "<pre>";
+							//  print_r($mlist);
+							//  echo "</pre>";
+							//  exit;
 						}
 
 						if($saveOK && $ncompare_save>0)
@@ -1175,4 +1179,16 @@ class SpecDocController extends Controller
 
              
     }
+
+    public function actionExportWrite($id)
+	{
+		$model=SpecDoc::model()->findByPk($id);
+
+		$filename = $_POST["filename"];
+		$this->render('_formWritePDF',array('model'=>$model,'filename'=>$filename));
+
+		echo json_encode($filename);
+	}
+
 }
+

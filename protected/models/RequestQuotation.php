@@ -30,9 +30,10 @@ class RequestQuotation extends CActiveRecord
 			array('detail, contact_id, date', 'required'),
 			array('contact_id', 'numerical', 'integerOnly'=>true),
 			array('detail', 'length', 'max'=>500),
+			array('filename', 'file',  'allowEmpty'=>true, 'types'=>'docx,pdf,xls,xlsx,doc', 'safe' => false),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, detail, contact_id, date', 'safe', 'on'=>'search'),
+			array('id, detail, contact_id, date,filename', 'safe', 'on'=>'search'),
 		);
 	}
 

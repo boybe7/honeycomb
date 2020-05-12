@@ -1,3 +1,32 @@
+<script type="text/javascript">
+function checkFile(electObject){
+
+  
+  if((/\.(doc|docx|xls|xlsx|pdf)$/i).test(electObject.value) ) {
+      
+   }else {
+  	 alert("Invalid file!!!!!");  
+   } 
+}
+
+  
+  $(function(){
+      
+
+      $( "input[name*='dimension']" ).autocomplete({
+       
+                minLength: 0
+      }).bind('focus', function () {
+           
+                $(this).val('');
+                $(this).autocomplete("search");
+        
+      });
+
+   
+  });
+
+</script> 
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'contactlist-form',
 	'enableAjaxValidation'=>false,
@@ -37,6 +66,23 @@
                     echo '<span class="add-on"><i class="icon-calendar"></i></span></div>';
 
 			 ?>
+		</div>
+	</div>	
+
+	<div class="row-fluid ">
+		<div class="span4">
+			  <label for="filename" >ใบเสนอราคา</label>
+
+			<?php
+			if(!empty($model->filename))
+			{	
+				echo "<input type='hidden' name='attach_file_old' value='".$model->filename."'>";
+				echo CHtml::link('download',array('Contact/download','filename'=>$model->filename), array('target'=>'_blank'));
+				echo "<br>";
+			}
+			echo $form->fileField($model,'filename',array('style'=>'width:200px;','onChange'=>'checkFile(this)','title'=>''));?>
+		
+			
 		</div>
 	</div>	
 
