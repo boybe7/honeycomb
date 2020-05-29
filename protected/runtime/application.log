@@ -240,3 +240,21 @@ Stack trace:
 REQUEST_URI=/honeycomb/Contact/download?filename=quotation_1589134562_1.pdf
 HTTP_REFERER=http://localhost/honeycomb/Contact/updateRequestQuotation/1
 ---
+2020/05/13 16:50:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "specfile/1587752114-Image.jpg".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('specfile/158775...')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/specfile/1587752114-Image.jpg
+HTTP_REFERER=http://gisonline.mwa.co.th/honeycomb/contact/update/2
+---
+2020/05/13 16:50:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "specfile/1587752114-Image.jpg".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('specfile/158775...')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/specfile/1587752114-Image.jpg
+HTTP_REFERER=http://gisonline.mwa.co.th/honeycomb/contact/update/2
+---
