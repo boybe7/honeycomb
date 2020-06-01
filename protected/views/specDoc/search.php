@@ -241,7 +241,7 @@ ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 									    'name' => 'filename',
 									    'header' => 'Export',
 									    'type'=> 'raw',
-									    'value'=>'CHtml::link(CHtml::image(Yii::app()->request->baseUrl."/images/download.png"), "export/".$data->id)',
+									    'value'=>'CHtml::link(CHtml::image(Yii::app()->request->baseUrl."/images/download.png"),"'.Yii::app()->createUrl('/SpecDoc/exportSearch').'?code=$data->code&category=$data->category&start_date=$data->date_start&end_date=$data->date_end",array("target"=>"_blank","class"=>"export"))',
 									    'filter'=>false,
 										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:center;')
@@ -263,5 +263,29 @@ ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 </div>	
 
 <?php
+Yii::app()->clientScript->registerScript('printReport', '
+$(".export").click(function(e){
+    e.preventDefault();
+    filename = "export_spec_'.Yii::app()->user->ID.'.pdf";
 
+   
+
+    $.ajax({
+
+			type: "POST",
+
+			url: $(this).attr("href"),
+
+			data: {filename: filename},
+
+			success: function(res){
+				window.open("../report/temp/"+filename, "_blank", "fullscreen=yes");       
+				},
+
+			error: function(res){}
+
+		});
+
+});
+');
 ?>

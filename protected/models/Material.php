@@ -98,8 +98,11 @@ class Material extends CActiveRecord
 		    $date_condition = " ";
 		    $search_condition = "";
 		   
+		    $startDate = $startDate=="วันที่เริ่ม" ? "" : $startDate;
+		    $endDate = $endDate=="วันที่สิ้นสุด" ? "" : $endDate;
 
-		    if($startDate!=""  && $endDate!="" &&  $startDate!="วันที่เริ่ม"  && $endDate!="วันที่สิ้นสุด")
+
+		    if($startDate!=""  && $endDate!="" )
 		    {
 		 
 		    	$str = explode("/", $startDate);
@@ -266,83 +269,83 @@ class Material extends CActiveRecord
     }
 
     function merge_sorted_arrays_by_field ($merge_arrays, $sort_field, $sort_desc = false, $limit = 0) 
-{ 
-    $array_count = count($merge_arrays); 
-    
-    // fast special cases... 
-    switch ($array_count) 
-    { 
-        case 0: return array(); 
-        case 1: return $limit ? array_slice(reset($merge_arrays), 0, $limit) : reset($merge_arrays); 
-    } 
-    
-    if ($limit === 0) 
-        $limit = PHP_INT_MAX; 
-    
-    // rekey merge_arrays array 0->N 
-    $merge_arrays = array_values($merge_arrays); 
+	{ 
+	    $array_count = count($merge_arrays); 
+	    
+	    // fast special cases... 
+	    switch ($array_count) 
+	    { 
+	        case 0: return array(); 
+	        case 1: return $limit ? array_slice(reset($merge_arrays), 0, $limit) : reset($merge_arrays); 
+	    } 
+	    
+	    if ($limit === 0) 
+	        $limit = PHP_INT_MAX; 
+	    
+	    // rekey merge_arrays array 0->N 
+	    $merge_arrays = array_values($merge_arrays); 
 
-    $best_array = false; 
-    $best_value = false; 
-    
-    $results = array(); 
-    
-    // move sort order logic outside the inner loop to speed things up 
-    if ($sort_desc) 
-    { 
-        for ($i = 0; $i < $limit; ++$i) 
-        { 
-            for ($j = 0; $j < $array_count; ++$j) 
-            { 
-                // if the array $merge_arrays[$j] is empty, skip to next 
-                if (false === ($current_value = current($merge_arrays[$j]))) 
-                    continue; 
-                
-                // if we don't have a value for this round, or if the current value is bigger...
-                if ($best_value === false || $current_value[$sort_field] > $best_value[$sort_field]) 
-                { 
-                    $best_array = $j; 
-                    $best_value = $current_value; 
-                } 
-            } 
-            
-            // all arrays empty? 
-            if ($best_value === false) 
-                break; 
-            
-            $results[] = $best_value; 
-            $best_value = false; 
-            next($merge_arrays[$best_array]); 
-        } 
-    } 
-    else 
-    { 
-        for ($i = 0; $i < $limit; ++$i) 
-        { 
-            for ($j = 0; $j < $array_count; ++$j) 
-            { 
-                if (false === ($current_value = current($merge_arrays[$j]))) 
-                    continue; 
-                
-                // if we don't have a value for this round, or if the current value is smaller... 
-                if ($best_value === false || $current_value[$sort_field] < $best_value[$sort_field]) 
-                { 
-                    $best_array = $j; 
-                    $best_value = $current_value; 
-                } 
-            } 
-            
-            // all arrays empty? 
-            if ($best_value === false) 
-                break; 
-            
-            $results[] = $best_value; 
-            $best_value = false; 
-            next($merge_arrays[$best_array]); 
-        } 
-    } 
-    
-    return $results; 
-} 
+	    $best_array = false; 
+	    $best_value = false; 
+	    
+	    $results = array(); 
+	    
+	    // move sort order logic outside the inner loop to speed things up 
+	    if ($sort_desc) 
+	    { 
+	        for ($i = 0; $i < $limit; ++$i) 
+	        { 
+	            for ($j = 0; $j < $array_count; ++$j) 
+	            { 
+	                // if the array $merge_arrays[$j] is empty, skip to next 
+	                if (false === ($current_value = current($merge_arrays[$j]))) 
+	                    continue; 
+	                
+	                // if we don't have a value for this round, or if the current value is bigger...
+	                if ($best_value === false || $current_value[$sort_field] > $best_value[$sort_field]) 
+	                { 
+	                    $best_array = $j; 
+	                    $best_value = $current_value; 
+	                } 
+	            } 
+	            
+	            // all arrays empty? 
+	            if ($best_value === false) 
+	                break; 
+	            
+	            $results[] = $best_value; 
+	            $best_value = false; 
+	            next($merge_arrays[$best_array]); 
+	        } 
+	    } 
+	    else 
+	    { 
+	        for ($i = 0; $i < $limit; ++$i) 
+	        { 
+	            for ($j = 0; $j < $array_count; ++$j) 
+	            { 
+	                if (false === ($current_value = current($merge_arrays[$j]))) 
+	                    continue; 
+	                
+	                // if we don't have a value for this round, or if the current value is smaller... 
+	                if ($best_value === false || $current_value[$sort_field] < $best_value[$sort_field]) 
+	                { 
+	                    $best_array = $j; 
+	                    $best_value = $current_value; 
+	                } 
+	            } 
+	            
+	            // all arrays empty? 
+	            if ($best_value === false) 
+	                break; 
+	            
+	            $results[] = $best_value; 
+	            $best_value = false; 
+	            next($merge_arrays[$best_array]); 
+	        } 
+	    } 
+	    
+	    return $results; 
+	} 
 
 }

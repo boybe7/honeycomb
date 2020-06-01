@@ -31,7 +31,7 @@ class SpecDocController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','write','export','exportWrite','moc','download','search','compare','updateCompare','deleteCompare','sendSelected'),
+				'actions'=>array('create','update','write','export','exportWrite','moc','download','search','compare','updateCompare','deleteCompare','sendSelected','exportSearch'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -1053,6 +1053,18 @@ class SpecDocController extends Controller
 		}
 
 		
+	}
+
+	public function actionExportSearch()
+	{
+	
+		$filename = "export_spec_".Yii::app()->user->ID.".pdf";
+		$code = $_GET["code"];
+		$str = explode("-", $_GET["category"]);
+		$category = $str[0];
+		$this->render('_formSearchPDF',array('code'=>$code,'category'=>$category,'date_start'=>$_GET['start_date'],'date_end'=>$_GET['end_date'],'filename'=>$filename));
+
+		echo json_encode($filename);
 	}
 
 	public function actionMoc()
