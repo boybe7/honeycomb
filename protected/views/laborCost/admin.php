@@ -137,7 +137,7 @@ $this->widget('ext.groupgridview.BootGroupGridView', array(
 				'name' => 'cost',
 				'filter'=>false,
 				'value'=>function ($data) {
-					    return number_format($data->cost,0);
+					    return number_format($data->cost,2);
 					},
 				'headerHtmlOptions' => array('style' => 'width:7%;text-align:center;background-color: #f5f5f5'),  	            	  	
 				'htmlOptions'=>array('style'=>'text-align:right;padding-right:10px;')

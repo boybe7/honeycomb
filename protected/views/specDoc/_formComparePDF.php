@@ -144,78 +144,30 @@ $pdf->SetFont('thsarabun', '', 14, '', true);
 $html = "";
 $short_month = array('0'=>'','1' => 'ม.ค.', '2' => 'ก.พ.', '3' => 'มี.ค.', '4' => 'เม.ย.','5' => 'พ.ค.', '6' => 'มิ.ย.', '7' => 'ก.ค.', '8' => 'ส.ค.', '9' => 'ก.ย.', '10' => 'ต.ค.', '12' => 'ธ.ค.'); 
 
-if($category==1)
-{
-            $material = Material::model()->findByPk($material_id);
-            $html .= "วัสดุ : ".$material->name.'<br>';
-            $html .= "รายละเอียด : ".$material->detail.'<br>';
 
-            $spec = MocPrice::model()->findAll(array("condition"=>"code='$code' "));
-
-            $html .= "ขนาด/ชนิด/ประเภท : ".$spec[0]->name.'<br>';
-            $html .= "หน่วย : ".$spec[0]->unit.'<br>';
-            $html .= "ราคากลางกระทรวงพาณิชย์ : <br>";
-            if(!empty($date_start) && !empty($date_end))
-            {
-                $date_condition = "'".$date_start."' AND '".$date_end."'";
-                $model = Yii::app()->db->createCommand()
-                            ->select('year,month,price')
-                            ->from('moc_price')
-                            ->where("(CONCAT(moc_price.year-543,'-',LPAD(moc_price.month,2,'00'),'-01') BETWEEN  ".$date_condition.') AND moc_price.code=:id', array(':id'=>$code))
-                            ->order("year, month ASC")
-                            ->queryAll();
-            }
-            else
-            {
-                $model = Yii::app()->db->createCommand()
-                            ->select('year,month,price')
-                            ->from('moc_price')
-                            ->where('moc_price.code=:id', array(':id'=>$code))
-                            ->order("year, month ASC")
-                            ->queryAll();
-            }
-
-
-
-            foreach ($model as $key => $value) {
-                $html .= " - ".$short_month[$value['month']]." ".$value['year']." ". number_format($value['price'])." บาท <br>";
-            }
-}
-else if($category==2)
-{
-            $spec = SpecDoc::model()->findByPk($code);
-            $html .= "วัสดุ : ".$spec->material.'<br>';
-            $html .= "รายละเอียด : ".$spec->detail.'<br>'; 
-            $html .= "ขนาด/ชนิด/ประเภท : ".$spec->dimension.'<br>';
-            $html .= "หน่วย : ".$spec->unit.'<br>';
+            $html .= "วัสดุ : ".$model->material.'<br>';
+            $html .= "รายละเอียด : ".$model->detail.'<br>'; 
+            $html .= "ขนาด/ชนิด/ประเภท : ".$model->dimension.'<br>';
+            $html .= "หน่วย : ".$model->unit.'<br>';
             $html .= "สืบราคาจาก : <br>";
 
-            if(!empty($date_start) && !empty($date_end))
-            {
-                $date_condition = "'".$date_start."' AND '".$date_end."'";
-                $model = Yii::app()->db->createCommand()
-                            ->select('YEAR(date_price) as year,MONTH(date_price) as month,price,brand,model')
-                            ->from('spec_doc_compare')
-                            ->where("(date_price BETWEEN  ".$date_condition.') AND spec_id=:id', array(':id'=>$code))
-                            ->order("year, month ASC")
-                            ->queryAll();
-            }
-            else
-            {
-                $model = Yii::app()->db->createCommand()
-                            ->select('YEAR(date_price) as year,MONTH(date_price) as month,price,brand,model')
-                            ->from('spec_doc_compare')
-                            ->where('spec_id=:id', array(':id'=>$code))
-                            ->order("year, month ASC")
-                            ->queryAll();
+            $spec = SpecDocCompare::model()->findAll(array("condition"=>"spec_id=".$model->id));
+            $ncompare = count($spec);
+            $html .= '<table border="1"><tr><td colspan="'.$ncompare.'" style="text-align:center">คู่เทียบ</td></tr><tr>';
+            for ($i=0; $i < $ncompare ; $i++) { 
+                $html .= '<td  style="text-align:center">'.($i+1).'</td>';
             }
 
-            foreach ($model as $key => $value) {
-                $html .= " - ".$value['brand']." รุ่น ".$value['model']."        ";
-                $html .= number_format($value['price'])." บาท (".$short_month[$value['month']]." ".$value['year'].")<br>";
-            }
+            $html .= "</tr><tr>";
 
-}
+            foreach ($spec as $key => $value) {
+                $html .= '<td style="text-align:center">';
+                $html .= $value['brand']." รุ่น ".$value['model']."<br>ราคา ";
+                $html .= number_format($value['price'])." บาท <br> วันที่ ".renderDate($value['date_price']);
+                $html .= "</td>";
+            }
+            $html .= "</tr></table>";
+
 
 
 //$html .= '</table>';

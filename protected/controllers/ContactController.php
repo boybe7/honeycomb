@@ -162,7 +162,10 @@ class ContactController extends Controller
 			
 		}
 		else
+		{
+			//Yii::app()->db->createCommand('DELETE FROM quotation_detail_temp WHERE user_id='.Yii::app()->user->ID)->execute();
 			$this->render('_formRequestQuotation', array('model'=>$model), false, true);
+		}
 	
 	}
 
@@ -202,7 +205,7 @@ class ContactController extends Controller
 			{
 				
 
-				$this->redirect(array('Contact/update/'.$id,));
+				$this->redirect(array('Contact/update/'.$model->contact_id,));
 			}
 		   
 			

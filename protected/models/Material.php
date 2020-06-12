@@ -261,7 +261,34 @@ class Material extends CActiveRecord
 
 
 			foreach ($model as $key => $value) {
-				$str .= number_format($value['price'])." (".$short_month[$value['month']]." ".$value['year'].")<br>";
+				$str .= number_format($value['price'],2)." บาท (".$short_month[$value['month']]." ".$value['year'].")<br>";
+			}
+    	}
+    	else
+    	{
+    		if(!empty($data->date_start) && !empty($data->date_end))
+    		{
+    			$date_condition = "'".$data->date_start."' AND '".$data->date_end."'";
+				$model = Yii::app()->db->createCommand()
+						    ->select('YEAR(date_price) as year,MONTH(date_price) as month,price,brand,model')
+						    ->from('spec_doc_compare')
+						    ->where("(date_price BETWEEN  ".$date_condition.') AND spec_id=:id', array(':id'=>$data->code))
+						    ->order("year, month ASC")
+						    ->queryAll();
+			}
+			else
+			{
+				$model = Yii::app()->db->createCommand()
+						    ->select('YEAR(date_price) as year,MONTH(date_price) as month,price,brand,model')
+						    ->from('spec_doc_compare')
+						    ->where('spec_id=:id', array(':id'=>$data->code))
+						    ->order("year, month ASC")
+						    ->queryAll();
+			}
+
+			foreach ($model as $key => $value) {
+				$str .= $value['brand']." รุ่น ".$value['model']."<br>";
+				$str .= number_format($value['price'],2)." บาท (".$short_month[$value['month']]." ".$value['year'].")<hr>";
 			}
     	}
 

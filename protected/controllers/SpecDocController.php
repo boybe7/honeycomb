@@ -31,7 +31,7 @@ class SpecDocController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','write','export','exportWrite','moc','download','search','compare','updateCompare','deleteCompare','sendSelected','exportSearch'),
+				'actions'=>array('create','update','write','export','exportWrite','moc','download','search','compare','updateCompare','deleteCompare','sendSelected','exportSearch','exportCompare'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -253,7 +253,7 @@ class SpecDocController extends Controller
 						$score = $score1 + $score2 + $score3;
 						if($score > 1 ) //detail more than 2 comapny
 							$spec_detail .= $value."  ";
-						print_r($m_list);
+						//print_r($m_list);
 							
 						$specList[] = $m_list;
 						$index++;
@@ -1062,7 +1062,17 @@ class SpecDocController extends Controller
 		$code = $_GET["code"];
 		$str = explode("-", $_GET["category"]);
 		$category = $str[0];
-		$this->render('_formSearchPDF',array('code'=>$code,'category'=>$category,'date_start'=>$_GET['start_date'],'date_end'=>$_GET['end_date'],'filename'=>$filename));
+		$this->render('_formSearchPDF',array('code'=>$code,'category'=>$category,'date_start'=>$_GET['start_date'],'date_end'=>$_GET['end_date'],'material_id'=>$_GET['material_id'],'filename'=>$filename));
+
+		echo json_encode($filename);
+	}
+
+	public function actionExportCompare($id)
+	{
+	
+		$filename = "export_spec_".Yii::app()->user->ID.".pdf";
+		
+		$this->render('_formComparePDF',array('model'=>SpecDoc::model()->findByPk($id),'filename'=>$filename));
 
 		echo json_encode($filename);
 	}

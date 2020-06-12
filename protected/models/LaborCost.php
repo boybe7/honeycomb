@@ -175,11 +175,12 @@ class LaborCost extends CActiveRecord
     public function getRemark($m)
     {
 
-        $msg = $m->remark."  ";
+        $msg = empty($m->remark) ? "" : $m->remark.", ";
+
         if($m->category==1 && !empty($m->filename))
-        	$msg .= ", <a href='../../honeycomb/fileuploads/labor_cost/".$m->filename."'><img src='../../honeycomb/images/icon-doc.png' width='14px'></a>ใบเสนอราคา</a>";
+        	$msg .= "<a href='../../honeycomb/fileuploads/labor_cost/".$m->filename."'><img src='../../honeycomb/images/icon-doc.png' width='14px'></a>ใบเสนอราคา</a>, ";
         else if($m->category==2 && !empty($m->filename))
-        	$msg .= ", <a href='../../honeycomb/fileuploads/labor_cost/".$m->filename."'><img src='../../honeycomb/images/icon-doc.png' width='14px'></a>ใบแสดงการคำนวณ";
+        	$msg .= "<a href='../../honeycomb/fileuploads/labor_cost/".$m->filename."'><img src='../../honeycomb/images/icon-doc.png' width='14px'></a>ใบแสดงการคำนวณ";
         
         return $msg;
     }

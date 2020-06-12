@@ -32,7 +32,7 @@
                 
               </div>
              <?php 
-             	 $card = empty($model->card) ? 'http://localhost/honeycomb/images/empty.jpg' : 'http://localhost/honeycomb/specfile/'.$model->card;
+             	 $card = empty($model->card) ? Yii::app()->baseUrl.'/images/empty.jpg' : Yii::app()->baseUrl.'/specfile/'.$model->card;
                  echo '<img src="'.$card.'" onClick="triggerClick()" id="profileDisplay" class="img-polaroid">'; ?>
             </span>
             <input type="file" name="profileImage" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;">

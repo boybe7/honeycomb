@@ -211,7 +211,7 @@
 									    'name' => 'filename',
 									    'header' => 'Export',
 									    'type'=> 'raw',
-									    'value'=>'CHtml::link(CHtml::image(Yii::app()->request->baseUrl."/images/download.png"),"'.Yii::app()->createUrl('/SpecDoc/export').'?code=$data->code,category=$data->category",array("target"=>"_blank","class"=>"export"))',
+									    'value'=>'CHtml::link(CHtml::image(Yii::app()->request->baseUrl."/images/download.png"),"'.Yii::app()->createUrl('/SpecDoc/exportCompare').'/$data->id",array("target"=>"_blank","class"=>"export"))',
 									    
 									    'filter'=>false,
 										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
@@ -222,7 +222,11 @@
 									'class'=>'bootstrap.widgets.TbButtonColumn',
 									'visible'=>Yii::app()->user->isAdmin() ? true : false,
 									'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),
-									'template' => '{update} {delete}'
+									'template' => '{update} {delete}',
+									'buttons'=>array(
+										'update'=> array('visible' =>'Yii::app()->user->isAdmin()' ),
+										'delete'=> array('visible' =>'Yii::app()->user->isAdmin()' ),
+									)
 								),
 							),
 
@@ -258,7 +262,7 @@ $(".export").click(function(e){
 			data: {filename: filename},
 
 			success: function(res){
-				window.open("../../report/temp/"+filename, "_blank", "fullscreen=yes");       
+				window.open("../report/temp/"+filename, "_blank", "fullscreen=yes");       
 				},
 
 			error: function(res){}

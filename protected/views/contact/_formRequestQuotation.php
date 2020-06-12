@@ -82,7 +82,7 @@
 		                                                                      data: $(".modal-body #quotation-form").serialize(),
 		                                                                      success: function (data) {
 
-		                                                                         $("#quotation-grid").yiiGridView("update",{});
+		                                                                         $("#quotation-grid2").yiiGridView("update",{});
 		                                                                      }
 		                                                                  });
 		                                                            
@@ -102,7 +102,7 @@
 
 					$modelQuotation = new QuotationDetailTemp('search');
 					$this->widget('bootstrap.widgets.TbGridView',array(
-							'id'=>'quotation-grid',
+							'id'=>'quotation-grid2',
 							'dataProvider'=>$modelQuotation->search(Yii::app()->user->ID),
 							'type'=>'bordered condensed',
 							//'filter'=>$model,
