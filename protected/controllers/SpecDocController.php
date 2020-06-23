@@ -446,8 +446,8 @@ class SpecDocController extends Controller
 				$model->is_written = 1;
 
 				//check new material
-				$model->material = empty($model->material) ? $_POST['material'] : $model->material ;
-				$model->dimension = empty($model->dimension) ? $_POST['dimension'] : $model->dimension ;
+				$model->material = empty($model->material) || $_POST['material']!=$model->material ? $_POST['material'] : $model->material ;
+				$model->dimension = empty($model->dimension) || $_POST['dimension']!=$model->dimension  ? $_POST['dimension'] : $model->dimension ;
 
 				date_default_timezone_set("Asia/Bangkok");
 
@@ -458,6 +458,7 @@ class SpecDocController extends Controller
 
 				//print_r($model);
 				$specList = array();
+				$spec_detail = "";
 				if(isset($_POST['spec_list']))
 				{
 					$check_spec1 = isset($_POST['check_spec1']) ? $_POST['check_spec1']  : array();
@@ -469,7 +470,7 @@ class SpecDocController extends Controller
 					$note_spec3 = $_POST['note_spec3'];
 
 					$index = 1;
-					$spec_detail = "";
+					
 					$score = 0;
 					foreach ($_POST['spec_list'] as $key => $value) {
 						$m_list = new SpecList;
@@ -1021,26 +1022,11 @@ class SpecDocController extends Controller
 			$file = Yii::app()->basePath .'/../specfile/'.$model->filename;
 			if (file_exists($file)) {
 
-			    header('Content-Description: File Transfer');
-
-			    header('Content-Type: application/octet-stream');
-
-			    header('Content-Disposition: attachment; filename='.basename($file));
-			    header('Content-Transfer-Encoding: binary');
-
-			    header('Expires: 0');
-
-			    header('Cache-Control: must-revalidate');
-
-			    header('Pragma: public');
-
-			    header('Content-Length: ' . filesize($file));
-
-			    ob_clean();
-
-			    flush();
-
-			    readfile($file);
+			    // Force the download
+				header("Content-Disposition: attachment; filename=" . basename($file));
+				header("Content-Length: " . filesize($file));
+				header("Content-Type: application/octet-stream;");
+				readfile($file);
 
 			    exit;
 
@@ -1171,26 +1157,11 @@ class SpecDocController extends Controller
 			$file = Yii::app()->basePath .'/../specfile/'.$filename;
 			if (file_exists($file)) {
 
-			    header('Content-Description: File Transfer');
-
-			    header('Content-Type: application/octet-stream');
-
-			    header('Content-Disposition: attachment; filename='.basename($file));
-			    header('Content-Transfer-Encoding: binary');
-
-			    header('Expires: 0');
-
-			    header('Cache-Control: must-revalidate');
-
-			    header('Pragma: public');
-
-			    header('Content-Length: ' . filesize($file));
-
-			    ob_clean();
-
-			    flush();
-
-			    readfile($file);
+			    // Force the download
+				header("Content-Disposition: attachment; filename=" . basename($file));
+				header("Content-Length: " . filesize($file));
+				header("Content-Type: application/octet-stream;");
+				readfile($file);
 
 			    exit;
 

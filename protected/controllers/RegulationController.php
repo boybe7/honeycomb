@@ -193,6 +193,23 @@ class RegulationController extends Controller
 		}
 	}
 
+	function real_filesize($file) {
+
+      $fmod = filesize($file);
+      if ($fmod < 0) $fmod += 2.0 * (PHP_INT_MAX + 1);
+      $i = 0;
+      $myfile = fopen($file, "r");
+      while (strlen(fread($myfile, 1)) === 1) {
+        fseek($myfile, PHP_INT_MAX, SEEK_CUR);
+        $i++;
+      }
+      fclose($myfile);
+      if ($i % 2 == 1) $i--;
+
+      return ((float)($i) * (PHP_INT_MAX + 1)) + $fmod;
+
+    }
+
 
 	public function actionExport($id)
 	{
@@ -207,18 +224,25 @@ class RegulationController extends Controller
 			$file = Yii::app()->basePath .'/../fileuploads/regulations/'.$model->filename;
 			if (file_exists($file)) {
 
-			    header('Content-Description: File Transfer');
-			    header('Content-Type: application/octet-stream');
-			    header('Content-Disposition: attachment; filename='.basename($file));
-			    header('Content-Transfer-Encoding: binary');
-			    header('Expires: 0');
-			    header('Cache-Control: must-revalidate');
-			    header('Pragma: public');
-			    header('Content-Length: ' . filesize($file));
-			    ob_clean();
-			    flush();
-			    readfile($file);
-			    exit;
+			    // header('Content-Description: File Transfer');
+			    // header('Content-Type: application/octet-stream');
+			    // header('Content-Disposition: attachment; filename='.basename($file));
+			    // header('Content-Transfer-Encoding: binary');
+			    // header('Expires: 0');
+			    // header('Cache-Control: must-revalidate');
+			    // header('Pragma: public');
+			    // header('Content-Length: ' . $this->real_filesize($file));
+			    // ob_clean();
+			    // flush();
+			    // readfile($file);
+			    // exit;
+
+
+				// Force the download
+				header("Content-Disposition: attachment; filename=" . basename($file));
+				header("Content-Length: " . filesize($file));
+				header("Content-Type: application/octet-stream;");
+				readfile($file);
 
 			}
 			else{

@@ -287,7 +287,7 @@
 								            //'visible'=>'$data->status != "Approved" && $data->status != "Cancel"',
 								            'url'=>function($data){
 
-													            return Yii::app()->createUrl('/SpecDoc/updateCompare/',
+													            return Yii::app()->createUrl('/specDoc/updateCompare/',
 
 													                    array('id'=>$data->id) /* <- customise that */
 
@@ -302,7 +302,7 @@
 								            //'visible'=>'$data->status != "Approved" && $data->status != "Cancel"',
 								            'url'=>function($data){
 
-													            return Yii::app()->createUrl('/SpecDoc/deleteCompare/',
+													            return Yii::app()->createUrl('/specDoc/deleteCompare/',
 
 													                    array('id'=>$data->id) /* <- customise that */
 

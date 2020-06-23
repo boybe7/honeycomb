@@ -63,7 +63,7 @@ class SpecDoc extends CActiveRecord
 		return array(
 			'id' => 'id',
 			'no' => 'ลำดับ',
-			'detail' => 'รายละเอียดประกอบแบบ',
+			'detail' => 'รายละเอียดจัดเก็บ Spec.',
 			'filename' => 'ชื่อไฟล์เอกสาร',
 			'detail_approve' => 'รายละเอียดการอนุมัติ',
 			'work_category_id' => 'ประเภทงาน',
