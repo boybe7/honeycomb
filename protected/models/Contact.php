@@ -59,7 +59,7 @@ class Contact extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'บริษัท',
+			'name' => 'บริษัท/ผู้ประกอบการ/ร้านค้า',
 			'detail' => 'ประเภทสินค้า/บริการ',
 			'telephone' => 'เบอร์โทร',
 			'website' => 'Website',
@@ -112,6 +112,13 @@ class Contact extends CActiveRecord
 		$criteria->compare('website',$this->website,true);
 		$criteria->compare('card',$this->card,true);
 		$criteria->compare('category',$id);
+
+		$searchterm = empty($searchterm) ? trim(Yii::app()->request->getParam('search_key')) : $searchterm;
+		$searchterm = htmlspecialchars($searchterm, ENT_QUOTES);
+		if (!empty($searchterm) ) {
+		    $criteria->addCondition(' name LIKE "%' . $searchterm . '%" OR
+		              detail LIKE "%' .$searchterm.'%"');
+		} 
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

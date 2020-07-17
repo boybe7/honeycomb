@@ -56,15 +56,15 @@ ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 		
 			<form class="navbar-form pull-right" id="search-form" action="/honeycomb/SpecDoc/search" method="get" enctype="application/x-www-form-urlencoded">
 
-			  <input type="text" name="search_key" id='search_key' class="search-query" placeholder="Search" style="margin-right:10px;">
-			
+			  <input type="text" name="search_key" id='search_key' class="search-query span3" placeholder="ค้นหา" style="margin-right:5px;">
+			  <!-- <input type="text" name="search_key2" id='search_key2' class="search-query span2" placeholder="ค้นหาบริษัท รุ่น" style="margin-right:5px;"> -->
 			  <?php
 
 			  		$startDate = isset($_GET['startDate']) ? $_GET['startDate'] : 'วันที่เริ่ม';
 			  		$endDate = isset($_GET['endDate']) ? $_GET['endDate'] : 'วันที่สิ้นสุด';
 			  	
 
-			  		echo '<span  style="margin-top:10px;margin-right:10px;">'; //ใส่ icon ลงไป
+			  		echo '<span  style="margin-top:10px;margin-right:5px;">'; //ใส่ icon ลงไป
                         $this->widget('zii.widgets.jui.CJuiDatePicker',
 
 		                        array(
@@ -85,7 +85,7 @@ ini_set('max_execution_time', 300); //300 seconds = 5 minutes
                     );
                     echo '</span>';
 
-                    echo '<span  style="margin-top:10px;margin-right:10px;">'; //ใส่ icon ลงไป
+                    echo '<span  style="margin-top:10px;margin-right:5px;">'; //ใส่ icon ลงไป
                         $this->widget('zii.widgets.jui.CJuiDatePicker',
 
 		                        array(
@@ -135,6 +135,7 @@ ini_set('max_execution_time', 300); //300 seconds = 5 minutes
 			?>
 
 			</form>
+			
 		</div>	
 	</div>	
 </div>

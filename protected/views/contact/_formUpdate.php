@@ -12,7 +12,15 @@
 		<div class="span8">
 			<?php echo $form->textFieldRow($model,'name',array('class'=>'span12','maxlength'=>500)); ?>
 
-			<?php echo $form->textFieldRow($model,'detail',array('class'=>'span12','maxlength'=>500)); ?>
+			<?php 
+
+			//echo $form->textFieldRow($model,'detail',array('class'=>'span12','maxlength'=>500));
+				$workcat = MaterialCategory::model()->findAll();
+		     
+		        $typelist = CHtml::listData($workcat,'name','name');
+		        echo $form->dropDownListRow($model, 'detail', $typelist,array('class'=>'span12'), array('options' => array('detail'=>array('selected'=>true)))); 	
+
+			 ?>
 
 			<?php echo $form->textFieldRow($model,'telephone',array('class'=>'span12','maxlength'=>20)); ?>
 
@@ -27,6 +35,7 @@
 		</div>	 
 		<div class="span4">
 			<div class="form-group text-center" style="position: relative;" >
+				แนบไฟล์นามบัตร
             <span class="img-div">
               <div class="text-center img-placeholder"  onClick="triggerClick()">
                 

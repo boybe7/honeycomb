@@ -23,6 +23,7 @@ class Material extends CActiveRecord
   
     public $date_start;
     public $date_end;
+    public $search_key;
 
 	/**
 	 * @return string the associated database table name
@@ -93,6 +94,8 @@ class Material extends CActiveRecord
 		 	$endDate = empty($endDate) ? trim(Yii::app()->request->getParam('endDate')) : $endDate;
 		    $searchterm = empty($searchterm) ? trim(Yii::app()->request->getParam('search_key')) : $searchterm;
 		    $searchterm = htmlspecialchars($searchterm, ENT_QUOTES);
+		    $searchterm2 = empty($searchterm2) ? trim(Yii::app()->request->getParam('search_key2')) : $searchterm2;
+		    $searchterm2 = htmlspecialchars($searchterm2, ENT_QUOTES);
 
 		    $date_condition = "'2019-04-01' AND '2019-07-01' ";
 		    $date_condition = " ";
@@ -126,7 +129,12 @@ class Material extends CActiveRecord
 			$criteria->alias = 'material';
 			//$criteria->join='LEFT JOIN moc_price_map ON moc_price_map.material_id=Material.id LEFT JOIN moc_price ON moc_price.code=moc_price_map.code LEFT JOIN spec_doc_compare ON spec_doc_compare.material_id=Material.id';
 			$criteria->join='LEFT JOIN moc_price_map ON moc_price_map.material_id=material.id LEFT JOIN moc_price ON moc_price.code=moc_price_map.code ';
-			$criteria->select = array($startDate.' as date_start',$endDate.' as date_end','material.id as material_id','material.name AS material_name',"CONCAT(material.name,1) as material_name1",'material.detail','moc_price.unit as unit','moc_price.name AS dimension',"CONCAT(moc_price.year-543,'-',LPAD(moc_price.month,2,'00'),'-01') as date",'moc_price.id as moc_id','"-" as spec_id',"CONCAT(1,'-',material.id) AS category","moc_price.code as code");
+			if (!empty($searchterm2) ) {
+				$criteria->select = array('"'.$searchterm2.'" as search_key',$startDate.' as date_start',$endDate.' as date_end','material.id as material_id','material.name AS material_name',"CONCAT(material.name,1) as material_name1",'material.detail','moc_price.unit as unit','moc_price.name AS dimension',"CONCAT(moc_price.year-543,'-',LPAD(moc_price.month,2,'00'),'-01') as date",'moc_price.id as moc_id','"-" as spec_id',"CONCAT(1,'-',material.id) AS category","moc_price.code as code");
+			}
+			else{
+				$criteria->select = array($startDate.' as date_start',$endDate.' as date_end','material.id as material_id','material.name AS material_name',"CONCAT(material.name,1) as material_name1",'material.detail','moc_price.unit as unit','moc_price.name AS dimension',"CONCAT(moc_price.year-543,'-',LPAD(moc_price.month,2,'00'),'-01') as date",'moc_price.id as moc_id','"-" as spec_id',"CONCAT(1,'-',material.id) AS category","moc_price.code as code");
+			}	
 			$criteria->condition = ("CONCAT(moc_price.year-543,'-',LPAD(moc_price.month,2,'00'),'-01') ".$date_condition);
 			$criteria->group = "moc_price.code";
 			//$criteria->addCondition("spec_doc_compare.id IS NOT NULL OR moc_price.id IS NOT NULL");
@@ -140,16 +148,25 @@ class Material extends CActiveRecord
 
 			$criteria2 = new CDbCriteria();
 			$criteria2->alias = 'material';
-			$criteria2->join='LEFT JOIN spec_doc ON spec_doc.material=material.name ';
-			$criteria2->select = array($startDate.' as date_start',$endDate.' as date_end','material.id as material_id','material.name AS material_name',"CONCAT(material.name,2) as material_name1",'material.detail','spec_doc.unit as unit','spec_doc.dimension AS dimension',"DATE(spec_doc.create_date) as date",'"-" as moc_id','spec_doc.id as spec_id',"CONCAT(2,'-',material.id) as category","spec_doc.id as code");
+			$criteria2->join='LEFT JOIN spec_doc ON spec_doc.material=material.name LEFT JOIN spec_doc_compare ON spec_doc_compare.spec_id=spec_doc.id';
+			if (!empty($searchterm2) ) {
+				$criteria2->select = array('"'.$searchterm2.'" as search_key',$startDate.' as date_start',$endDate.' as date_end','material.id as material_id','material.name AS material_name',"CONCAT(material.name,2) as material_name1",'material.detail','spec_doc.unit as unit','spec_doc.dimension AS dimension',"DATE(spec_doc.create_date) as date",'"-" as moc_id','spec_doc.id as spec_id',"CONCAT(2,'-',material.id) as category","spec_doc.id as code");
+			}
+			else
+			{
+				$criteria2->select = array($startDate.' as date_start',$endDate.' as date_end','material.id as material_id','material.name AS material_name',"CONCAT(material.name,2) as material_name1",'material.detail','spec_doc.unit as unit','spec_doc.dimension AS dimension',"DATE(spec_doc.create_date) as date",'"-" as moc_id','spec_doc.id as spec_id',"CONCAT(2,'-',material.id) as category","spec_doc.id as code");
+			}	
 			$criteria2 ->condition =  ' spec_doc.id IS NOT NULL AND spec_doc.create_date '.$date_condition;
 			$criteria2->group = "spec_doc.id ";
 			$criteria2->order = 'material.id ASC';
 
 			if (!empty($searchterm) ) {
 		        $criteria2->addCondition(' material.name LIKE "%' . $searchterm . '%" OR
-		              material.detail LIKE "%' . $searchterm . '%"  OR spec_doc.dimension  LIKE "%'.$searchterm.'%"');
+		              material.detail LIKE "%' . $searchterm . '%"  OR spec_doc.dimension  LIKE "%'.$searchterm.'%" OR brand LIKE "%' . $searchterm . '%" OR
+		              model LIKE "%' . $searchterm . '%"');
 		    } 
+
+		  
 
 
 
@@ -278,12 +295,23 @@ class Material extends CActiveRecord
 			}
 			else
 			{
-				$model = Yii::app()->db->createCommand()
+				if(!empty($data->search_key))
+				{
+				   $model = Yii::app()->db->createCommand()
 						    ->select('YEAR(date_price) as year,MONTH(date_price) as month,price,brand,model')
 						    ->from('spec_doc_compare')
-						    ->where('spec_id=:id', array(':id'=>$data->code))
+						    ->where('spec_id=:id AND (brand LIKE "%":search"%" OR model LIKE "%":search"%")', array(':id'=>$data->code,':search'=>$data->search_key))
 						    ->order("year, month ASC")
 						    ->queryAll();
+				}
+				else{
+					$model = Yii::app()->db->createCommand()
+						    ->select('YEAR(date_price) as year,MONTH(date_price) as month,price,brand,model')
+						    ->from('spec_doc_compare')
+						    ->where('spec_id=:id ', array(':id'=>$data->code))
+						    ->order("year, month ASC")
+						    ->queryAll();
+				}
 			}
 
 			foreach ($model as $key => $value) {
