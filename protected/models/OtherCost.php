@@ -1,25 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "contact".
+ * This is the model class for table "other_cost".
  *
- * The followings are the available columns in table 'contact':
+ * The followings are the available columns in table 'other_cost':
  * @property integer $id
- * @property string $name
- * @property string $detail
- * @property string $telephone
- * @property string $website
- * @property string $card
- * @property integer $category
+ * @property string $contract_no
+ * @property string $filename
+ * @property integer $type_id
  */
-class Contact extends CActiveRecord
+class OtherCost extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'contact';
+		return 'other_cost';
 	}
 
 	/**
@@ -30,14 +27,13 @@ class Contact extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, category', 'required'),
-			array('category', 'numerical', 'integerOnly'=>true),
-			array('name, detail,address', 'length', 'max'=>500),
-			array('telephone', 'length', 'max'=>20),
-			array('website, card', 'length', 'max'=>255),
+			array('contract_no, filename, type_id', 'required'),
+			array('type_id', 'numerical', 'integerOnly'=>true),
+			array('contract_no', 'length', 'max'=>255),
+			array('filename', 'length', 'max'=>500),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, detail, telephone, website, card, category,address,tax_id', 'safe', 'on'=>'search'),
+			array('id, contract_no, filename, type_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,14 +55,9 @@ class Contact extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'บริษัท/ผู้ประกอบการ/ร้านค้า',
-			'detail' => 'ประเภทสินค้า/บริการ',
-			'telephone' => 'เบอร์โทร',
-			'website' => 'Website',
-			'card' => 'Card',
-			'category' => 'ประเภทงาน',
-			'tax_id' => 'เลขประจำตัวผู้เสียภาษี',
-			'address' => 'ที่อยู่',
+			'contract_no' => 'Contract No',
+			'filename' => 'Filename',
+			'type_id' => 'Type',
 		);
 	}
 
@@ -89,38 +80,25 @@ class Contact extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('detail',$this->detail,true);
-		$criteria->compare('telephone',$this->telephone,true);
-		$criteria->compare('website',$this->website,true);
-		$criteria->compare('card',$this->card,true);
-		$criteria->compare('category',$this->category);
+		$criteria->compare('contract_no',$this->contract_no,true);
+		$criteria->compare('filename',$this->filename,true);
+		$criteria->compare('type_id',$this->type_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
 
-	public function searchByID($id)
+	public function searchByType($type_id)
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('detail',$this->detail,true);
-		$criteria->compare('telephone',$this->telephone,true);
-		$criteria->compare('website',$this->website,true);
-		$criteria->compare('card',$this->card,true);
-		$criteria->compare('category',$id);
-
-		$searchterm = empty($searchterm) ? trim(Yii::app()->request->getParam('search_key')) : $searchterm;
-		$searchterm = htmlspecialchars($searchterm, ENT_QUOTES);
-		if (!empty($searchterm) ) {
-		    $criteria->addCondition(' name LIKE "%' . $searchterm . '%" OR
-		              detail LIKE "%' .$searchterm.'%"');
-		} 
+		$criteria->compare('contract_no',$this->contract_no,true);
+		$criteria->compare('filename',$this->filename,true);
+		$criteria->compare('type_id',$type_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -131,7 +109,7 @@ class Contact extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Contact the static model class
+	 * @return OtherCost the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

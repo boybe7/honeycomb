@@ -31,7 +31,7 @@ class ContactController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','createContactList','updateContactList','deleteContactList','createContactListTemp','updateContactListTemp','deleteContactListTemp','delete','createRequestQuotation','updateRequestQuotation','deleteRequestQuotation','createQuotationDetailTemp','deleteQuotationDetailTemp','deleteQuotationDetail','createQuotationDetail','updateQuotationDetail','updateQuotationDetailTemp','exportQuotation','download'),
+				'actions'=>array('create','update','createCatalog','createContactList','updateContactList','deleteContactList','createContactListTemp','updateContactListTemp','deleteContactListTemp','delete','createRequestQuotation','updateRequestQuotation','deleteRequestQuotation','createQuotationDetailTemp','deleteQuotationDetailTemp','deleteQuotationDetail','createQuotationDetail','updateQuotationDetail','updateQuotationDetailTemp','exportQuotation','download'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -105,6 +105,54 @@ class ContactController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 		));
+	}
+
+	public function actionCreateCatalog($id)
+	{
+		$model=new Catalog;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Catalog']))
+		{
+			$model->attributes=$_POST['Catalog'];
+			$model->contact_id = $id;
+	
+				$uploadFile = CUploadedFile::getInstance($model, 'filename');
+				$filesave = '';
+				if($uploadFile !== null) {
+
+
+									$uploadFileName = time()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
+									
+									$filesave = Yii::app()->basePath .'/../specfile/'.iconv("UTF-8", "TIS-620",$uploadFileName);
+									$model->filename = $uploadFile;
+									
+
+									if($model->filename->saveAs($filesave)){
+
+
+										$model->filename = $uploadFileName;																	
+										
+										if($model->save())
+											echo CJSON::encode(array('success' => true));
+										else
+											echo CJSON::encode(array('fail' => true));
+										
+									
+									}
+							
+				}
+				
+
+				
+		   
+			
+		}
+		else
+			$this->renderPartial('_formCatalog', array('model'=>$model), false, true);
+	
 	}
 
 	public function actionCreateContactList($id)
@@ -306,22 +354,63 @@ class ContactController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Contact']))
+		$transaction=Yii::app()->db->beginTransaction();
+		try 
 		{
-			$model->attributes=$_POST['Contact'];
+			if(isset($_POST['Contact']))
+			{
+				$model->attributes=$_POST['Contact'];
 
-			$profileImageName = time() . '-' . $_FILES["profileImage"]["name"];
-			$filesave = Yii::app()->basePath .'/../specfile/'.$profileImageName;
+				$profileImageName = time() . '-' . $_FILES["profileImage"]["name"];
+				$filesave = Yii::app()->basePath .'/../specfile/'.$profileImageName;
 
-			if(move_uploaded_file($_FILES["profileImage"]["tmp_name"], $filesave)) {
-		        $model->card = $profileImageName;
-		        
-		    } 
+				if(move_uploaded_file($_FILES["profileImage"]["tmp_name"], $filesave)) {
+			        $model->card = $profileImageName;
+			        
+			    } 
+			    //header('Content-type: text/plain');
+			    
+			    $model->tax_id = $_POST['Contact']['tax_id'];
+				if($model->save())
+				{
+					Yii::app()->db->createCommand('DELETE FROM contact_map WHERE contact_id='.$id)->execute();
+					foreach ($_POST['detail'] as $key => $value) {
+				    	//echo $value."<br>";
+				    	$m = new ContactMap;
+				    	$m->contact_id = $id;
+				    	$m->map_id = $value;
+				    	$m->type = 0;
+				    	$m->save();
+				    }
 
-			if($model->save())
-				$this->redirect(array('index'));	
+
+				    foreach ($_POST['category'] as $key => $value) {
+				    	$m = new ContactMap;
+				    	$m->contact_id = $id;
+				    	$m->map_id = $value;
+				    	$m->type = 1;
+				    	$m->save();
+				    }
+				    //print_r($model);
+				    //exit;
+
+				    $transaction->commit();
+
+					$this->redirect(array('index'));	
+				}
+			}
 		}
+		catch(Exception $e)
+	 	{
+	 				$transaction->rollBack();	
+	 				$model->addError('contract', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล.');
+	 				Yii::trace(CVarDumper::dumpAsString($e->getMessage()));
+	 	        	//you should do sth with this exception (at least log it or show on page)
+	 	        	Yii::log( 'Exception when saving data: ' . $e->getMessage(), CLogger::LEVEL_ERROR );
+	 
+	 	}   
+
+
 
 		$this->render('update',array(
 			'model'=>$model,
@@ -521,7 +610,8 @@ class ContactController extends Controller
 	{
 		$model=RequestQuotation::model()->findByPk($id);
 
-		$filename = $_POST["filename"];
+		//$filename = $_POST["filename"];
+		$filename = "export_".Yii::app()->user->ID.".pdf";
 		$this->render('_formPDF',array('model'=>$model,'filename'=>$filename));
 
 		echo json_encode($filename);

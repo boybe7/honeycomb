@@ -220,8 +220,16 @@ $html .= '</table>';
 $pdf->AddPage();
 $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 $pdf->Output($_SERVER['DOCUMENT_ROOT'].'/honeycomb/report/temp/'.$filename,'F');
-
 ob_end_clean() ;
+$file = $_SERVER['DOCUMENT_ROOT'].'/honeycomb/report/temp/'.$filename;
+if (file_exists($file)) {
+ // Force the download
+                header("Content-Disposition: attachment; filename=" . basename($file));
+                header("Content-Length: " . filesize($file));
+                header("Content-Type: application/octet-stream;");
+                readfile($file);
+}
+
 
 exit;
 ?>

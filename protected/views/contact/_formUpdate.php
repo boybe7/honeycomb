@@ -1,3 +1,18 @@
+<style type="text/css">
+	.row-fluid .fix_margin {
+		margin-left : 0px;
+	}
+
+	.select2-container-multi .select2-choices .select2-search-choice {
+	    color: #555555;
+	    background: #ffe9b9;
+	    border-color: #cccccc;
+	    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+	    -webkit-box-shadow: none;
+	    box-shadow: none;
+	}
+</style>
+
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'contact-form',
 	'enableAjaxValidation'=>false,
@@ -11,26 +26,71 @@
 	<div class="row-fluid ">
 		<div class="span8">
 			<?php echo $form->textFieldRow($model,'name',array('class'=>'span12','maxlength'=>500)); ?>
+			<?php echo $form->textFieldRow($model,'address',array('class'=>'span12','maxlength'=>500)); ?>
+		
+			 <div class="row-fluid ">
+			 	<div class="span4">
+					<?php echo $form->textFieldRow($model,'tax_id',array('class'=>'span12','maxlength'=>13)); ?>
+				</div>
+			 	<div class="span3">
+					<?php echo $form->textFieldRow($model,'telephone',array('class'=>'span12','maxlength'=>20)); ?>
+				</div>	
+				<div class="span5">
+					<?php echo $form->textFieldRow($model,'website',array('class'=>'span12','maxlength'=>255)); ?>
+				</div>	
+			</div>	
 
 			<?php 
 
 			//echo $form->textFieldRow($model,'detail',array('class'=>'span12','maxlength'=>500));
 				$workcat = MaterialCategory::model()->findAll();
 		     
-		        $typelist = CHtml::listData($workcat,'name','name');
-		        echo $form->dropDownListRow($model, 'detail', $typelist,array('class'=>'span12'), array('options' => array('detail'=>array('selected'=>true)))); 	
+		        $typelist = CHtml::listData($workcat,'id','name');
+		        //echo $form->dropDownListRow($model, 'detail', $typelist,array('class'=>'span12'), array('options' => array('detail'=>array('selected'=>true)))); 	
+		        echo "<label for='detail'>ประเภทสินค้า/บริการ</label>";
+
+		        $m = ContactMap::model()->findAll(array("condition"=>"type=0 AND contact_id = ".$model->id));		     	
+		     	$type_selected2 = [];
+		     	foreach ($m as $key => $value) {
+		     		$type_selected2[] = $value->map_id;
+		     	}
+		     	
+				$this->widget('ext.select2.ESelect2',array(
+				  'name'=>'detail',
+				  'data'=>$typelist,
+				  'value'=>$type_selected2,
+				  'htmlOptions'=>array(
+				  	'class'=>'span12 fix_margin',
+				    'multiple'=>'multiple',
+				  ),
+				));
 
 			 ?>
 
-			<?php echo $form->textFieldRow($model,'telephone',array('class'=>'span12','maxlength'=>20)); ?>
-
-			<?php echo $form->textFieldRow($model,'website',array('class'=>'span12','maxlength'=>255)); ?>
-
 			<?php 
+				
 				$workcat = WorkCategory::model()->findAll();
 		     
 		        $typelist = CHtml::listData($workcat,'id','name');
-		        echo $form->dropDownListRow($model, 'category', $typelist,array('class'=>'span12'), array('options' => array('work_category_id'=>array('selected'=>true)))); 
+		       // echo $form->dropDownListRow($model, 'category', $typelist,array('class'=>'span12'), array('multiple' => true,'options' => array('work_category_id'=>array('selected'=>true)))); 
+		     	$m = ContactMap::model()->findAll(array("condition"=>"type=1 AND contact_id = ".$model->id));		     	
+		     	$type_selected = [];
+		     	foreach ($m as $key => $value) {
+		     		$type_selected[] = $value->map_id;
+		     	}
+
+				// Multiple data
+				echo "<label for='category'>ประเภทงาน</label>";
+				$this->widget('ext.select2.ESelect2',array(
+				  'name'=>'category',
+				  'data'=>$typelist,
+				  'value'=>$type_selected,
+				  'htmlOptions'=>array(
+				  	'class'=>'span12 fix_margin',
+				    'multiple'=>'multiple',
+				  ),
+				));
+
 			 ?>
 		</div>	 
 		<div class="span4">
@@ -93,6 +153,7 @@ function displayImage(e) {
 
 
 	<?php
+		echo "<br><b>ผู้ติดต่อ</b>";
 
 					 $this->widget('bootstrap.widgets.TbButton', array(
 						    'buttonType'=>'link',
@@ -315,6 +376,162 @@ function displayImage(e) {
 						));
 
 
+	echo "<br><b>แคตตาล็อก</b>";
+
+					 $this->widget('bootstrap.widgets.TbButton', array(
+						    'buttonType'=>'link',
+						    
+						    'type'=>'success',
+						    'label'=>'เพิ่มแคตตาล็อก',
+						    'icon'=>'plus-sign',
+						    //'url'=>array('create'),
+						    'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-bottom:10px;',
+						    	'onclick'=>'
+
+						    		$.ajax({
+		                                    url: "../createCatalog/'.$model->id.'" ,
+		                                    type: "POST",
+		                                    success: function (data) {
+							
+
+		                                            bootbox.dialog({
+		                                               
+		                                                message: data,
+		                                            
+		                                                buttons: {
+		                                                    cancel: {
+		                                                        label: "ปิด",
+		                                                        className: "btn-danger",
+		                                                        callback: function(){
+		                                                           
+		                                                        }
+		                                                    },
+		                                                    save: {
+		                                                        label: "บันทึก",
+		                                                        className: "btn-info",
+		                                                        callback: function(){
+		                                                             $.ajax({
+		                                                                      type: "POST",
+		                                                                      url: "../createCatalog/'.$model->id.'" ,
+		                                                                      dataType:"json",
+		                                                                      data: $(".modal-body #catalog-form").serialize(),
+		                                                                      success: function (data) {
+
+		                                                                         $("#catalog-grid").yiiGridView("update",{});
+		                                                                      }
+		                                                                  });
+		                                                            
+		                                                        }
+		                                                    },
+		                                                   
+		                                                }
+		                                            });
+											}			
+									});					
+
+
+						    	'	
+
+							),
+						)); 
+
+
+	                $modelList = new Catalog('search');
+					$this->widget('bootstrap.widgets.TbGridView',array(
+							'id'=>'catalog-grid',
+							'dataProvider'=>$modelList->search($model->id),
+							'type'=>'bordered condensed',
+							//'filter'=>$model,
+							'selectableRows' =>2,
+							'htmlOptions'=>array('style'=>'padding-top:10px'),
+						    'enablePagination' => true,
+						    'summaryText'=>'แสดงผล {start} ถึง {end} จากทั้งหมด {count} ข้อมูล',
+						    'template'=>"{items}<div class='row-fluid'><div class='span6'>{pager}</div><div class='span6'>{summary}</div></div>",
+							'columns'=>array(
+								'no'=>array(
+									    'name' => 'no',
+									    'value' => '$this->grid->dataProvider->pagination->currentPage * $this->grid->dataProvider->pagination->pageSize + ($row+1)',
+									    'filter'=>false,
+
+										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
+							  	),
+							  	
+								'detail'=>array(
+									    'name' => 'detail',
+									    'filter'=>false,
+										'headerHtmlOptions' => array('style' => 'width:70%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;'),
+										'class' => 'editable.EditableColumn',
+										'editable' => array( //editable section
+										
+											'title'=>'แก้ไข',
+											'url' => $this->createUrl('updateCatalog'),
+											'success' => 'js: function(response, newValue) {
+																if(!response.success) return response.msg;
+
+																$("#catalog-grid").yiiGridView("update",{});
+															}',
+											'options' => array(
+												'ajaxOptions' => array('dataType' => 'json'),
+
+											), 
+											'placement' => 'right',
+											'display' => 'js: function(value, sourceData) {
+											    
+											}'
+										)
+							  	),
+							  
+							  	'export'=>array(
+									    'name' => 'filename',
+									    'header' => 'Export',
+									    'type'=> 'raw',
+									    'value'=>'CHtml::link(CHtml::image(Yii::app()->request->baseUrl."/images/download.png"),"'.Yii::app()->createUrl('/Contact/exportCatalog').'/$data->id",array("target"=>"_blank","class"=>"export"))',
+									    'filter'=>false,
+										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:center;')
+							  	),
+							  
+								array(
+									'class'=>'bootstrap.widgets.TbButtonColumn',
+									'visible'=>Yii::app()->user->isAdmin() ? true : false,
+									'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),
+									'template' => '{delete}',
+									'buttons'=>array
+								    (
+								        'delete' => array
+								        (
+								        
+								            'url'=>function($data){
+
+													            return Yii::app()->createUrl('/Contact/deleteContactList/',
+
+													                    array('id'=>$data->id) /* <- customise that */
+
+													            );
+
+													        }, 
+											'click'=>'js: function(data){
+												$.ajax({
+                                                                      type: "POST",
+                                                                      url : this.getAttribute("href"),
+                                                                      success: function (data) {
+
+                                                                        $.fn.yiiGridView.update("list-grid",{});
+                                                                      }
+                                                 });
+										         
+
+										          return false;
+
+										      }',		        
+								        ),
+								    ),
+								),
+							),
+
+						));
 
 	echo "<b>เอกสารขอใบเสนอราคา/Spec. สินค้า</b>";
 
