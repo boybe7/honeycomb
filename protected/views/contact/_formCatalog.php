@@ -40,4 +40,6 @@ function checkFile(electObject){
 		</div>
 	</div>	
 
+	
+
 <?php $this->endWidget(); ?>

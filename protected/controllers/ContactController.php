@@ -121,6 +121,7 @@ class ContactController extends Controller
 	
 				$uploadFile = CUploadedFile::getInstance($model, 'filename');
 				$filesave = '';
+				//header('Content-type: text/plain');
 				if($uploadFile !== null) {
 
 
@@ -146,8 +147,8 @@ class ContactController extends Controller
 				}
 				
 
-				
-		   
+				//print_r($model);
+		   		//exit;	
 			
 		}
 		else

@@ -3196,3 +3196,108 @@ Stack trace:
 REQUEST_URI=/honeycomb/specfile/1587752114-Image.jpg
 HTTP_REFERER=http://localhost/honeycomb/contact/update/2
 ---
+2020/07/29 15:48:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "specfile/1587752114-Image.jpg".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('specfile/158775...')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/specfile/1587752114-Image.jpg
+HTTP_REFERER=http://localhost/honeycomb/contact/update/2
+---
+2020/07/29 15:53:31 [warning] [application] Failed to set unsafe attribute "filename" of "Catalog".
+in C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php (119)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/07/29 15:53:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "specfile/1587752114-Image.jpg".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('specfile/158775...')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/specfile/1587752114-Image.jpg
+HTTP_REFERER=http://localhost/honeycomb/contact/update/2
+---
+2020/07/29 15:53:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "specfile/1587752114-Image.jpg".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('specfile/158775...')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/specfile/1587752114-Image.jpg
+HTTP_REFERER=http://localhost/honeycomb/contact/update/2
+---
+2020/07/29 16:03:24 [warning] [application] Failed to set unsafe attribute "filename" of "Catalog".
+in C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php (119)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/07/29 16:07:21 [warning] [application] Failed to set unsafe attribute "filename" of "Catalog".
+in C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php (119)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/07/29 16:09:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "specfile/1587752114-Image.jpg".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('specfile/158775...')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/specfile/1587752114-Image.jpg
+HTTP_REFERER=http://localhost/honeycomb/contact/update/2
+---
+2020/07/29 16:16:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "specfile/1587752114-Image.jpg".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('specfile/158775...')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/specfile/1587752114-Image.jpg
+HTTP_REFERER=http://localhost/honeycomb/contact/update/2
+---
+2020/07/29 16:22:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "specfile/1587752114-Image.jpg".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('specfile/158775...')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/specfile/1587752114-Image.jpg
+HTTP_REFERER=http://localhost/honeycomb/contact/update/2
+---
+2020/07/29 16:23:06 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "specfile/1587752114-Image.jpg".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('specfile/158775...')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/specfile/1587752114-Image.jpg
+HTTP_REFERER=http://localhost/honeycomb/contact/update/2
+---
+2020/07/29 16:23:14 [warning] [application] Failed to set unsafe attribute "filename" of "Catalog".
+in C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php (119)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/07/29 16:23:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "specfile/1587752114-Image.jpg".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('specfile/158775...')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/specfile/1587752114-Image.jpg
+HTTP_REFERER=http://localhost/honeycomb/contact/update/2
+---
+2020/07/29 16:24:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "specfile/1587752114-Image.jpg".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('specfile/158775...')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/specfile/1587752114-Image.jpg
+HTTP_REFERER=http://localhost/honeycomb/contact/update/2
+---
+2020/07/29 16:24:32 [warning] [application] Failed to set unsafe attribute "filename" of "Catalog".
+in C:\xampp\htdocs\honeycomb\protected\controllers\ContactController.php (119)
+in C:\xampp\htdocs\honeycomb\index.php (13)
+2020/07/29 16:24:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "specfile/1587752114-Image.jpg".' in C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php:286
+Stack trace:
+#0 C:\xampp\htdocs\honeycomb\framework\web\CWebApplication.php(141): CWebApplication->runController('specfile/158775...')
+#1 C:\xampp\htdocs\honeycomb\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 C:\xampp\htdocs\honeycomb\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/honeycomb/specfile/1587752114-Image.jpg
+HTTP_REFERER=http://localhost/honeycomb/contact/update/2
+---

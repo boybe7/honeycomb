@@ -387,7 +387,7 @@ function displayImage(e) {
 						    //'url'=>array('create'),
 						    'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-bottom:10px;',
 						    	'onclick'=>'
-
+						    		
 						    		$.ajax({
 		                                    url: "../createCatalog/'.$model->id.'" ,
 		                                    type: "POST",
@@ -410,11 +410,16 @@ function displayImage(e) {
 		                                                        label: "บันทึก",
 		                                                        className: "btn-info",
 		                                                        callback: function(){
+		                                                        	var form = $(".modal-body #catalog-form")[0];
+        															var formData = new FormData(form);
 		                                                             $.ajax({
 		                                                                      type: "POST",
 		                                                                      url: "../createCatalog/'.$model->id.'" ,
 		                                                                      dataType:"json",
-		                                                                      data: $(".modal-body #catalog-form").serialize(),
+		                                                                      data: formData,
+		                                                                      processData: false,
+																			  contentType: false,
+		                                                                      
 		                                                                      success: function (data) {
 
 		                                                                         $("#catalog-grid").yiiGridView("update",{});
