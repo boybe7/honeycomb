@@ -11,6 +11,9 @@
 	    -webkit-box-shadow: none;
 	    box-shadow: none;
 	}
+	.modal {
+	    width: 800px !important;
+	}
 </style>
 
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
@@ -159,7 +162,7 @@ function displayImage(e) {
 						    'buttonType'=>'link',
 						    
 						    'type'=>'success',
-						    'label'=>'เพิ่มข้อมูล',
+						    'label'=>'เพิ่มผู้ติดต่อ',
 						    'icon'=>'plus-sign',
 						    //'url'=>array('create'),
 						    'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-bottom:10px;',
@@ -546,8 +549,58 @@ function displayImage(e) {
 						    'type'=>'success',
 						    'label'=>'เพิ่มข้อมูล',
 						    'icon'=>'plus-sign',
-						    'url'=>array('/Contact/createRequestQuotation/'.$model->id),
+						    //'url'=>array('/Contact/createRequestQuotation/'.$model->id),
 						    'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-bottom:10px;',
+						    	'onclick'=>'
+						    		
+						    		$.ajax({
+		                                    url: "../createRequestQuotation/'.$model->id.'" ,
+		                                    type: "POST",
+		                                    success: function (data) {
+							
+
+		                                            bootbox.dialog({
+		                                               
+		                                                message: data,
+		                                                className: "modal-xl",
+		                                                buttons: {
+		                                                    cancel: {
+		                                                        label: "ปิด",
+		                                                        className: "btn-danger",
+		                                                        callback: function(){
+		                                                           
+		                                                        }
+		                                                    },
+		                                                    save: {
+		                                                        label: "บันทึก",
+		                                                        className: "btn-info",
+		                                                        callback: function(){
+		                                                        	var form = $(".modal-body #request-quotation-form")[0];
+        															var formData = new FormData(form);
+		                                                             $.ajax({
+		                                                                      type: "POST",
+		                                                                      url: "../createRequestQuotation/'.$model->id.'" ,
+		                                                                      dataType:"json",
+		                                                                      data: formData,
+		                                                                      processData: false,
+																			  contentType: false,
+		                                                                      
+		                                                                      success: function (data) {
+
+		                                                                         $("#quotation-grid").yiiGridView("update",{});
+		                                                                      }
+		                                                                  });
+		                                                            
+		                                                        }
+		                                                    },
+		                                                   
+		                                                }
+		                                            });
+											}			
+									});					
+
+
+						    	'
 						    	
 
 							),

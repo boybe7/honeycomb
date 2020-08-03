@@ -1,7 +1,7 @@
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
-	'id'=>'contactlist-form',
+	'id'=>'request-quotation-form',
 	'enableAjaxValidation'=>false,
-	'htmlOptions' => array('enctype' => 'multipart/form-data','class'=>'well'),
+	'htmlOptions' => array('enctype' => 'multipart/form-data','class'=>'well span7'),
 )); ?>
 
 	<h4>เอกสารขอใบเสนอราคา</h4>
@@ -13,7 +13,7 @@
 		<div class="span8">
 			<?php echo $form->textFieldRow($model,'detail',array('class'=>'span12','maxlength'=>100)); ?>
 		</div>
-		<div class="span4">	
+		<div class="span3">	
 			<?php 
 			 echo $form->labelEx($model,'date',array('class'=>'span12','style'=>'text-align:left;padding-right:10px;'));
 			 echo '<div class="input-append" style="margin-top:-10px;">'; //ใส่ icon ลงไป
@@ -40,6 +40,18 @@
 		</div>
 	</div>	
 
+
+	<div class="row-fluid">
+		<div class="span4">
+			
+			<input type="text" name="detail">
+		</div>	
+		<div class="span1">
+			
+			<input type="text" name="amount">
+		</div>	
+		<div class="span2">
+
 	<?php
 
 
@@ -50,7 +62,7 @@
 						    'label'=>'เพิ่มข้อมูล',
 						    'icon'=>'plus-sign',
 						    //'url'=>array('create'),
-						    'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-bottom:10px;',
+						    'htmlOptions'=>array('class'=>'span12','style'=>'margin-bottom:10px;',
 						    	'onclick'=>'
 
 						    		$.ajax({
@@ -99,6 +111,11 @@
 
 							),
 						)); 
+
+	?>
+		</div>	
+	</div>
+	<?php				
 
 					$modelQuotation = new QuotationDetailTemp('search');
 					$this->widget('bootstrap.widgets.TbGridView',array(
