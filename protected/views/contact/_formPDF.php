@@ -155,11 +155,11 @@ $html .= '<table border="1" width="100%">';
     foreach ($details as $key => $value) {
         $html .= '<tr>';
             $html .= '<td width="5%" style="text-align:center">'.$no.'</td>';
-            $html .= '<td width="40%" >&nbsp;&nbsp;'.$value->name.'</td>';
+            $html .= '<td width="70%" >&nbsp;&nbsp;'.$value->name.'</td>';
             $html .= '<td width="10%" style="text-align:center">จำนวน</td>';
             $html .= '<td width="15%" style="text-align:center">'.$value->amount.'</td>';
-            $html .= '<td width="10%" style="text-align:center">หน่วย</td>';
-            $html .= '<td width="20%" style="text-align:center">'.$value->unit.'</td>';
+            //$html .= '<td width="10%" style="text-align:center">หน่วย</td>';
+            //$html .= '<td width="20%" style="text-align:center">'.$value->unit.'</td>';
         $html .= '</tr>';
 
         $no++;
@@ -170,11 +170,11 @@ $html .= '<table border="1" width="100%">';
         for ($i=$no; $i <11 ; $i++) { 
              $html .= '<tr>';
                 $html .= '<td width="5%" style="text-align:center">'.$i.'</td>';
-                $html .= '<td width="40%" ></td>';
+                $html .= '<td width="70%" ></td>';
                 $html .= '<td width="10%" style="text-align:center">จำนวน</td>';
                 $html .= '<td width="15%" style="text-align:center"></td>';
-                $html .= '<td width="10%" style="text-align:center">หน่วย</td>';
-                $html .= '<td width="20%" style="text-align:center"></td>';
+                //$html .= '<td width="10%" style="text-align:center">หน่วย</td>';
+                //$html .= '<td width="20%" style="text-align:center"></td>';
             $html .= '</tr>';
         }
     }

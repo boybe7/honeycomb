@@ -31,7 +31,7 @@ class OtherCostController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','download'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -69,8 +69,41 @@ class OtherCostController extends Controller
 		if(isset($_POST['OtherCost']))
 		{
 			$model->attributes=$_POST['OtherCost'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$uploadFile = CUploadedFile::getInstance($model, 'filename');
+							
+							//print_r($uploadFile);
+							//exit;
+							
+			$filesave = '';
+			if($uploadFile !== null) {
+
+				$uploadFileName = time()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
+									
+				$filesave = Yii::app()->basePath .'/../specfile/'.iconv("UTF-8", "TIS-620",$uploadFileName);
+				$model->filename = $uploadFile;
+				$model->detail = $uploadFile;	
+				$model->date_update = date("Y-m-d");								
+
+				if($model->filename->saveAs($filesave)){
+
+					$model->filename = $uploadFileName;																	
+										
+					if($model->save())
+					{
+
+						$this->redirect(array('index'));
+					}
+					else
+					{
+						unlink($filesave);
+						$model->addError( 'filename','เกิดข้อผิดพลาดในการบันทึกข้อมูล.');
+					}
+										
+									
+				}
+							
+			}
+			
 		}
 
 		$this->render('create',array(
@@ -93,8 +126,43 @@ class OtherCostController extends Controller
 		if(isset($_POST['OtherCost']))
 		{
 			$model->attributes=$_POST['OtherCost'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			
+			$uploadFile = CUploadedFile::getInstance($model, 'filename');
+							
+			
+							
+			$filesave = '';
+			if($uploadFile !== null) {
+
+				$uploadFileName = time()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
+									
+				$filesave = Yii::app()->basePath .'/../specfile/'.iconv("UTF-8", "TIS-620",$uploadFileName);
+				$file_old = Yii::app()->basePath .'/../specfile/'.$model->filename;
+				$model->filename = $uploadFile;
+				$model->detail = $uploadFile;	
+				$model->date_update = date("Y-m-d");								
+
+				if($model->filename->saveAs($filesave)){
+
+					$model->filename = $uploadFileName;																	
+										
+					if($model->save())
+					{
+
+						$this->redirect(array('index'));
+
+						unlink($file_old);
+					}
+					else
+					{
+						unlink($filesave);
+						$model->addError( 'filename','เกิดข้อผิดพลาดในการบันทึกข้อมูล.');
+					}
+										
+									
+				}
+							
+			}
 		}
 
 		$this->render('update',array(
@@ -177,4 +245,26 @@ class OtherCostController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+	public function actionDownload($id)
+    {
+   			$model=$this->loadModel($id);
+			$file = Yii::app()->basePath .'/../specfile/'.$model->filename;
+			if (file_exists($file)) {
+
+			    // Force the download
+				header("Content-Disposition: attachment; filename=" . basename($file));
+				header("Content-Length: " . filesize($file));
+				header("Content-Type: application/octet-stream;");
+				readfile($file);
+
+			    exit;
+
+			}
+			else{
+				echo "File $file not exist";
+			}
+
+             
+    }
 }

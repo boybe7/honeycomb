@@ -31,7 +31,7 @@ class ContactController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','createCatalog','createContactList','updateContactList','deleteContactList','createContactListTemp','updateContactListTemp','deleteContactListTemp','delete','createRequestQuotation','updateRequestQuotation','deleteRequestQuotation','createQuotationDetailTemp','deleteQuotationDetailTemp','deleteQuotationDetail','createQuotationDetail','updateQuotationDetail','updateQuotationDetailTemp','exportQuotation','download'),
+				'actions'=>array('create','update','createCatalog','deleteCatalog','createContactList','updateContactList','deleteContactList','createContactListTemp','updateContactListTemp','deleteContactListTemp','delete','createRequestQuotation','updateRequestQuotation','deleteRequestQuotation','createQuotationDetailTemp','deleteQuotationDetailTemp','deleteQuotationDetail','createQuotationDetail','updateQuotationDetail','updateQuotationDetailTemp','exportQuotation','download','exportCatalog','getContact','createContact'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -125,7 +125,7 @@ class ContactController extends Controller
 				if($uploadFile !== null) {
 
 
-									$uploadFileName = time()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
+									$uploadFileName = "catalog_".time()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
 									
 									$filesave = Yii::app()->basePath .'/../specfile/'.iconv("UTF-8", "TIS-620",$uploadFileName);
 									$model->filename = $uploadFile;
@@ -155,6 +155,30 @@ class ContactController extends Controller
 			$this->renderPartial('_formCatalog', array('model'=>$model), false, true);
 	
 	}
+
+	public function actionCreateContact()
+	{
+		$model=new Contact;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Contact']))
+		{
+			$model->attributes=$_POST['Contact'];
+			
+			if($model->save())
+				echo CJSON::encode(array('success' => true));
+			else
+				echo CJSON::encode(array('fail' => true));
+		   
+			
+		}
+		else
+			$this->renderPartial('_form2', array('model'=>$model), false, true);
+	
+	}
+
 
 	public function actionCreateContactList($id)
 	{
@@ -204,8 +228,10 @@ class ContactController extends Controller
 		        			$value->delete();
 
 		        }
-
-				$this->redirect(array('Contact/update/'.$id,));
+		        if(Yii::app()->request->isAjaxRequest)
+		        	echo CJSON::encode(array('success' => true));
+		        else	
+					$this->redirect(array('Contact/update/'.$id,));
 			}
 		   
 			
@@ -213,6 +239,7 @@ class ContactController extends Controller
 		else
 		{
 			//Yii::app()->db->createCommand('DELETE FROM quotation_detail_temp WHERE user_id='.Yii::app()->user->ID)->execute();
+			//$this->renderPartial('_formRequestQuotationAjax', array('model'=>$model), false, true);
 			$this->render('_formRequestQuotation', array('model'=>$model), false, true);
 		}
 	
@@ -301,9 +328,21 @@ class ContactController extends Controller
 			if($model->save())
 				echo CJSON::encode(array('success' => true));
 			else
-				echo CJSON::encode(array('fail' => true));
+				echo CJSON::encode(array('fail' => true,'error'=>$model->getErrors()));
+
+
 		   
 			
+		}
+		else if(Yii::app()->request->isAjaxRequest)
+		{
+			$model->name = $_POST['detail'];
+			$model->amount = $_POST['amount'];
+			$model->user_id = Yii::app()->user->ID;
+			if($model->save())
+				echo CJSON::encode(array('success' => true));
+			else
+				echo CJSON::encode(array('fail' => true,'error'=>$model->getErrors()));
 		}
 		else
 		{
@@ -331,6 +370,7 @@ class ContactController extends Controller
 			else
 				echo CJSON::encode(array('fail' => true));
 		   
+			
 			
 		}
 		else
@@ -375,23 +415,25 @@ class ContactController extends Controller
 				if($model->save())
 				{
 					Yii::app()->db->createCommand('DELETE FROM contact_map WHERE contact_id='.$id)->execute();
-					foreach ($_POST['detail'] as $key => $value) {
-				    	//echo $value."<br>";
-				    	$m = new ContactMap;
-				    	$m->contact_id = $id;
-				    	$m->map_id = $value;
-				    	$m->type = 0;
-				    	$m->save();
-				    }
+					
+					if(isset($_POST['detail']))
+						foreach ($_POST['detail'] as $key => $value) {
+					    	//echo $value."<br>";
+					    	$m = new ContactMap;
+					    	$m->contact_id = $id;
+					    	$m->map_id = $value;
+					    	$m->type = 0;
+					    	$m->save();
+					    }
 
-
-				    foreach ($_POST['category'] as $key => $value) {
-				    	$m = new ContactMap;
-				    	$m->contact_id = $id;
-				    	$m->map_id = $value;
-				    	$m->type = 1;
-				    	$m->save();
-				    }
+					if(isset($_POST['category']))    
+					    foreach ($_POST['category'] as $key => $value) {
+					    	$m = new ContactMap;
+					    	$m->contact_id = $id;
+					    	$m->map_id = $value;
+					    	$m->type = 1;
+					    	$m->save();
+					    }
 				    //print_r($model);
 				    //exit;
 
@@ -524,6 +566,41 @@ class ContactController extends Controller
 		
 	}
 
+	public function actionGetContact(){
+            $request=trim($_GET['term']);
+                    
+            $models=Contact::model()->findAll(array("condition"=>"name like '%$request%' "));
+            $data=array();
+            foreach($models as $model){
+             
+                $data[] = array(
+                        'id'=>$model['id'],
+                        'label'=>$model['name'],
+                );
+
+            }
+            $this->layout='empty';
+            echo json_encode($data);
+        
+    }
+
+	public function actionDeleteCatalog($id)
+	{
+		
+
+			$model = Catalog::model()->findByPk($id);
+			$filename = Yii::app()->basePath .'/../specfile/'.$model->filename;
+			if($model->delete())
+			{
+				if (file_exists($filename)) 
+						unlink($filename);
+											
+			}
+			return true;
+		   // $this->redirect( $_POST['returnUrl'] );
+		
+	}
+
 	public function actionDeleteQuotationDetail($id)
 	{
 		
@@ -618,9 +695,31 @@ class ContactController extends Controller
 		echo json_encode($filename);
 	}
 
-	public function actionDownload($filename)
+	public function actionExportCatalog($id)
+	{
+		$model=Catalog::model()->findByPk($id);
+
+		$file = Yii::app()->basePath .'/../specfile/'.$model->filename;
+			if (file_exists($file)) {
+
+			    // Force the download
+				header("Content-Disposition: attachment; filename=" . basename($file));
+				header("Content-Length: " . filesize($file));
+				header("Content-Type: application/octet-stream;");
+				readfile($file);
+
+			    exit;
+
+			}
+			else{
+				echo "File $file not exist";
+			}
+
+	}
+
+	public function actionDownload()
     {
-   
+   			$filename = $_GET["filename"];
 			$file = Yii::app()->basePath .'/../specfile/'.$filename;
 			if (file_exists($file)) {
 

@@ -113,8 +113,20 @@
 							  	'website'=>array(
 									    'name' => 'website',
 									    'filter'=>CHtml::activeTextField($model, 'website',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("website"))),
-										'headerHtmlOptions' => array('style' => 'width:20%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;')
+							  	),
+							  	'export'=>array(
+									    'name' => 'filename',
+									    'header' => '<a class="sort-link">ใบเสนอราคา</a>',
+									    'type'=>'raw', 
+									    'value' => function($model){
+							                  return $model->getQuotationFile($model);
+							                },
+									    //'value'=>'CHtml::link(CHtml::image(Yii::app()->request->baseUrl."/images/download.png"),"'.Yii::app()->createUrl('/Contact/exportQuotation').'/$data->id",array("target"=>"_blank","class"=>"export"))',
+									    'filter'=>false,
+										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:center;')
 							  	),
 							  
 								array(

@@ -27,13 +27,13 @@ class OtherCost extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('contract_no, filename, type_id', 'required'),
+			array('contract_no, filename, type_id,date_update,detail', 'required'),
 			array('type_id', 'numerical', 'integerOnly'=>true),
-			array('contract_no', 'length', 'max'=>255),
-			array('filename', 'length', 'max'=>500),
+			array('contract_no,detail', 'length', 'max'=>255),
+			array('filename', 'file',  'allowEmpty'=>true, 'types'=>'docx,pdf,xls,xlsx,doc', 'safe' => false),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, contract_no, filename, type_id', 'safe', 'on'=>'search'),
+			array('id, contract_no, filename, type_id,date_update', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,9 +55,11 @@ class OtherCost extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'contract_no' => 'Contract No',
-			'filename' => 'Filename',
-			'type_id' => 'Type',
+			'contract_no' => 'สัญญา/งาน',
+			'filename' => 'ไฟล์แนบ',
+			'detail' => 'ไฟล์แนบ',
+			'type_id' => 'ประเภท',
+			'date_update'=>'อัพเดตวันที่'
 		);
 	}
 
@@ -81,7 +83,7 @@ class OtherCost extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('contract_no',$this->contract_no,true);
-		$criteria->compare('filename',$this->filename,true);
+		$criteria->compare('detail',$this->detail,true);
 		$criteria->compare('type_id',$this->type_id);
 
 		return new CActiveDataProvider($this, array(
@@ -97,6 +99,7 @@ class OtherCost extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('contract_no',$this->contract_no,true);
+		$criteria->compare('detail',$this->detail,true);
 		$criteria->compare('filename',$this->filename,true);
 		$criteria->compare('type_id',$type_id);
 

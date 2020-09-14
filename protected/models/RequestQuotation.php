@@ -29,11 +29,11 @@ class RequestQuotation extends CActiveRecord
 		return array(
 			array('detail, contact_id, date', 'required'),
 			array('contact_id', 'numerical', 'integerOnly'=>true),
-			array('detail', 'length', 'max'=>500),
+			array('detail,project', 'length', 'max'=>500),
 			array('filename', 'file',  'allowEmpty'=>true, 'types'=>'docx,pdf,xls,xlsx,doc', 'safe' => false),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, detail, contact_id, date,filename', 'safe', 'on'=>'search'),
+			array('id, detail, contact_id, date,filename,project', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,6 +58,7 @@ class RequestQuotation extends CActiveRecord
 			'detail' => 'รายละเอียด',
 			'contact_id' => 'Contact',
 			'date' => 'วัน/เดือน/ปี',
+			'project' => 'โครงการ',
 		);
 	}
 
@@ -83,7 +84,7 @@ class RequestQuotation extends CActiveRecord
 		$criteria->compare('detail',$this->detail,true);
 		$criteria->compare('contact_id',$id);
 		$criteria->compare('date',$this->date,true);
-
+		$criteria->compare('project',$this->date,true);
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

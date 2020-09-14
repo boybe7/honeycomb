@@ -152,6 +152,67 @@ function checkFile(electObject){
 		<div class="span12">
 			<?php echo $form->textAreaRow($model,'detail',array('rows'=>2, 'cols'=>10, 'class'=>'span12')); ?>
 		</div>
+	</div>
+
+	<div class="row-fluid ">
+		<?php
+			 		$this->widget('bootstrap.widgets.TbButton', array(
+						    'buttonType'=>'link',
+						    
+						    'type'=>'success',
+						    'label'=>'เพิ่มบริษัท',
+						    'icon'=>'plus-sign',
+						    //'url'=>array('create'),
+						    'htmlOptions'=>array('class'=>'pull-right','style'=>'margin-bottom:10px;',
+						    	'onclick'=>'
+
+						    		$.ajax({
+		                                    url: "'.$this->createUrl('contact/CreateContact').'" ,
+		                                    type: "POST",
+		                                    success: function (data) {
+							
+
+		                                            bootbox.dialog({
+		                                               
+		                                                message: data,
+		                                            
+		                                                buttons: {
+		                                                    cancel: {
+		                                                        label: "ปิด",
+		                                                        className: "btn-danger",
+		                                                        callback: function(){
+		                                                           
+		                                                        }
+		                                                    },
+		                                                    save: {
+		                                                        label: "บันทึก",
+		                                                        className: "btn-info",
+		                                                        callback: function(){
+		                                                             $.ajax({
+		                                                                      type: "POST",
+		                                                                      url: "'.$this->createUrl('contact/CreateContact').'" ,
+		                                                                      dataType:"json",
+		                                                                      data: $(".modal-body #contact-form").serialize(),
+		                                                                      success: function (data) {
+
+		                                                                       
+		                                                                      }
+		                                                                  });
+		                                                            
+		                                                        }
+		                                                    },
+		                                                   
+		                                                }
+		                                            });
+											}			
+									});					
+
+
+						    	'	
+
+							),
+						)); 
+		?>
 	</div>		
 	<div class="row-fluid ">
 		<div class="span4">
@@ -162,6 +223,144 @@ function checkFile(electObject){
 		</div>
 		<div class="span4">
 			<h5>คู่เทียบ 3</h5>
+		</div>
+	</div>
+
+	<div class="row-fluid ">
+		<div class="span4">
+			<?php 
+
+
+								$contact1 = Contact::model()->findByPk($compares[0]->vendor_id);
+								$contact_name = empty($contact1) ? "" : $contact1->name;
+								echo "<label for='SpecDocCompareTemp_0_vendor_name'>บริษัท *</label>";
+								$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+		                            'name'=>'SpecDocCompareTemp[0][vendor_name]',//'SpecDocCompareTemp[0][vendor_id]',
+		                            'id'=>'SpecDocCompareTemp_0_vendor_name',//'SpecDocCompareTemp_0_vendor_id',			
+		                            'value'=> $contact_name,	                   
+		                            'source'=>'js: function(request, response) {
+		                                $.ajax({
+		                                    url: "'.$this->createUrl('contact/GetContact').'",
+		                                    dataType: "json",
+		                                    data: {
+		                                        term: request.term,
+		                                       
+		                                    },
+		                                    success: function (data) {
+		                                            response(data);
+
+		                                    }
+		                                })
+		                             }',
+		                           
+		                            'options'=>array(
+		                                     'showAnim'=>'fold',
+		                                     'minLength'=>0,
+		                                     'select'=>'js: function(event, ui) {
+		                                          
+		                                           $("#SpecDocCompareTemp_0_vendor_id").val(ui.item.id);
+		                                           
+		                                     }',
+		                                
+		                                     
+		                            ),
+		                           'htmlOptions'=>array(
+		                                'class'=>'span12'
+		                            ),
+		                                  
+		                        ));
+								echo $form->hiddenField($compares[0],'vendor_id',array('class'=>'span12','name'=>'SpecDocCompareTemp[0][vendor_id]'));
+
+			 ?>
+		</div>
+		<div class="span4">
+			<?php 
+
+								$contact1 = Contact::model()->findByPk($compares[1]->vendor_id);
+								$contact_name = empty($contact1) ? "" : $contact1->name;
+								echo "<label for='SpecDocCompareTemp_1_vendor_name'>บริษัท *</label>";
+								$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+		                            'name'=>'SpecDocCompareTemp[1][vendor_name]',//'SpecDocCompareTemp[0][vendor_id]',
+		                            'id'=>'SpecDocCompareTemp_1_vendor_name',//'SpecDocCompareTemp_0_vendor_id',				
+		                            'value'=> $contact_name,	                   
+		                            'source'=>'js: function(request, response) {
+		                                $.ajax({
+		                                    url: "'.$this->createUrl('contact/GetContact').'",
+		                                    dataType: "json",
+		                                    data: {
+		                                        term: request.term,
+		                                       
+		                                    },
+		                                    success: function (data) {
+		                                            response(data);
+
+		                                    }
+		                                })
+		                             }',
+		                           
+		                            'options'=>array(
+		                                     'showAnim'=>'fold',
+		                                     'minLength'=>0,
+		                                     'select'=>'js: function(event, ui) {
+		                                          
+		                                           $("#SpecDocCompareTemp_1_vendor_id").val(ui.item.id);
+		                                           
+		                                     }',
+		                                
+		                                     
+		                            ),
+		                           'htmlOptions'=>array(
+		                                'class'=>'span12'
+		                            ),
+		                                  
+		                        ));
+								echo $form->hiddenField($compares[1],'vendor_id',array('class'=>'span12','name'=>'SpecDocCompareTemp[1][vendor_id]'));
+			                   //echo $form->textFieldRow($compares[1],'vendor_id',array('class'=>'span12','name'=>'SpecDocCompareTemp[1][vendor_id]')); ?>
+		</div>
+		<div class="span4">
+			<?php 
+
+								$contact1 = Contact::model()->findByPk($compares[2]->vendor_id);
+								//print_r($compares[2]);
+								$contact_name = empty($contact1) ? "" : $contact1->name;
+								echo "<label for='SpecDocCompareTemp_2_vendor_name'>บริษัท *</label>";
+								$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+		                            'name'=>'SpecDocCompareTemp[2][vendor_name]',//'SpecDocCompareTemp[0][vendor_id]',
+		                            'id'=>'SpecDocCompareTemp_2_vendor_name',//'SpecDocCompareTemp_0_vendor_id',		
+		                            'value'=> $contact_name,	                   
+		                            'source'=>'js: function(request, response) {
+		                                $.ajax({
+		                                    url: "'.$this->createUrl('contact/GetContact').'",
+		                                    dataType: "json",
+		                                    data: {
+		                                        term: request.term,
+		                                       
+		                                    },
+		                                    success: function (data) {
+		                                            response(data);
+
+		                                    }
+		                                })
+		                             }',
+		                           
+		                            'options'=>array(
+		                                     'showAnim'=>'fold',
+		                                     'minLength'=>0,
+		                                     'select'=>'js: function(event, ui) {
+		                                          
+		                                           $("#SpecDocCompareTemp_2_vendor_id").val(ui.item.id);
+		                                           
+		                                     }',
+		                                
+		                                     
+		                            ),
+		                           'htmlOptions'=>array(
+		                                'class'=>'span12'
+		                            ),
+		                                  
+		                        ));
+								echo $form->hiddenField($compares[2],'vendor_id',array('class'=>'span12','name'=>'SpecDocCompareTemp[2][vendor_id]'));
+								//echo $form->textFieldRow($compares[2],'vendor_id',array('class'=>'span12','name'=>'SpecDocCompareTemp[2][vendor_id]')); ?>
 		</div>
 	</div>
 

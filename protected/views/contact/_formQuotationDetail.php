@@ -12,7 +12,7 @@
 	<?php echo $form->textFieldRow($model,'name',array('class'=>'span5','maxlength'=>200)); ?>
 
 	<?php echo $form->textFieldRow($model,'amount',array('class'=>'span2','maxlength'=>25)); ?>
-	<?php echo $form->textFieldRow($model,'unit',array('class'=>'span3','maxlength'=>100)); ?>
+	<?php //echo $form->textFieldRow($model,'unit',array('class'=>'span3','maxlength'=>100)); ?>
 	
 
 

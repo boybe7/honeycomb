@@ -307,7 +307,6 @@ function displayImage(e) {
 						));
 
 	?>
-	
 
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(

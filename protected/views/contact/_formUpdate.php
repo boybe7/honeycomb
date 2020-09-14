@@ -104,7 +104,10 @@
                 
               </div>
              <?php 
-             	 $card = empty($model->card) ? Yii::app()->baseUrl.'/images/empty.jpg' : Yii::app()->baseUrl.'/specfile/'.$model->card;
+             	 $filename =  Yii::app()->basePath.'/../specfile/'.$model->card;
+             	 
+             	 $card = file_exists($filename) ? Yii::app()->baseUrl.'/specfile/'.$model->card : Yii::app()->baseUrl.'/images/empty.jpg' ;
+             	 
                  echo '<img src="'.$card.'" onClick="triggerClick()" id="profileDisplay" class="img-polaroid">'; ?>
             </span>
             <input type="file" name="profileImage" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;">
@@ -495,7 +498,7 @@ function displayImage(e) {
 									    'name' => 'filename',
 									    'header' => 'Export',
 									    'type'=> 'raw',
-									    'value'=>'CHtml::link(CHtml::image(Yii::app()->request->baseUrl."/images/download.png"),"'.Yii::app()->createUrl('/Contact/exportCatalog').'/$data->id",array("target"=>"_blank","class"=>"export"))',
+									    'value'=>'CHtml::link(CHtml::image(Yii::app()->request->baseUrl."/images/download.png"),"'.Yii::app()->createUrl('/Contact/exportCatalog').'/$data->id",array("target"=>"_blank"))',
 									    'filter'=>false,
 										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:center;')
@@ -513,7 +516,7 @@ function displayImage(e) {
 								        
 								            'url'=>function($data){
 
-													            return Yii::app()->createUrl('/Contact/deleteContactList/',
+													            return Yii::app()->createUrl('/Contact/deleteCatalog/',
 
 													                    array('id'=>$data->id) /* <- customise that */
 
@@ -526,7 +529,7 @@ function displayImage(e) {
                                                                       url : this.getAttribute("href"),
                                                                       success: function (data) {
 
-                                                                        $.fn.yiiGridView.update("list-grid",{});
+                                                                        $.fn.yiiGridView.update("catalog-grid",{});
                                                                       }
                                                  });
 										         
@@ -579,18 +582,19 @@ function displayImage(e) {
         															var formData = new FormData(form);
 		                                                             $.ajax({
 		                                                                      type: "POST",
-		                                                                      url: "../createRequestQuotation/'.$model->id.'" ,
+		                                                                      url: "../createRequestQuotation/'.$model->id.'" ,                                                                    
 		                                                                      dataType:"json",
 		                                                                      data: formData,
 		                                                                      processData: false,
 																			  contentType: false,
 		                                                                      
 		                                                                      success: function (data) {
-
-		                                                                         $("#quotation-grid").yiiGridView("update",{});
+		                                                                     
+		                                                                         //$("#catalog-grid").yiiGridView("update",{});
+		                                                                      	location.reload();
 		                                                                      }
 		                                                                  });
-		                                                            
+		                                                           
 		                                                        }
 		                                                    },
 		                                                   
@@ -631,7 +635,15 @@ function displayImage(e) {
 							  	'detail'=>array(
 									    'name' => 'detail',
 									    'filter'=>false,
-										'headerHtmlOptions' => array('style' => 'width:40%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'headerHtmlOptions' => array('style' => 'width:30%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;'),
+										
+							  	),
+
+							  	'project'=>array(
+									    'name' => 'project',
+									    'filter'=>false,
+										'headerHtmlOptions' => array('style' => 'width:20%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;'),
 										
 							  	),
@@ -639,7 +651,7 @@ function displayImage(e) {
 							  	'date'=>array(
 									    'name' => 'date',
 									    'filter'=>false,
-										'headerHtmlOptions' => array('style' => 'width:20%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:center;'),
 										
 							  	),
@@ -705,6 +717,37 @@ function displayImage(e) {
 							),
 
 						));
+
+
+
+		echo "<b>ใบเสนอราคา</b>";
+		//search from specdoc
+		$specCompare = SpecDocCompare::model()->findAll(array("condition"=>"vendor_id = ".$model->id));	
+		echo '<table class="items table table-bordered table-condensed" border=1 width="100%">';
+		echo '<thead><tr>
+		                 <th style="width:5%;text-align:center;background-color: #f5f5f5">No.</th>
+		                 <th style="width:30%;text-align:center;background-color: #f5f5f5">รายละเอียด Spec.</th>
+		                 <th style="width:20%;text-align:center;background-color: #f5f5f5">วัสดุ</th>
+		                 <th style="width:20%;text-align:center;background-color: #f5f5f5">ขนาด</th>
+		                 <th style="width:20%;text-align:center;background-color: #f5f5f5">ยี่ห้อ/รุ่น</th>
+		                 <th style="width:5%;text-align:center;background-color: #f5f5f5">Export</th>
+		      </tr></thead>';
+		$no = 1;  
+		echo '<tbody>';    
+		foreach ($specCompare as $key => $value) {
+			$spec = SpecDoc::model()->findByPk($value->spec_id);
+			echo '<tr>';  
+				echo '<td style="text-align:center;">'.$no.'</td>'; 
+				echo '<td style="text-align:left;">'.$spec->detail.'</td>';
+				echo '<td style="text-align:center;">'.Material::model()->findByPk($value->material_id)->name.'</td>';
+				echo '<td style="text-align:center;">'.$spec->dimension.'</td>';
+				echo '<td style="text-align:center;">ยี่ห้อ '.$value->brand."<br>รุ่น ".$value->model.'</td>';
+				echo '<td style="text-align:center;">'.CHtml::link(CHtml::image(Yii::app()->request->baseUrl."/images/download.png"),Yii::app()->createUrl('/specDoc/download?filename='.$value->attach_file),array("target"=>"_blank")).'</td>';  
+			echo '</tr>';    
+			$no++;
+		}
+		echo '</tbody>';    
+		echo '</table>';
 	?>
 	
 

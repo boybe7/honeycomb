@@ -8,7 +8,11 @@
 	<p class="help-block">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
-
+	<div class="row-fluid ">
+		<div class="span11">
+			<?php echo $form->textFieldRow($model,'project',array('class'=>'span12','maxlength'=>200)); ?>
+		</div>
+	</div>	
 	<div class="row-fluid ">
 		<div class="span8">
 			<?php echo $form->textFieldRow($model,'detail',array('class'=>'span12','maxlength'=>100)); ?>
@@ -39,16 +43,16 @@
 			 ?>
 		</div>
 	</div>	
-
-
+	<br>
+    <hr>
 	<div class="row-fluid">
-		<div class="span4">
-			
-			<input type="text" name="detail">
+		<div class="span8">
+			<label for="detail">รายการ</label>
+			<input type="text" class="span12" name="detail" id="Quatation_detail">
 		</div>	
-		<div class="span1">
-			
-			<input type="text" name="amount">
+		<div class="span2">
+			<label for="amount">จำนวน</label>
+			<input type="text" class="span12" name="amount" id="Quatation_amount">
 		</div>	
 		<div class="span2">
 
@@ -61,48 +65,49 @@
 						    'type'=>'success',
 						    'label'=>'เพิ่มข้อมูล',
 						    'icon'=>'plus-sign',
-						    //'url'=>array('create'),
-						    'htmlOptions'=>array('class'=>'span12','style'=>'margin-bottom:10px;',
+						    //'url'=>array('createQuotationDetailTemp'),
+						    'htmlOptions'=>array('class'=>'span12 pull-right','style'=>'margin-top:25px;',
 						    	'onclick'=>'
 
 						    		$.ajax({
 		                                    url: "../createQuotationDetailTemp" ,
 		                                    type: "POST",
+		                                    data: {"detail" : $("#Quatation_detail").val(),"amount" : $("#Quatation_amount").val()},
 		                                    success: function (data) {
-							
+													 $("#quotation-grid2").yiiGridView("update",{});
 
-		                                            bootbox.dialog({
+		                                            // bootbox.dialog({
 		                                               
-		                                                message: data,
+		                                            //     message: data,
 		                                            
-		                                                buttons: {
-		                                                    cancel: {
-		                                                        label: "ปิด",
-		                                                        className: "btn-danger",
-		                                                        callback: function(){
+		                                            //     buttons: {
+		                                            //         cancel: {
+		                                            //             label: "ปิด",
+		                                            //             className: "btn-danger",
+		                                            //             callback: function(){
 		                                                           
-		                                                        }
-		                                                    },
-		                                                    save: {
-		                                                        label: "บันทึก",
-		                                                        className: "btn-info",
-		                                                        callback: function(){
-		                                                             $.ajax({
-		                                                                      type: "POST",
-		                                                                      url: "../createQuotationDetailTemp" ,
-		                                                                      dataType:"json",
-		                                                                      data: $(".modal-body #quotation-form").serialize(),
-		                                                                      success: function (data) {
+		                                            //             }
+		                                            //         },
+		                                            //         save: {
+		                                            //             label: "บันทึก",
+		                                            //             className: "btn-info",
+		                                            //             callback: function(){
+		                                            //                  $.ajax({
+		                                            //                           type: "POST",
+		                                            //                           url: "../createQuotationDetailTemp" ,
+		                                            //                           dataType:"json",
+		                                            //                           data: $(".modal-body #quotation-form").serialize(),
+		                                            //                           success: function (data) {
 
-		                                                                         $("#quotation-grid2").yiiGridView("update",{});
-		                                                                      }
-		                                                                  });
+		                                            //                              $("#quotation-grid2").yiiGridView("update",{});
+		                                            //                           }
+		                                            //                       });
 		                                                            
-		                                                        }
-		                                                    },
+		                                            //             }
+		                                            //         },
 		                                                   
-		                                                }
-		                                            });
+		                                            //     }
+		                                            // });
 											}			
 									});					
 
@@ -144,78 +149,78 @@
 									    'filter'=>false,
 										'headerHtmlOptions' => array('style' => 'width:70%;text-align:center;background-color: #f5f5f5'),  	            	  	
 										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;'),
-										'class' => 'editable.EditableColumn',
-										'editable' => array( //editable section
+										// 'class' => 'editable.EditableColumn',
+										// 'editable' => array( //editable section
 										
-											'title'=>'แก้ไข',
-											'url' => $this->createUrl('updateQuotationDetailTemp'),
-											'success' => 'js: function(response, newValue) {
-																if(!response.success) return response.msg;
+										// 	'title'=>'แก้ไข',
+										// 	'url' => $this->createUrl('updateQuotationDetailTemp'),
+										// 	'success' => 'js: function(response, newValue) {
+										// 						if(!response.success) return response.msg;
 
-																$("#quotation-grid").yiiGridView("update",{});
-															}',
-											'options' => array(
-												'ajaxOptions' => array('dataType' => 'json'),
+										// 						$("#quotation-grid").yiiGridView("update",{});
+										// 					}',
+										// 	'options' => array(
+										// 		'ajaxOptions' => array('dataType' => 'json'),
 
-											), 
-											'placement' => 'right',
-											'display' => 'js: function(value, sourceData) {
+										// 	), 
+										// 	'placement' => 'right',
+										// 	'display' => 'js: function(value, sourceData) {
 											    
-											}'
-										)
+										// 	}'
+										// )
 							  	),
 							  	
 							  	'amount'=>array(
 									    'name' => 'amount',
 									    'filter'=>false,
 										'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;'),
-										'class' => 'editable.EditableColumn',
-										'editable' => array( //editable section
+										'htmlOptions'=>array('style'=>'text-align:center'),
+										// 'class' => 'editable.EditableColumn',
+										// 'editable' => array( //editable section
 										
-											'title'=>'แก้ไข',
-											'url' => $this->createUrl('updateQuotationDetailTemp'),
-											'success' => 'js: function(response, newValue) {
-																if(!response.success) return response.msg;
+										// 	'title'=>'แก้ไข',
+										// 	'url' => $this->createUrl('updateQuotationDetailTemp'),
+										// 	'success' => 'js: function(response, newValue) {
+										// 						if(!response.success) return response.msg;
 
-																$("#quotation-grid").yiiGridView("update",{});
-															}',
-											'options' => array(
-												'ajaxOptions' => array('dataType' => 'json'),
+										// 						$("#quotation-grid").yiiGridView("update",{});
+										// 					}',
+										// 	'options' => array(
+										// 		'ajaxOptions' => array('dataType' => 'json'),
 
-											), 
-											'placement' => 'right',
-											'display' => 'js: function(value, sourceData) {
+										// 	), 
+										// 	'placement' => 'right',
+										// 	'display' => 'js: function(value, sourceData) {
 											    
-											}'
-										)
+										// 	}'
+										// )
 							  	),
 
-							  	'unit'=>array(
-									    'name' => 'unit',
-									    'filter'=>false,
-										'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;'),
-										'class' => 'editable.EditableColumn',
-										'editable' => array( //editable section
+							  	// 'unit'=>array(
+									 //    'name' => 'unit',
+									 //    'filter'=>false,
+										// 'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										// 'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;'),
+										// 'class' => 'editable.EditableColumn',
+										// 'editable' => array( //editable section
 										
-											'title'=>'แก้ไข',
-											'url' => $this->createUrl('updateQuotationDetailTemp'),
-											'success' => 'js: function(response, newValue) {
-																if(!response.success) return response.msg;
+										// 	'title'=>'แก้ไข',
+										// 	'url' => $this->createUrl('updateQuotationDetailTemp'),
+										// 	'success' => 'js: function(response, newValue) {
+										// 						if(!response.success) return response.msg;
 
-																$("#quotation-grid").yiiGridView("update",{});
-															}',
-											'options' => array(
-												'ajaxOptions' => array('dataType' => 'json'),
+										// 						$("#quotation-grid").yiiGridView("update",{});
+										// 					}',
+										// 	'options' => array(
+										// 		'ajaxOptions' => array('dataType' => 'json'),
 
-											), 
-											'placement' => 'right',
-											'display' => 'js: function(value, sourceData) {
+										// 	), 
+										// 	'placement' => 'right',
+										// 	'display' => 'js: function(value, sourceData) {
 											    
-											}'
-										)
-							  	),
+										// 	}'
+										// )
+							  	// ),
 							  
 								array(
 									'class'=>'bootstrap.widgets.TbButtonColumn',
@@ -242,7 +247,7 @@
                                                                       url : this.getAttribute("href"),
                                                                       success: function (data) {
 
-                                                                        $.fn.yiiGridView.update("quotation-grid",{});
+                                                                        $.fn.yiiGridView.update("quotation-grid2",{});
                                                                       }
                                                  });
 										         
@@ -261,12 +266,14 @@
 	
 
 
-<div class="form-actions">
-		<?php $this->widget('bootstrap.widgets.TbButton', array(
+<!-- <div class="form-actions">
+		<?php
+
+		 $this->widget('bootstrap.widgets.TbButton', array(
 			'buttonType'=>'submit',
 			'type'=>'primary',
 			'label'=>'บันทึก',
 		)); ?>
-	</div>
+	</div> -->
 
 <?php $this->endWidget(); ?>

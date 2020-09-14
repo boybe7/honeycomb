@@ -37,7 +37,11 @@ function checkFile(electObject){
 	<p class="help-block">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
-
+	<div class="row-fluid ">
+		<div class="span11">
+			<?php echo $form->textFieldRow($model,'project',array('class'=>'span12','maxlength'=>200)); ?>
+		</div>
+	</div>	
 	<div class="row-fluid ">
 		<div class="span8">
 			<?php echo $form->textFieldRow($model,'detail',array('class'=>'span12','maxlength'=>100)); ?>
@@ -198,7 +202,7 @@ function checkFile(electObject){
 									    'name' => 'amount',
 									    'filter'=>false,
 										'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;'),
+										'htmlOptions'=>array('style'=>'text-align:center;'),
 										'class' => 'editable.EditableColumn',
 										'editable' => array( //editable section
 										
@@ -220,31 +224,31 @@ function checkFile(electObject){
 										)
 							  	),
 
-							  	'unit'=>array(
-									    'name' => 'unit',
-									    'filter'=>false,
-										'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
-										'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;'),
-										'class' => 'editable.EditableColumn',
-										'editable' => array( //editable section
+							  	// 'unit'=>array(
+									 //    'name' => 'unit',
+									 //    'filter'=>false,
+										// 'headerHtmlOptions' => array('style' => 'width:10%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										// 'htmlOptions'=>array('style'=>'text-align:left;padding-left:10px;'),
+										// 'class' => 'editable.EditableColumn',
+										// 'editable' => array( //editable section
 										
-											'title'=>'แก้ไข',
-											'url' => $this->createUrl('updateQuotationDetail'),
-											'success' => 'js: function(response, newValue) {
-																if(!response.success) return response.msg;
+										// 	'title'=>'แก้ไข',
+										// 	'url' => $this->createUrl('updateQuotationDetail'),
+										// 	'success' => 'js: function(response, newValue) {
+										// 						if(!response.success) return response.msg;
 
-																$("#quotation-grid").yiiGridView("update",{});
-															}',
-											'options' => array(
-												'ajaxOptions' => array('dataType' => 'json'),
+										// 						$("#quotation-grid").yiiGridView("update",{});
+										// 					}',
+										// 	'options' => array(
+										// 		'ajaxOptions' => array('dataType' => 'json'),
 
-											), 
-											'placement' => 'right',
-											'display' => 'js: function(value, sourceData) {
+										// 	), 
+										// 	'placement' => 'right',
+										// 	'display' => 'js: function(value, sourceData) {
 											    
-											}'
-										)
-							  	),
+										// 	}'
+										// )
+							  	// ),
 							  
 								array(
 									'class'=>'bootstrap.widgets.TbButtonColumn',

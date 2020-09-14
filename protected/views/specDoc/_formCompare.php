@@ -150,6 +150,18 @@ function checkFile(electObject){
 
 	<div class="row-fluid ">
 		<div class="span4">
+			<?php echo $form->textFieldRow($compares[0],'vendor_id',array('class'=>'span12','name'=>'SpecDocCompareTemp[0][vendor_id]')); ?>
+		</div>
+		<div class="span4">
+			<?php echo $form->textFieldRow($compares[1],'vendor_id',array('class'=>'span12','name'=>'SpecDocCompareTemp[1][vendor_id]')); ?>
+		</div>
+		<div class="span4">
+			<?php echo $form->textFieldRow($compares[2],'vendor_id',array('class'=>'span12','name'=>'SpecDocCompareTemp[2][vendor_id]')); ?>
+		</div>
+	</div>
+
+	<div class="row-fluid ">
+		<div class="span4">
 			<?php echo $form->textFieldRow($compares[0],'brand',array('class'=>'span12','name'=>'SpecDocCompareTemp[0][brand]')); ?>
 		</div>
 		<div class="span4">
@@ -330,8 +342,10 @@ function checkFile(electObject){
 		<tbody id="tbl_posts_body">
 			<?php
 			    $no = 1;
+			    
 				foreach ($specList as $key => $value) {
-					$listname = 'spec_list['.$no.']';
+					 $listname = 'spec_list['.$no.']';
+					 $id = 'spec_list_id['.$no.']';
 				     $check1 = 'check_spec1['.$no.']';
 				     $note1 = 'note_spec1['.$no.']';
 				     $check2 = 'check_spec2['.$no.']';
@@ -343,7 +357,7 @@ function checkFile(electObject){
 				     $check2_checked = $value->spec_compare_id2>=1 ? '  checked' : '';
 				     $check3_checked = $value->spec_compare_id3>=1 ? '  checked' : '';
 
-					echo "<tr id='rec-".$no."'><td style='text-align: center'>".$no."</td><td width='40%'>&nbsp;<input size='500' name=".$listname." type='hidden' value=".$value->detail.">".$value->detail."</td><td width='15%'><input type='checkbox' name='".$check1."'  ".$check1_checked."> มี <input type='text' style='height:30px' name='".$note1."' value=".$value->note1."></td><td width='15%'><input type='checkbox' name='".$check2."' ".$check2_checked."> มี <input  style='height:30px' type='text'  name='".$note2."' value='".$value->note2."'></td><td width='15%'><input type='checkbox' name='".$check3."'  ".$check3_checked."> มี <input  style='height:30px' type='text'  name='".$note3."' value='".$value->note3."'></td><td><a class='btn btn-xs delete-record' data-id=".$no."><i class='icon icon-trash'></i></a></td></tr>";
+					echo "<tr id='rec-".$no."'><td style='text-align: center'>".$no."</td><td width='40%'>&nbsp;<input type='hidden' name=".$listname."[id] value='".$value->id."'><input size='500' name=".$listname."[detail] type='text' style='height:30px'  value='".$value->detail."'></td><td width='15%'><input type='checkbox' name='".$check1."'  ".$check1_checked."> มี <input type='text' style='height:30px' name='".$note1."' value='".$value->note1."'></td><td width='15%'><input type='checkbox' name='".$check2."' ".$check2_checked."> มี <input  style='height:30px' type='text'  name='".$note2."' value='".$value->note2."'></td><td width='15%'><input type='checkbox' name='".$check3."'  ".$check3_checked."> มี <input  style='height:30px' type='text'  name='".$note3."' value='".$value->note3."'></td><td><a class='btn btn-xs delete-record' data-id=".$no."><i class='icon icon-trash'></i></a></td></tr>";
 					$no++;
 				}
 
@@ -385,7 +399,7 @@ td input {
 		     check3 = 'check_spec3['+size+']';
 		     note3 = 'note_spec3['+size+']';
 
-		     content = "<tr id='rec-"+size+"'><td style='text-align: center'>"+size+"</td><td width='40%'>&nbsp;<input size='500' name="+listname+" type='hidden' value="+$("#spec_list_add").val()+">"+$("#spec_list_add").val()+"</td><td width='15%'><input type='checkbox' name='"+check1+"'> มี <input type='text' style='height:30px' name='"+note1+"'></td><td width='15%'><input type='checkbox' name='"+check2+"'> มี <input  style='height:30px' type='text'  name='"+note2+"'></td><td width='15%'><input type='checkbox' name='"+check3+"'> มี <input  style='height:30px' type='text'  name='"+note3+"'></td><td><a class='btn btn-xs delete-record' data-id="+size+"><i class='icon icon-trash'></i></a></td></tr>";   
+		     content = "<tr id='rec-"+size+"'><td style='text-align: center'>"+size+"</td><td width='40%'>&nbsp;<input size='500' name="+listname+"[detail] style='height:30px'  type='text' value="+$("#spec_list_add").val()+"></td><td width='15%'><input type='checkbox' name='"+check1+"'> มี <input type='text' style='height:30px' name='"+note1+"'></td><td width='15%'><input type='checkbox' name='"+check2+"'> มี <input  style='height:30px' type='text'  name='"+note2+"'></td><td width='15%'><input type='checkbox' name='"+check3+"'> มี <input  style='height:30px' type='text'  name='"+note3+"'></td><td><a class='btn btn-xs delete-record' data-id="+size+"><i class='icon icon-trash'></i></a></td></tr>";   
 
 		     
 		     $(content).appendTo('#tbl_posts_body');

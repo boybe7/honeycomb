@@ -17,6 +17,7 @@ class SpecDocCompare extends CActiveRecord
 	/**
 	 * @return string the associated database table name
 	 */
+	public $vendor_name;
 	public function tableName()
 	{
 		return 'spec_doc_compare';
@@ -30,15 +31,15 @@ class SpecDocCompare extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('spec_id, brand, model, price, date_price, attach_file', 'required'),
+			array('spec_id, brand, model, price, date_price, attach_file,vendor_id', 'required'),
 			array('spec_id', 'numerical', 'integerOnly'=>true),
 			array('brand', 'length', 'max'=>500),
 			//array('attach_file,attach_file1,attach_file2,attach_file3', 'file',  'allowEmpty'=>true, 'types'=>'docx,pdf,xls,xlsx,doc', 'safe' => false),
 			array('model, attach_file', 'length', 'max'=>250),
-			array('price', 'length', 'max'=>10),
+			array('price,contact_id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, spec_id, brand, model, price, date_price, attach_file', 'safe', 'on'=>'search'),
+			array('id, spec_id, brand, model, price, date_price, attach_file,contact_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,6 +61,7 @@ class SpecDocCompare extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'vendor_id' => 'บริษัท',
 			'spec_id' => 'Spec',
 			'brand' => 'ยี่ห้อ',
 			'model' => 'รุ่น',

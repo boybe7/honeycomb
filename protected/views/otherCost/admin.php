@@ -74,12 +74,53 @@
 					'summaryText'=>'แสดงผล {start} ถึง {end} จากทั้งหมด {count} ข้อมูล',
 					'template'=>"{items}<div class='row-fluid'><div class='span6'>{pager}</div><div class='span6'>{summary}</div></div>",
 					'columns'=>array(
-						'id',
-						'contract_no',
-						'filename',
+						'no'=>array(
+									    'name' => 'no',
+									    'header' => '<a class="sort-link">ลำดับ</a>',
+									    'value' => '$this->grid->dataProvider->pagination->currentPage * $this->grid->dataProvider->pagination->pageSize + ($row+1)',
+									    'filter'=>false,
+
+										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:center;padding-left:10px;')
+							  	),
+						'date_update'=>array(
+									    'name' => 'date_update',
+									    'filter'=>CHtml::activeTextField($model, 'date_update',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("date_update"))),
+										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:center;')
+							  	),
+						'contract_no'=>array(
+									    'name' => 'contract_no',
+									    'filter'=>CHtml::activeTextField($model, 'contract_no',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("contract_no"))),
+										'headerHtmlOptions' => array('style' => 'width:15%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:center;')
+							  	),
+						'detail'=>array(
+									    'name' => 'detail',
+									    'filter'=>CHtml::activeTextField($model, 'detail',array("placeholder"=>"ค้นหาตาม".$model->getAttributeLabel("detail"))),
+										'headerHtmlOptions' => array('style' => 'width:50%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:left;')
+							  	),
+						'export'=>array(
+									    'name' => 'filename',
+									    'header' => 'Export',
+									    'type'=> 'raw',
+									    'value'=>'CHtml::link(CHtml::image(Yii::app()->request->baseUrl."/images/download.png"),"'.Yii::app()->createUrl('/OtherCost/download').'/$data->id",array("target"=>"_blank","class"=>"export"))',
+									    
+									    'filter'=>false,
+										'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),  	            	  	
+										'htmlOptions'=>array('style'=>'text-align:center;')
+							  	),
 						
 						array(
 							'class'=>'bootstrap.widgets.TbButtonColumn',
+							'visible'=>Yii::app()->user->isAdmin() ? true : false,
+							'headerHtmlOptions' => array('style' => 'width:5%;text-align:center;background-color: #f5f5f5'),
+							'template' => '{update} {delete}',
+							'buttons'=>array(
+								'update'=> array('visible' =>'Yii::app()->user->isAdmin()' ),
+								'delete'=> array('visible' =>'Yii::app()->user->isAdmin()' ),
+							)
 						),
 					),
 				)); 

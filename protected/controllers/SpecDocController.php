@@ -246,6 +246,9 @@ class SpecDocController extends Controller
 						$m_list->note2 =  $note_spec2[$index];
 						$m_list->note3 =  $note_spec3[$index];
 
+						//print_r($value);
+						//exit;
+
 						$score1 = !empty($check_spec1[$index]) ? 1 : 0;
 						$score2 = !empty($check_spec2[$index]) ? 1 : 0;
 						$score3 = !empty($check_spec3[$index]) ? 1 : 0;
@@ -253,7 +256,7 @@ class SpecDocController extends Controller
 						$score = $score1 + $score2 + $score3;
 						if($score > 1 ) //detail more than 2 comapny
 							$spec_detail .= $value."  ";
-						//print_r($m_list);
+						
 							
 						$specList[] = $m_list;
 						$index++;
@@ -415,6 +418,7 @@ class SpecDocController extends Controller
 			  if(!empty($m))
 			  {
 			  	  $compares[$i-1]->spec_id = $id;
+			  	  $compares[$i-1]->vendor_id = $m[0]->vendor_id;
 			  	  $compares[$i-1]->brand = $m[0]->brand;
 			  	  $compares[$i-1]->model = $m[0]->model;
 			  	  $compares[$i-1]->price = $m[0]->price;
@@ -473,14 +477,15 @@ class SpecDocController extends Controller
 					
 					$score = 0;
 					foreach ($_POST['spec_list'] as $key => $value) {
-						$m_list = new SpecList;
-						$m_list->detail = $value;
-						$m_list->spec_compare_id1 = !empty($check_spec1[$index]) ? $check_spec1[$index] : 0;
-						$m_list->spec_compare_id2 = !empty($check_spec2[$index]) ? $check_spec2[$index] : 0;
-						$m_list->spec_compare_id3 = !empty($check_spec3[$index]) ? $check_spec3[$index] : 0;
+						$m_list = new SpecList;//empty($value['id']) ? new SpecList : SpecList::model()->findByPk($value['id']);
+						$m_list->detail = $value['detail'];
+						$m_list->spec_compare_id1 = !empty($check_spec1[$index]) ? 1 : 0;
+						$m_list->spec_compare_id2 = !empty($check_spec2[$index]) ? 1 : 0;
+						$m_list->spec_compare_id3 = !empty($check_spec3[$index]) ? 1 : 0;
 						$m_list->note1 =  $note_spec1[$index];
 						$m_list->note2 =  $note_spec2[$index];
 						$m_list->note3 =  $note_spec3[$index];
+						$m_list->spec_id = $id;
 
 						$score1 = !empty($check_spec1[$index]) ? 1 : 0;
 						$score2 = !empty($check_spec2[$index]) ? 1 : 0;
@@ -488,8 +493,17 @@ class SpecDocController extends Controller
 
 						$score = $score1 + $score2 + $score3;
 						if($score > 1 ) //detail more than 2 comapny
-							$spec_detail .= $value."  ";
-						//print_r($m_list);
+							$spec_detail .= $value['detail']."  ";
+						//print_r($value);
+						//exit;
+
+						//update
+						if(!empty($value['id']))
+						{
+							//$m_list->save();
+							//print_r($m_list);
+							//exit;
+						}	
 							
 						$specList[] = $m_list;
 						$index++;
@@ -657,6 +671,7 @@ class SpecDocController extends Controller
 		));
 	}
 
+	
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -675,6 +690,7 @@ class SpecDocController extends Controller
 			  if(!empty($m))
 			  {
 			  	  $compares[$i-1]->spec_id = $id;
+			  	  $compares[$i-1]->vendor_id = $m[0]->vendor_id;
 			  	  $compares[$i-1]->brand = $m[0]->brand;
 			  	  $compares[$i-1]->model = $m[0]->model;
 			  	  $compares[$i-1]->price = $m[0]->price;
@@ -703,10 +719,7 @@ class SpecDocController extends Controller
 				$model->create_date = date("Y-m-d H:i:s");
 				$model->update_date = date("Y-m-d H:i:s");
 
-				//header('Content-type: text/plain');
-
-				//print_r($model);
-				
+			
 				
 				if(isset($_POST['SpecDocCompareTemp']))
 				{
@@ -729,89 +742,122 @@ class SpecDocController extends Controller
 							$material = $m[0];
 						}
 
-
+						//header('Content-type: text/plain');
 						$i = 1;
 						foreach ($_POST['SpecDocCompareTemp'] as $key => $compare) {
 
 							$model_com = new SpecDocCompareTemp;
-
-							$m = SpecDocCompare::model()->findAll(array("condition"=>"spec_id='$id' AND no='$i' "));
-
-			 				if(empty($m))			 	
-								$model_com2 = new SpecDocCompare;
-							else
-								$model_com2 = $m[0];
-
-							$model_com->attributes=$compare;
-						
-							//print_r($model_com);
 							
-							$model_com2->spec_id = $model->id;
-							$model_com2->brand = $model_com->brand;
-							$model_com2->model  =$model_com->model;
-							$model_com2->price  =$model_com->price;
-							$model_com2->date_price  =$model_com->date_price;
-							$model_com2->no = $i;
-							//$model_com2->material_id = $material->id;
+
+							$model_com->attributes=$compare;	
+
+							/*if(isset($compare['vendor_name']))
+							{
+								//print_r($compare['vendor_name']);
+								//echo "<br>";
+								$model_com->attributes=$compare;		
+								$mv = Contact::model()->findAll(array("condition"=>"name='".$compare['vendor_name']."'"));
+
+								if($model_com->vendor_id==0 || empty($model_com->vendor_id) || empty($mv))
+								{
+									//add new contact
+									$new_contact = new Contact;
+									$new_contact->name = $compare['vendor_name'];
+									if($new_contact->save())
+										$model_com->vendor_id = $new_contact->id;
+									else
+										$saveOK = false;
 
 
-							$uploadFile = CUploadedFile::getInstance($model_com, 'attach_file'.$i);
-							$oldfile = isset($_POST['attach_file_old'.$i]) ? $_POST['attach_file_old'.$i] : "";
-							
-							//print_r($uploadFile);
-							//exit;
+									//print_r($new_contact);
 
-							$i++;
-					
-							
-						    $filesave = '';
-							if($uploadFile !== null) {
+								}
+							}*/
+
+							//print_r($compare);
 
 
-									$uploadFileName = time()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
+							if(!empty($compare))
+							{
 									
-									$filesave = Yii::app()->basePath .'/../specfile/'.iconv("UTF-8", "TIS-620",$uploadFileName);
-									$filesaveold = Yii::app()->basePath .'/../specfile/'.$oldfile;
-									$model_com2->attach_file = $uploadFile;
+									$m = SpecDocCompare::model()->findAll(array("condition"=>"spec_id='$id' AND no='$i' "));
+									$model_com2 = empty($m) ? new SpecDocCompare : $m[0];
+									$model_com2->spec_id = $model->id;
+									$model_com2->brand = $model_com->brand;
+									$model_com2->vendor_id = $model_com->vendor_id;
+									$model_com2->model  =$model_com->model;
+									$model_com2->price  =$model_com->price;
+									$model_com2->date_price  =$model_com->date_price;
+									$model_com2->no = $i;
 
-									if($model_com2->attach_file->saveAs($filesave)){
+									
+									$model_com2->material_id = $material->id;
+									
 
+									$uploadFile = CUploadedFile::getInstance($model_com, 'attach_file'.$i);
+									$oldfile = isset($_POST['attach_file_old'.$i]) ? $_POST['attach_file_old'.$i] : "";
+									
+									//print_r($uploadFile);
+									//exit;
 
-										$model_com2->attach_file = $uploadFileName;		
-
-																					
-										if($model_com2->save())
-										{
-
-											
-											if (!empty($oldfile) && file_exists($filesaveold)) 
-											{
-												//print_r($filesaveold);
-												unlink($filesaveold);
-											}
-										}
-										else{
-											$saveOK = false;	
-										}
-																			
-										
-									}
+									$i++;
 							
-							}
-							else
-							{ 
-								$model_com2->attach_file = $oldfile;	
-								if($model_com2->brand!="")						
-									$model_com2->save();
+									
+								    $filesave = '';
+									if($uploadFile !== null) {
 
-							}
 
-							//print_r($model_com2);	
+											$uploadFileName = time()."_".Yii::app()->user->ID.".".$uploadFile->getExtensionName();
+											
+											$filesave = Yii::app()->basePath .'/../specfile/'.iconv("UTF-8", "TIS-620",$uploadFileName);
+											$filesaveold = Yii::app()->basePath .'/../specfile/'.$oldfile;
+											$model_com2->attach_file = $uploadFile;
+
+											if($model_com2->attach_file->saveAs($filesave)){
+
+
+												$model_com2->attach_file = $uploadFileName;		
+
+																							
+												if($model_com2->save())
+												{
+
+													
+													if (!empty($oldfile) && file_exists($filesaveold)) 
+													{
+														//print_r($filesaveold);
+														unlink($filesaveold);
+													}
+												}
+												else{
+													$saveOK = false;	
+												}
+																					
+												
+											}
+									
+									}
+									else
+									{ 
+										$model_com2->attach_file = $oldfile;	
+										if($model_com2->brand!="")						
+										{	$model_com2->save();
+
+											//print_r($model_com2);	
+										}
+
+									}
+
+									
+							}
 						}
 
+						
+						//exit;	
 						if($saveOK)
 						{
 							$transaction->commit();
+							//exit;
 							$this->redirect(array('index'));	
 						}
 						else
@@ -835,7 +881,7 @@ class SpecDocController extends Controller
 	 
 	 	} 
 
-	 	//exit;
+	 
 
 		$this->render('update',array(
 			'model'=>$model,'compares'=>$compares

@@ -30,7 +30,7 @@ class Contact extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, category', 'required'),
+			array('name', 'required'),
 			array('category', 'numerical', 'integerOnly'=>true),
 			array('name, detail,address', 'length', 'max'=>500),
 			array('telephone', 'length', 'max'=>20),
@@ -126,6 +126,21 @@ class Contact extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	public function getQuotationFile($data)
+    {
+    	
+    	$model = RequestQuotation::model()->findAll(array("condition"=>"contact_id=".$data->id));
+    	$str = "";
+    	foreach ($model as $key => $value) {
+    		//$str .= $value->filename."<br>";
+    		if(!empty($value->filename))
+    		$str .= CHtml::link($value->detail,Yii::app()->createUrl('/Contact/download?filename='.$value->filename),array("target"=>"_blank","class"=>"export"))."<br>";
+    	}
+
+    	
+    	return $str;
+    }
 
 	/**
 	 * Returns the static model of the specified AR class.

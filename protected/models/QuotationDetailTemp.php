@@ -28,13 +28,13 @@ class QuotationDetailTemp extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, amount, unit, user_id', 'required'),
+			array('name, amount, user_id', 'required'),
 			array('amount, user_id', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>255),
-			array('unit', 'length', 'max'=>100),
+			//array('unit', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, amount, unit, user_id', 'safe', 'on'=>'search'),
+			array('id, name, amount, user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,9 +56,9 @@ class QuotationDetailTemp extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'รายละเอียด',
+			'name' => 'รายการ',
 			'amount' => 'จำนวน',
-			'unit' => 'หน่วย',
+			//'unit' => 'หน่วย',
 			'user_id' => 'User',
 		);
 	}
@@ -84,7 +84,7 @@ class QuotationDetailTemp extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('amount',$this->amount);
-		$criteria->compare('unit',$this->unit,true);
+		//$criteria->compare('unit',$this->unit,true);
 		$criteria->compare('user_id',Yii::app()->user->ID);
 
 		return new CActiveDataProvider($this, array(
